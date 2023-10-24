@@ -3,9 +3,12 @@
 ### App
 
 - Next.js
-- Tailwind CSS
 - Mantine
+- Vanilla Extract
 
 ### Dev Tools
 
 - pnpm
+- Storybook
+- Jest
+- Testing Library
