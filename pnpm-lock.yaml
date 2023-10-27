@@ -26,8 +26,8 @@ dependencies:
 
 devDependencies:
   '@trivago/prettier-plugin-sort-imports':
-    specifier: 4.2.0
-    version: 4.2.0(prettier@3.0.3)
+    specifier: 4.2.1
+    version: 4.2.1(prettier@3.0.3)
   '@tsconfig/strictest':
     specifier: 2.0.2
     version: 2.0.2
@@ -90,6 +90,16 @@ packages:
       '@babel/types': 7.23.0
       jsesc: 2.5.2
       source-map: 0.5.7
+    dev: true
+
+  /@babel/generator@7.23.0:
+    resolution: {integrity: sha512-lN85QRR+5IbYrMWM6Y4pE/noaQtg4pNiqeNGX60eqOfo6gtEj6uw/JagelB8vVztSd7R6M5n1+PQkDbHbBRU4g==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/types': 7.23.0
+      '@jridgewell/gen-mapping': 0.3.3
+      '@jridgewell/trace-mapping': 0.3.20
+      jsesc: 2.5.2
     dev: true
 
   /@babel/helper-environment-visitor@7.22.20:
@@ -161,12 +171,12 @@ packages:
       '@babel/types': 7.23.0
     dev: true
 
-  /@babel/traverse@7.17.3:
-    resolution: {integrity: sha512-5irClVky7TxRWIRtxlh2WPUUOLhcPN06AGgaQSB8AEwuyEBgJVuJ5imdHm5zxk8w0QS5T+tDfnDxAlhWjpb7cw==}
+  /@babel/traverse@7.23.2:
+    resolution: {integrity: sha512-azpe59SQ48qG6nu2CzcMLbxUudtN+dOM9kDbUqGq3HXUJRlo7i8fvPoxQUzYgLZ4cMVmuZgm8vvBpNeRhd6XSw==}
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.22.13
-      '@babel/generator': 7.17.7
+      '@babel/generator': 7.23.0
       '@babel/helper-environment-visitor': 7.22.20
       '@babel/helper-function-name': 7.23.0
       '@babel/helper-hoist-variables': 7.22.5
@@ -292,6 +302,36 @@ packages:
 
   /@humanwhocodes/object-schema@2.0.1:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
+    dev: true
+
+  /@jridgewell/gen-mapping@0.3.3:
+    resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      '@jridgewell/set-array': 1.1.2
+      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/trace-mapping': 0.3.20
+    dev: true
+
+  /@jridgewell/resolve-uri@3.1.1:
+    resolution: {integrity: sha512-dSYZh7HhCDtCKm4QakX0xFpsRDqjjtZf/kjI/v3T3Nwt5r8/qz/M19F9ySyOqU94SXBmeG9ttTul+YnR4LOxFA==}
+    engines: {node: '>=6.0.0'}
+    dev: true
+
+  /@jridgewell/set-array@1.1.2:
+    resolution: {integrity: sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==}
+    engines: {node: '>=6.0.0'}
+    dev: true
+
+  /@jridgewell/sourcemap-codec@1.4.15:
+    resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
+    dev: true
+
+  /@jridgewell/trace-mapping@0.3.20:
+    resolution: {integrity: sha512-R8LcPeWZol2zR8mmH3JeKQ6QRCFb7XgUhV9ZlGhHLGyg4wpPiPZNQOOWhFZhxKw8u//yTbNGI42Bx/3paXEQ+Q==}
+    dependencies:
+      '@jridgewell/resolve-uri': 3.1.1
+      '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
   /@mantine/core@7.1.5(@mantine/hooks@7.1.5)(@types/react@18.2.31)(react-dom@18.2.0)(react@18.2.0):
@@ -442,8 +482,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@trivago/prettier-plugin-sort-imports@4.2.0(prettier@3.0.3):
-    resolution: {integrity: sha512-YBepjbt+ZNBVmN3ev1amQH3lWCmHyt5qTbLCp/syXJRu/Kw2koXh44qayB1gMRxcL/gV8egmjN5xWSrYyfUtyw==}
+  /@trivago/prettier-plugin-sort-imports@4.2.1(prettier@3.0.3):
+    resolution: {integrity: sha512-iuy2MPVURGdxILTchHr15VAioItuYBejKfcTmQFlxIuqA7jeaT6ngr5aUIG6S6U096d6a6lJCgaOwlRrPLlOPg==}
     peerDependencies:
       '@vue/compiler-sfc': 3.x
       prettier: 2.x - 3.x
@@ -453,7 +493,7 @@ packages:
     dependencies:
       '@babel/generator': 7.17.7
       '@babel/parser': 7.23.0
-      '@babel/traverse': 7.17.3
+      '@babel/traverse': 7.23.2
       '@babel/types': 7.17.0
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
