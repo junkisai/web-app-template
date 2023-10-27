@@ -1,5 +1,4 @@
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import "@mantine/core/styles.css";
+import "~/styles/global.css";
 
 export const metadata = {
   title: "Next.js",
@@ -13,12 +12,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body>
-        <MantineProvider>{children}</MantineProvider>
-      </body>
+      <head></head>
+      <body>{children}</body>
     </html>
   );
 }

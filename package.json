@@ -10,7 +10,8 @@
     "lint:prettier": "prettier --cache --check .",
     "format": "concurrently 'pnpm format:eslint' 'pnpm format:prettier'",
     "format:eslint": "eslint --fix .",
-    "format:prettier": "prettier --cache --write ."
+    "format:prettier": "prettier --cache --write .",
+    "add-ui": "shadcn-ui add"
   },
   "license": "UNLICENSED",
   "engines": {
@@ -19,11 +20,25 @@
     "yarn": "please_use_pnpm_instead"
   },
   "packageManager": "pnpm@8.8.0",
+  "dependencies": {
+    "@radix-ui/react-aspect-ratio": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.290.0",
+    "next": "^14.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss": "^3.3.5",
+    "tailwindcss-animate": "^1.0.7"
+  },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "4.2.1",
     "@tsconfig/strictest": "2.0.2",
     "@types/node": "20.8.9",
-    "@types/react": "18.2.33",
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0",
     "@typescript-eslint/eslint-plugin": "6.8.0",
     "@typescript-eslint/parser": "6.8.0",
     "concurrently": "8.2.2",
@@ -32,10 +47,5 @@
     "prettier": "3.0.3",
     "shadcn-ui": "^0.4.1",
     "typescript": "5.2.2"
-  },
-  "dependencies": {
-    "next": "^14.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
   }
 }
