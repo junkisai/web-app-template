@@ -32,7 +32,7 @@
     "eslint": "8.52.0",
     "eslint-config-prettier": "9.0.0",
     "postcss": "^8.4.31",
-    "postcss-preset-mantine": "^1.9.0",
+    "postcss-preset-mantine": "^1.9.1",
     "prettier": "3.0.3",
     "typescript": "5.2.2"
   },
