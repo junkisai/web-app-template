@@ -1,5 +1,9 @@
 {
-  extends: ["config:base", ":timezone(Asia/Tokyo)"],
+  extends: [
+    "config:base",
+    ":timezone(Asia/Tokyo)",
+    "local>junkisai/nextjs-template:groupLinters.json5",
+  ],
   schedule: ["after 3:00 before 9:00 every weekday"],
   vulnerabilityAlerts: {
     labels: ["security"],
