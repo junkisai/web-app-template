@@ -2,7 +2,7 @@
   extends: [
     "config:base",
     ":timezone(Asia/Tokyo)",
-    "local>junkisai/nextjs-template//renovate:groupLinters.json5",
+    "local>junkisai/nextjs-template//renovate/groupLinters.json5",
   ],
   schedule: ["after 3:00 before 9:00 every weekday"],
   vulnerabilityAlerts: {
