@@ -14,11 +14,11 @@
   },
   "license": "UNLICENSED",
   "engines": {
-    "pnpm": "8.8.0",
+    "pnpm": "8.10.4",
     "npm": "please_use_pnpm_instead",
     "yarn": "please_use_pnpm_instead"
   },
-  "packageManager": "pnpm@8.8.0",
+  "packageManager": "pnpm@8.10.4",
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "4.2.1",
     "@tsconfig/strictest": "2.0.2",
