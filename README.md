@@ -12,5 +12,4 @@
 - Storybook
 - Jest
 - Testing Library
-- Dependabot
-  - patchバージョンはCIが通ったらauto mergeする
+- Renovate

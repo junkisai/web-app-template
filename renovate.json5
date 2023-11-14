@@ -7,7 +7,7 @@
   ],
   prHourlyLimit: 0,
   prConcurrentLimit: 10,
-  schedule: ["after 15:55 before 16:10 every weekday"],
+  schedule: ["after 5pm on tuesday", "before 6pm on tuesday"],
   vulnerabilityAlerts: {
     labels: ["security"],
   },
