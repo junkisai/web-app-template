@@ -1,10 +1,13 @@
 {
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
     "config:base",
     ":timezone(Asia/Tokyo)",
     "local>junkisai/nextjs-template//renovate/groupLinters.json5",
   ],
-  schedule: ["after 15:40 before 16:00 every weekday"],
+  prHourlyLimit: 0,
+  prConcurrentLimit: 10,
+  schedule: ["after 15:55 before 16:10 every weekday"],
   vulnerabilityAlerts: {
     labels: ["security"],
   },
