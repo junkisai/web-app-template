@@ -4,7 +4,7 @@
     ":timezone(Asia/Tokyo)",
     "local>junkisai/nextjs-template//renovate/groupLinters.json5",
   ],
-  schedule: ["after 3:00 before 9:00 every weekday"],
+  schedule: ["after 14:30 before 19:00 on Tue"],
   vulnerabilityAlerts: {
     labels: ["security"],
   },
