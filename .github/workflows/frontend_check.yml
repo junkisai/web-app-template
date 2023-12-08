@@ -1,0 +1,27 @@
+name: Frontend Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  frontend-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          package_json_file: "frontend/package.json"
+      - name: Setup node
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version-file: "frontend/.node-version"
+          cache: "pnpm"
+          cache-dependency-path: "frontend/pnpm-lock.yaml"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: frontend
+      - name: Run linter
+        run: pnpm lint
