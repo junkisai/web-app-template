@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "turbo run format"
   },
   "license": "UNLICENSED",
   "engines": {
@@ -12,5 +14,10 @@
     "npm": "please_use_pnpm_instead",
     "yarn": "please_use_pnpm_instead"
   },
-  "packageManager": "pnpm@8.8.0"
+  "packageManager": "pnpm@8.8.0",
+  "devDependencies": {
+    "@packages/eslint-config": "workspace:*",
+    "eslint-config-turbo": "1.10.7",
+    "turbo": "1.10.7"
+  }
 }
