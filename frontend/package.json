@@ -1,16 +1,10 @@
 {
   "name": "frontend",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "lint": "concurrently 'pnpm lint:tsc' 'pnpm lint:eslint' 'pnpm lint:prettier'",
-    "lint:tsc": "tsc",
-    "lint:eslint": "eslint .",
-    "lint:prettier": "prettier --cache --check .",
-    "format": "concurrently 'pnpm format:eslint' 'pnpm format:prettier'",
-    "format:eslint": "eslint --fix .",
-    "format:prettier": "prettier --cache --write ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "UNLICENSED",
   "engines": {
@@ -18,30 +12,5 @@
     "npm": "please_use_pnpm_instead",
     "yarn": "please_use_pnpm_instead"
   },
-  "packageManager": "pnpm@8.8.0",
-  "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "4.2.1",
-    "@tsconfig/strictest": "2.0.2",
-    "@types/node": "20.9.2",
-    "@types/react": "18.2.37",
-    "@types/react-dom": "^18.2.14",
-    "@typescript-eslint/eslint-plugin": "6.8.0",
-    "@typescript-eslint/parser": "6.8.0",
-    "autoprefixer": "^10.4.16",
-    "concurrently": "8.2.2",
-    "eslint": "8.52.0",
-    "eslint-config-prettier": "9.0.0",
-    "postcss": "^8.4.31",
-    "postcss-preset-mantine": "^1.9.1",
-    "prettier": "3.0.3",
-    "typescript": "5.2.2"
-  },
-  "dependencies": {
-    "@mantine/core": "^7.1.5",
-    "@mantine/hooks": "^7.1.5",
-    "@mantine/vanilla-extract": "^7.1.5",
-    "next": "^14.0.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  }
+  "packageManager": "pnpm@8.8.0"
 }
