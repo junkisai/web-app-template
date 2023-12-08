@@ -25,3 +25,4 @@ jobs:
         working-directory: frontend
       - name: Run linter
         run: pnpm lint
+        working-directory: frontend
