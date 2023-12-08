@@ -1,0 +1,17 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# typescript
+tsconfig.tsbuildinfo
+
+# next.js
+.next/
+out/
+build
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
