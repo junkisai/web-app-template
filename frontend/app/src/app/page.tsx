@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import { AspectRatio } from "@mantine/core";
-import { NextPage } from "next";
+import { AspectRatio } from '@mantine/core'
+import { NextPage } from 'next'
 
 const IndexPage: NextPage = () => {
   return (
@@ -12,7 +12,7 @@ const IndexPage: NextPage = () => {
         style={{ border: 0 }}
       />
     </AspectRatio>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage
