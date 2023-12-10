@@ -3,7 +3,7 @@ const config = {
   extends: ['@packages/eslint-config'],
   settings: {
     next: {
-      root: 'app/',
+      root: 'apps/',
     },
   },
 }
