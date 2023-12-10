@@ -1,17 +1,26 @@
 {
   "name": "@apps/astro",
-  "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "concurrently 'pnpm lint:tsc' 'pnpm lint:eslint' 'pnpm lint:prettier'",
+    "lint:tsc": "tsc",
+    "lint:eslint": "eslint .",
+    "lint:prettier": "prettier --cache --check .",
+    "format": "concurrently 'pnpm format:eslint' 'pnpm format:prettier'",
+    "format:eslint": "eslint --fix .",
+    "format:prettier": "prettier --cache --write ."
   },
   "dependencies": {
     "@astrojs/check": "^0.3.1",
-    "astro": "^4.0.3",
-    "typescript": "5.2.2"
+    "astro": "^4.0.3"
+  },
+  "devDependencies": {
+    "@packages/eslint-config": "workspace:*",
+    "concurrently": "8.2.2"
   }
 }
