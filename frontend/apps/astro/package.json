@@ -8,7 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "conc -c auto pnpm:lint:*",
-    "lint:tsc": "tsc --noEmit",
+    "lint:tsc": "tsc",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check . --plugin=prettier-plugin-astro",
     "lint:astro": "astro check",
