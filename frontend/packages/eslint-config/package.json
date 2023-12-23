@@ -4,10 +4,10 @@
   "main": "index.cjs",
   "license": "UNLICENSED",
   "scripts": {
-    "lint": "concurrently 'pnpm lint:eslint' 'pnpm lint:prettier'",
+    "lint": "conc -c auto pnpm:lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --cache --check .",
-    "format": "concurrently 'pnpm format:eslint' 'pnpm format:prettier'",
+    "format": "pnpm format:eslint && pnpm format:prettier",
     "format:eslint": "eslint --fix .",
     "format:prettier": "prettier --cache --write ."
   },
