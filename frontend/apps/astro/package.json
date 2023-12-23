@@ -7,11 +7,12 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "concurrently 'pnpm lint:tsc' 'pnpm lint:eslint' 'pnpm lint:prettier'",
-    "lint:tsc": "tsc",
+    "lint": "conc -c auto pnpm:lint:*",
+    "lint:tsc": "tsc --noEmit",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --check . --plugin=prettier-plugin-astro",
-    "format": "concurrently 'pnpm format:eslint' 'pnpm format:prettier'",
+    "lint:astro": "astro check",
+    "format": "pnpm format:eslint && pnpm format:prettier",
     "format:eslint": "eslint --fix .",
     "format:prettier": "prettier --write . --plugin=prettier-plugin-astro"
   },
@@ -21,7 +22,7 @@
     "@vanilla-extract/css": "^1.14.0",
     "@vanilla-extract/css-utils": "^0.1.3",
     "@vanilla-extract/vite-plugin": "^3.9.3",
-    "astro": "^4.0.3",
+    "astro": "4.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -30,10 +31,10 @@
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@packages/eslint-config": "workspace:*",
+    "@packages/tsconfig": "workspace:*",
     "concurrently": "8.2.2",
     "eslint-plugin-astro": "^0.30.0",
     "prettier": "2.8.8",
-    "prettier-plugin-astro": "0.10.0",
-    "typescript": "4.9.5"
+    "prettier-plugin-astro": "0.10.0"
   }
 }
