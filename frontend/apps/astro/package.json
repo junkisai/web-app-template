@@ -10,17 +10,30 @@
     "lint": "concurrently 'pnpm lint:tsc' 'pnpm lint:eslint' 'pnpm lint:prettier'",
     "lint:tsc": "tsc",
     "lint:eslint": "eslint .",
-    "lint:prettier": "prettier --cache --check .",
+    "lint:prettier": "prettier --check . --plugin=prettier-plugin-astro",
     "format": "concurrently 'pnpm format:eslint' 'pnpm format:prettier'",
     "format:eslint": "eslint --fix .",
-    "format:prettier": "prettier --cache --write ."
+    "format:prettier": "prettier --write . --plugin=prettier-plugin-astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.3.1",
-    "astro": "^4.0.3"
+    "@astrojs/react": "^3.0.7",
+    "@vanilla-extract/css": "^1.14.0",
+    "@vanilla-extract/css-utils": "^0.1.3",
+    "@vanilla-extract/vite-plugin": "^3.9.3",
+    "astro": "^4.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/prettier": "2.7.3",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
     "@packages/eslint-config": "workspace:*",
-    "concurrently": "8.2.2"
+    "concurrently": "8.2.2",
+    "eslint-plugin-astro": "^0.30.0",
+    "prettier": "2.8.8",
+    "prettier-plugin-astro": "0.10.0",
+    "typescript": "4.9.5"
   }
 }
