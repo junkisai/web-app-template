@@ -1,3 +1,19 @@
 # misc
 .DS_Store
 *.pem
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# typescript
+tsconfig.tsbuildinfo
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# turborepo
+.turbo
