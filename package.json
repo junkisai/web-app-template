@@ -10,11 +10,11 @@
   },
   "license": "UNLICENSED",
   "engines": {
-    "pnpm": "8.8.0",
+    "pnpm": "8.15.4",
     "npm": "please_use_pnpm_instead",
     "yarn": "please_use_pnpm_instead"
   },
-  "packageManager": "pnpm@8.8.0",
+  "packageManager": "pnpm@8.15.4",
   "devDependencies": {
     "@packages/eslint-config": "workspace:*",
     "eslint-config-turbo": "1.10.7",
