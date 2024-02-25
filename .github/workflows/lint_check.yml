@@ -1,4 +1,4 @@
-name: Frontend Check
+name: Lint Check
 
 on:
   pull_request:
@@ -8,23 +8,21 @@ on:
       - main
 
 jobs:
-  frontend-lint:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          package_json_file: "frontend/package.json"
+          package_json_file: "package.json"
       - name: Setup node
         uses: actions/setup-node@v3.8.2
         with:
-          node-version-file: "frontend/.node-version"
+          node-version-file: ".node-version"
           cache: "pnpm"
-          cache-dependency-path: "frontend/pnpm-lock.yaml"
+          cache-dependency-path: "pnpm-lock.yaml"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        working-directory: frontend
       - name: Run linter
         run: pnpm lint
-        working-directory: frontend
