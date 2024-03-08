@@ -7,6 +7,6 @@
   },
   "license": "UNLICENSED",
   "devDependencies": {
-    "@tsconfig/strictest": "2.0.2"
+    "@tsconfig/strictest": "2.0.3"
   }
 }
