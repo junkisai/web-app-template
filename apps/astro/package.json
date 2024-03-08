@@ -9,12 +9,10 @@
     "astro": "astro",
     "lint": "conc -c auto pnpm:lint:*",
     "lint:tsc": "tsc",
-    "lint:eslint": "eslint .",
-    "lint:prettier": "prettier --check . --plugin=prettier-plugin-astro",
+    "lint:biome": "pnpm dlx @biomejs/biome lint ./src",
     "lint:astro": "astro check",
-    "format": "pnpm format:eslint && pnpm format:prettier",
-    "format:eslint": "eslint --fix .",
-    "format:prettier": "prettier --write . --plugin=prettier-plugin-astro"
+    "format": "conc -c auto pnpm:format:*",
+    "format:biome": "pnpm dlx @biomejs/biome format --write ./src"
   },
   "dependencies": {
     "@astrojs/check": "^0.3.1",
@@ -30,7 +28,7 @@
     "@types/prettier": "2.7.3",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
-    "@packages/eslint-config": "workspace:*",
+    "@packages/biome-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
     "concurrently": "8.2.2",
     "eslint-plugin-astro": "^0.30.0",
