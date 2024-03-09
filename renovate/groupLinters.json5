@@ -3,7 +3,6 @@
     {
       groupName: "linters",
       extends: ["packages:linters"],
-      matchPackageNames: ["prettier"],
     },
   ],
 }

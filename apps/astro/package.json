@@ -1,38 +1,34 @@
 {
-  "name": "@apps/astro",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "lint": "conc -c auto pnpm:lint:*",
-    "lint:tsc": "tsc",
-    "lint:biome": "pnpm dlx @biomejs/biome lint ./src",
-    "lint:astro": "astro check",
-    "format": "conc -c auto pnpm:format:*",
-    "format:biome": "pnpm dlx @biomejs/biome format --write ./src"
-  },
-  "dependencies": {
-    "@astrojs/check": "^0.3.1",
-    "@astrojs/react": "^3.0.7",
-    "@vanilla-extract/css": "^1.14.0",
-    "@vanilla-extract/css-utils": "^0.1.3",
-    "@vanilla-extract/vite-plugin": "^3.9.3",
-    "astro": "4.2.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@types/prettier": "2.7.3",
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@packages/biome-config": "workspace:*",
-    "@packages/tsconfig": "workspace:*",
-    "concurrently": "8.2.2",
-    "eslint-plugin-astro": "^0.30.0",
-    "prettier": "2.8.8",
-    "prettier-plugin-astro": "0.10.0"
-  }
+	"name": "@apps/astro",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro check && astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"lint": "conc -c auto pnpm:lint:*",
+		"lint:tsc": "tsc",
+		"lint:biome": "pnpm dlx @biomejs/biome lint ./src",
+		"lint:astro": "astro check",
+		"format": "conc -c auto pnpm:format:*",
+		"format:biome": "pnpm dlx @biomejs/biome format --write ./src"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.3.1",
+		"@astrojs/react": "^3.0.7",
+		"@vanilla-extract/css": "^1.14.0",
+		"@vanilla-extract/css-utils": "^0.1.3",
+		"@vanilla-extract/vite-plugin": "^3.9.3",
+		"astro": "4.2.3",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@types/react": "^18.2.43",
+		"@types/react-dom": "^18.2.17",
+		"@packages/biome-config": "workspace:*",
+		"@packages/tsconfig": "workspace:*",
+		"concurrently": "8.2.2"
+	}
 }
