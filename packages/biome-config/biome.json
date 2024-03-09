@@ -19,5 +19,10 @@
       "jsxQuoteStyle": "double",
       "quoteStyle": "single"
     }
+  },
+  "json": {
+    "formatter": {
+      "enabled": false
+    }
   }
 }

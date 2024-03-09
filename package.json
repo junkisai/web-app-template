@@ -1,22 +1,22 @@
 {
-	"name": "frontend",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"dev": "turbo run dev",
-		"lint": "turbo run lint",
-		"format": "turbo run format"
-	},
-	"license": "UNLICENSED",
-	"engines": {
-		"pnpm": "8.15.4",
-		"npm": "please_use_pnpm_instead",
-		"yarn": "please_use_pnpm_instead"
-	},
-	"packageManager": "pnpm@8.15.4",
-	"devDependencies": {
-		"turbo": "1.10.7",
-		"typescript": "5.2.2"
-	}
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "turbo run format"
+  },
+  "license": "UNLICENSED",
+  "engines": {
+    "pnpm": "8.15.4",
+    "npm": "please_use_pnpm_instead",
+    "yarn": "please_use_pnpm_instead"
+  },
+  "packageManager": "pnpm@8.15.4",
+  "devDependencies": {
+    "@packages/biome-config": "workspace:*",
+    "turbo": "1.10.7",
+    "typescript": "5.2.2"
+  }
 }
