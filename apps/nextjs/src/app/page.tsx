@@ -1,7 +1,7 @@
 'use client'
 
 import { AspectRatio } from '@mantine/core'
-import { NextPage } from 'next'
+import type { NextPage } from 'next'
 
 const IndexPage: NextPage = () => {
   return (

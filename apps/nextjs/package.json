@@ -6,15 +6,13 @@
     "dev": "next dev",
     "lint": "conc -c auto pnpm:lint:*",
     "lint:tsc": "tsc",
-    "lint:eslint": "eslint .",
-    "lint:prettier": "prettier --cache --check .",
-    "format": "pnpm format:eslint && pnpm format:prettier",
-    "format:eslint": "eslint --fix .",
-    "format:prettier": "prettier --cache --write ."
+    "lint:biome": "pnpm dlx @biomejs/biome lint ./src",
+    "format": "conc -c auto pnpm:format:*",
+    "format:biome": "pnpm dlx @biomejs/biome format --write ./src"
   },
   "license": "UNLICENSED",
   "devDependencies": {
-    "@packages/eslint-config": "workspace:*",
+    "@packages/biome-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
     "@types/node": "20.9.2",
     "@types/react": "18.2.37",

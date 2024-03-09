@@ -1,0 +1,11 @@
+{
+  "name": "@packages/biome-config",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./biome": "./biome.json"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.6.0"
+  }
+}

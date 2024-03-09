@@ -27,5 +27,5 @@ globalStyle(
   'button, [type="button"], [type="reset"], [type="submit"], [role="button"]',
   {
     cursor: 'pointer',
-  }
+  },
 )
