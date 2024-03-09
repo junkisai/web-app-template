@@ -6,7 +6,7 @@
     "dev": "next dev",
     "lint": "conc -c auto pnpm:lint:*",
     "lint:tsc": "tsc",
-    "lint:biome": "pnpm dlx @biomejs/biome lint ./src",
+    "lint:biome": "pnpm dlx @biomejs/biome lint --apply ./src",
     "format": "conc -c auto pnpm:format:*",
     "format:biome": "pnpm dlx @biomejs/biome format --write ./src"
   },
