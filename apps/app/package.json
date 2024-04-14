@@ -1,0 +1,45 @@
+{
+  "name": "@apps/app",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "build": "remix vite:build",
+    "dev": "conc -c auto bun:dev:*",
+    "dev:remix": "remix vite:dev",
+    "dev:scss": "typed-scss-modules app --watch",
+    "gen": "conc -c auto bun:gen:*",
+    "gen:scss": "typed-scss-modules app",
+    "lint": "conc -c auto bun:lint:*",
+    "lint:biome": "biome check .",
+    "lint:tsc": "tsc --noEmit",
+    "lint:css": "stylelint './app/**/*.{css,scss}'",
+    "format": "conc -c auto bun:format:*",
+    "format:biome": "biome format --write .",
+    "format:prettier": "prettier -w './**/*.{md,yml,json}'",
+    "start": "remix-serve ./build/server/index.js"
+  },
+  "dependencies": {
+    "@remix-run/node": "^2.8.1",
+    "@remix-run/react": "^2.8.1",
+    "@remix-run/serve": "^2.8.1",
+    "isbot": "^4.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@packages/biome-config": "workspace:*",
+    "@packages/prettier-config": "workspace:*",
+    "@packages/style-config": "workspace:*",
+    "@packages/tsconfig": "workspace:*",
+    "@remix-run/dev": "^2.8.1",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "concurrently": "^8.2.2",
+    "vite": "^5.1.0",
+    "vite-tsconfig-paths": "^4.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
