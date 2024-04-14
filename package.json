@@ -1,22 +1,23 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "turbo run format"
-  },
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "license": "UNLICENSED",
-  "engines": {
-    "pnpm": "8.15.4",
-    "npm": "please_use_pnpm_instead",
-    "yarn": "please_use_pnpm_instead"
+  "scripts": {
+    "lint": "conc -c auto bun:lint:*",
+    "lint:biome": "biome check .",
+    "format": "conc -c auto bun:format:*",
+    "format:biome": "biome format --write .",
+    "format:prettier": "prettier -w './**/*.{md,yml,json}'"
   },
-  "packageManager": "pnpm@8.15.4",
   "devDependencies": {
     "@packages/biome-config": "workspace:*",
-    "turbo": "1.10.7",
+    "@packages/prettier-config": "workspace:*",
+    "concurrently": "^8.2.2",
     "typescript": "5.2.2"
   }
 }
