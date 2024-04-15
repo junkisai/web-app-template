@@ -1,5 +1,6 @@
 {
   "name": "@apps/app",
+  "version": "1.0.0",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -17,6 +18,7 @@
     "format": "conc -c auto bun:format:*",
     "format:biome": "biome format --write .",
     "format:prettier": "prettier -w './**/*.{md,yml,json}'",
+    "format:css": "stylelint './app/**/*.{css,scss}' --fix",
     "start": "remix-serve ./build/server/index.js"
   },
   "dependencies": {
@@ -38,8 +40,5 @@
     "concurrently": "^8.2.2",
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   }
 }

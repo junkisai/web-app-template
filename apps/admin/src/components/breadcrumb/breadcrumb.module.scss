@@ -1,0 +1,12 @@
+.breadcrumb {
+  display: flex;
+  gap: 24px;
+  padding: 8px 16px;
+  list-style-type: '/  ';
+  border-bottom: 1px solid lightgray;
+}
+
+.breadcrumb a {
+  color: blue;
+  text-decoration: none;
+}

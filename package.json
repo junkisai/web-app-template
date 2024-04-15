@@ -8,15 +8,13 @@
   ],
   "license": "UNLICENSED",
   "scripts": {
-    "lint": "conc -c auto bun:lint:*",
-    "lint:biome": "biome check .",
-    "format": "conc -c auto bun:format:*",
-    "format:biome": "biome format --write .",
-    "format:prettier": "prettier -w './**/*.{md,yml,json}'"
+    "workspace": "bun ./scripts/workspace.ts"
   },
   "devDependencies": {
     "@packages/biome-config": "workspace:*",
     "@packages/prettier-config": "workspace:*",
+    "@types/bun": "^1.0.12",
+    "bun": "^1.1.3",
     "concurrently": "^8.2.2",
     "typescript": "5.2.2"
   }

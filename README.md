@@ -1,11 +1,9 @@
-# web-dev-template
+# web-app-template
 
 ## install
 
 ```sh
-corepack enable
-corepack prepare
-pnpm install
+bun install
 ```
 
 ## Development
