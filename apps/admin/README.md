@@ -1,5 +1,29 @@
 # @apps/admin
 
+## 利用技術
+
+**App**
+
+- React（Library）
+- Refine（Library）
+- CSS Modules（SCSS）
+
+**Tools**
+
+- TypeScript（Language）
+- Bun（Package Manager）
+- Biome (Linter, Formatter)
+- Prettier (Formatter)
+
+**Others**
+
+- Firebase（Hosting）
+- Auth0
+- Github Actions（CI）
+- VSCode（Editor）
+
+---
+
 <div align="center" style="margin: 30px;">
     <a href="https://refine.dev">
     <img alt="refine logo" src="https://refine.ams3.cdn.digitaloceanspaces.com/readme/refine-readme-banner.png">
