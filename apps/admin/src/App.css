@@ -1,0 +1,67 @@
+body {
+  margin: 0px;
+}
+
+table {
+  border-spacing: 0;
+  border: 1px solid black;
+}
+
+table th,
+td {
+  padding: 0.5rem;
+  margin: 0;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+table th:last-child,
+td:last-child {
+  border-right: 0;
+}
+
+table tr:last-child td {
+  border-bottom: 0;
+}
+
+.layout {
+  display: flex;
+  gap: 16px;
+}
+
+@media screen and (max-width: 751px) {
+  .layout {
+    display: block;
+  }
+}
+
+.layout .content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.menu {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-right: 1px solid lightgray;
+}
+
+.menu a {
+  color: black;
+}
+
+.menu .active {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 751px) {
+  .menu {
+    border-right: none;
+    border-bottom: 1px solid lightgray;
+  }
+}
+
+.menu ul {
+  padding-left: 16px;
+}
