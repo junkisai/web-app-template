@@ -4,6 +4,6 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@tsconfig/strictest": "2.0.3"
+    "@tsconfig/strictest": "2.0.5"
   }
 }
