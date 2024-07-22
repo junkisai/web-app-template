@@ -22,7 +22,7 @@
     "format:css": "stylelint './src/**/*.{css,scss}' --fix"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^1.5.0",
+    "@auth0/auth0-react": "^2.0.0",
     "@refinedev/cli": "^2.16.21",
     "@refinedev/core": "^4.47.1",
     "@refinedev/devtools": "^1.1.32",
