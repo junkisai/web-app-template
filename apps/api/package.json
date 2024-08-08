@@ -20,7 +20,7 @@
     "@cloudflare/workers-types": "^4.20240419.0",
     "@packages/tsconfig": "workspace:*",
     "concurrently": "^8.2.2",
-    "drizzle-kit": "^0.20.16",
+    "drizzle-kit": "^0.24.0",
     "wrangler": "^3.51.2"
   }
 }
