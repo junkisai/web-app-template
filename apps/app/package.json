@@ -34,7 +34,7 @@
     "@packages/prettier-config": "workspace:*",
     "@packages/style-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
-    "@remix-run/dev": "2.8.1",
+    "@remix-run/dev": "2.11.2",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
     "concurrently": "8.2.2",
