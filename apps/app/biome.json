@@ -1,3 +1,16 @@
 {
-  "extends": ["@packages/biome-config/biome"]
+  "extends": ["@packages/biome-config/biome"],
+  "overrides": [
+    {
+      "include": ["*.astro"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
+      }
+    }
+  ]
 }

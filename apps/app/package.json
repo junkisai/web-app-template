@@ -4,41 +4,40 @@
   "private": true,
   "sideEffects": false,
   "type": "module",
+  "license": "UNLICENSED",
   "scripts": {
-    "build": "remix vite:build",
     "dev": "conc -c auto bun:dev:*",
-    "dev:remix": "remix vite:dev",
-    "dev:scss": "typed-scss-modules app --watch",
-    "gen": "conc -c auto bun:gen:*",
-    "gen:scss": "typed-scss-modules app",
+    "dev:astro": "astro dev --port=3000",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
     "lint": "conc -c auto bun:lint:*",
+    "lint:astro": "astro check",
     "lint:biome": "biome check .",
     "lint:tsc": "tsc --noEmit",
-    "lint:css": "stylelint './app/**/*.{css,scss}'",
-    "format": "conc -c auto bun:format:*",
-    "format:biome": "biome format --write .",
-    "format:prettier": "prettier -w './**/*.{md,yml,json}'",
-    "format:css": "stylelint './app/**/*.{css,scss}' --fix",
-    "start": "remix-serve ./build/server/index.js"
-  },
-  "dependencies": {
-    "@remix-run/node": "^2.8.1",
-    "@remix-run/react": "^2.8.1",
-    "@remix-run/serve": "^2.8.1",
-    "isbot": "^5.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "lint:prettier": "prettier --check './**/*.{astro,md,yml,yaml,json}'",
+    "fmt": "conc -c auto bun:fmt:*",
+    "fmt:biome": "biome format --write .",
+    "fmt:prettier": "prettier -w './**/*.{astro,md,yml,yaml,json}'"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.2",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/ts-plugin": "^1.10.0",
     "@packages/biome-config": "workspace:*",
     "@packages/prettier-config": "workspace:*",
-    "@packages/style-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
-    "@remix-run/dev": "2.8.1",
-    "@types/react": "18.3.1",
-    "@types/react-dom": "18.3.0",
     "concurrently": "8.2.2",
-    "vite": "5.3.3",
-    "vite-tsconfig-paths": "4.3.2"
+    "prettier-plugin-astro": "^0.14.1",
+    "tailwindcss": "^3.4.10"
+  },
+  "dependencies": {
+    "@astrojs/react": "^3.6.2",
+    "@radix-ui/react-slot": "^1.1.0",
+    "astro": "^4.14.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

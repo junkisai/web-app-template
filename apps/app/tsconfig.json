@@ -1,22 +1,12 @@
 {
-  "extends": ["@packages/tsconfig/base.json"],
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/.server/**/*.ts",
-    "**/.server/**/*.tsx",
-    "**/.client/**/*.ts",
-    "**/.client/**/*.tsx"
-  ],
+  "extends": "@packages/tsconfig/base.json",
   "compilerOptions": {
-    "types": ["@remix-run/node", "vite/client"],
-    "jsx": "react-jsx",
-    "moduleResolution": "Bundler",
-    "target": "ES2022",
-    "allowJs": true,
+    "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./app/*"]
+      "@/*": ["src/*"]
     }
-  }
+  },
+  "include": ["env.d.ts", "./src/**/*"],
+  "exclude": ["dist"]
 }

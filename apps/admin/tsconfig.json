@@ -1,13 +1,12 @@
 {
   "extends": "@packages/tsconfig/base.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
+    "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     }
   },
-  "include": ["src", "vite.config.ts"]
+  "include": ["env.d.ts", "./src/**/*"],
+  "exclude": ["dist"]
 }
