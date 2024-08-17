@@ -17,6 +17,9 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[css]": {
     "editor.formatOnSave": false,
     "editor.codeActionsOnSave": {
@@ -29,11 +32,13 @@
       "source.fixAll.stylelint": "always"
     }
   },
+  "biome.lspBin": "./node_modules/.bin/biome",
   "stylelint.configBasedir": ".",
   "stylelint.validate": ["css", "scss"],
   "prettier.requireConfig": false,
   "cSpell.enabled": true,
   "cSpell.words": ["biomejs"],
   "cSpell.allowCompoundWords": true,
-  "cSpell.ignorePaths": ["**/node_modules/**", "**/vscode-extension/**"]
+  "cSpell.ignorePaths": ["**/node_modules/**", "**/vscode-extension/**"],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -1,0 +1,14 @@
+# dependencies
+node_modules
+
+# TypeScript cache
+*.tsbuildinfo
+
+# dotenv environment variable files
+.env
+
+# output
+dist
+
+# Astro
+.astro

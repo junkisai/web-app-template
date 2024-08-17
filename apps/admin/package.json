@@ -1,0 +1,43 @@
+{
+  "name": "@apps/admin",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "conc -c auto bun:dev:*",
+    "dev:astro": "astro dev --port=3001",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "conc -c auto bun:lint:*",
+    "lint:astro": "astro check",
+    "lint:biome": "biome check .",
+    "lint:tsc": "tsc --noEmit",
+    "lint:prettier": "prettier --check './**/*.{astro,md,yml,yaml,json}'",
+    "fmt": "conc -c auto bun:fmt:*",
+    "fmt:biome": "biome format --write .",
+    "fmt:prettier": "prettier -w './**/*.{astro,md,yml,yaml,json}'"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.2",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/ts-plugin": "^1.10.0",
+    "@packages/biome-config": "workspace:*",
+    "@packages/prettier-config": "workspace:*",
+    "@packages/tsconfig": "workspace:*",
+    "concurrently": "8.2.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "tailwindcss": "^3.4.10"
+  },
+  "dependencies": {
+    "@astrojs/react": "^3.6.2",
+    "@radix-ui/react-slot": "^1.1.0",
+    "astro": "^4.14.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
+  }
+}
