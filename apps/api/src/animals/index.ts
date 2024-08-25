@@ -1,9 +1,10 @@
-import { Hono } from 'hono'
+import { OpenAPIHono } from '@hono/zod-openapi'
 import type { Bindings } from '../types'
-import read from './read'
+import { getAnimalsHandler } from './handlers'
+import { getAnimalsRoute } from './routes'
 
-const animal = new Hono<{ Bindings: Bindings }>()
+const animal = new OpenAPIHono<{ Bindings: Bindings }>()
 
-animal.route('/', read)
+animal.openapi(getAnimalsRoute, getAnimalsHandler)
 
 export default animal
