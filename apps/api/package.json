@@ -8,7 +8,7 @@
     "dev:app": "wrangler dev ./src/index.ts",
     "dev:studio": "drizzle-kit studio",
     "deploy": "wrangler deploy --minify ./src/index.ts",
-    "migrate:gen": "drizzle-kit up --config=./drizzle.config.ts",
+    "migrate:gen": "drizzle-kit generate --config=./drizzle.config.ts",
     "migrate:apply:local": "wrangler d1 migrations apply web-app-template --local",
     "migrate:apply:remote": "wrangler d1 migrations apply web-app-template --remote",
     "lint": "conc -c auto bun:lint:*",
