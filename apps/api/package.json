@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev ./src/index.ts",
+    "dev": "conc -c auto bun:dev:*",
+    "dev:app": "wrangler dev ./src/index.ts",
+    "dev:studio": "drizzle-kit studio",
     "deploy": "wrangler deploy --minify ./src/index.ts",
     "migrate:gen": "drizzle-kit up --config=./drizzle.config.ts",
     "migrate:apply:local": "wrangler d1 migrations apply web-app-template --local",
@@ -27,6 +29,7 @@
     "@packages/biome-config": "workspace:*",
     "@packages/prettier-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
+    "better-sqlite3": "^11.2.1",
     "concurrently": "^8.2.2",
     "drizzle-kit": "^0.24.1",
     "wrangler": "^3.51.2"
