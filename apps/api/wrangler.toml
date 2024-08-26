@@ -1,5 +1,5 @@
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "web-app-template"
-database_id = "f4add858-df5b-4b55-b005-0eef8a6ab858"
+database_id = "f40352e7-e48b-4891-8766-a9b94b2f0ee0"
 migrations_dir = "migrations"

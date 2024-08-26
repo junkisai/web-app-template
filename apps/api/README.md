@@ -15,6 +15,8 @@ database_id = "XXX-XXX-XXX-XXX"
 migrations_dir = "migrations"
 ```
 
+最後に`.env.sample`をコピーして`.env`ファイルを作成して、値を埋めます。
+
 ## Development
 
 To install dependencies:
