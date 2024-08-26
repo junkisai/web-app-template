@@ -1,17 +1,9 @@
-import { OpenAPIHono } from '@hono/zod-openapi'
-import animals from './animals'
+import { Hono } from 'hono'
+import { animalsApp } from './animals'
 import type { Bindings } from './types'
 
-const app = new OpenAPIHono<{ Bindings: Bindings }>()
+const app = new Hono<{ Bindings: Bindings }>().route('/animals', animalsApp)
 
-app.route('/animals', animals)
-
-app.doc('/doc', {
-  openapi: '3.0.0',
-  info: {
-    version: '1.0.0',
-    title: 'My API',
-  },
-})
+export type AppType = typeof app
 
 export default app
