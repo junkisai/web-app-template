@@ -27,7 +27,7 @@
     "@packages/biome-config": "workspace:*",
     "@packages/prettier-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
-    "concurrently": "8.2.2",
+    "concurrently": "9.0.1",
     "prettier-plugin-astro": "^0.14.1",
     "tailwindcss": "^3.4.10"
   },
