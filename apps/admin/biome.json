@@ -1,16 +1,4 @@
 {
-  "extends": ["@packages/biome-config/biome"],
-  "overrides": [
-    {
-      "include": ["*.astro"],
-      "linter": {
-        "rules": {
-          "style": {
-            "useConst": "off",
-            "useImportType": "off"
-          }
-        }
-      }
-    }
-  ]
+  "$schema": "https://biomejs.dev/schemas/1.9.2/schema.json",
+  "extends": ["@packages/biome-config/biome"]
 }

@@ -2,9 +2,8 @@
 
 ## 技術スタック
 
-- Astro
-- shadcn/ui
-- Tailwind CSS
+- Next.js
+- Chakra UI
 
 ### 静的解析
 
