@@ -76,8 +76,8 @@ importers:
   apps/api:
     dependencies:
       drizzle-orm:
-        specifier: ^0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20241022.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(bun-types@1.1.32)(react@18.3.1)
+        specifier: ^0.35.0
+        version: 0.35.3(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(bun-types@1.1.32)(react@18.3.1)
       hono:
         specifier: ^4.2.5
         version: 4.6.6
@@ -955,6 +955,14 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
+  '@libsql/client-wasm@0.14.0':
+    resolution: {integrity: sha512-gB/jtz0xuwrqAHApBv9e9JSew2030Fhj2edyZ83InZ4yPj/Q2LTUlEhaspEYT0T0xsAGqPy38uGrmq/OGS+DdQ==}
+    bundledDependencies:
+      - '@libsql/libsql-wasm-experimental'
+
+  '@libsql/core@0.14.0':
+    resolution: {integrity: sha512-nhbuXf7GP3PSZgdCY2Ecj8vz187ptHlZQ0VRc751oB2C1W8jQUXKKklvt7t1LJiUTQBVJuadF628eUk+3cRi4Q==}
+
   '@next/env@15.0.1':
     resolution: {integrity: sha512-lc4HeDUKO9gxxlM5G2knTRifqhsY6yYpwuHspBZdboZe0Gp+rZHBNNSIjmQKDJIdRXiXGyVnSD6gafrbQPvILQ==}
 
@@ -1760,13 +1768,14 @@ packages:
     resolution: {integrity: sha512-nXOaTSFiuIaTMhS8WJC2d4EBeIcN9OSt2A2cyFbQYBAZbi7lRsVGJNqDpEwPqYfJz38yxbY/UtbvBBahBfnExQ==}
     hasBin: true
 
-  drizzle-orm@0.33.0:
-    resolution: {integrity: sha512-SHy72R2Rdkz0LEq0PSG/IdvnT3nGiWuRk+2tXZQ90GVq/XQhpCzu/EFT3V2rox+w8MlkBQxifF8pCStNYnERfA==}
+  drizzle-orm@0.35.3:
+    resolution: {integrity: sha512-Uv6N+b36x4BaZlxc96e+ag7RnMapBLGhc4SSi2F7RDwqYJipWjaU/P68RUp1FbW9r+mxoDp8nMz2Eece8PJxfA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
       '@electric-sql/pglite': '>=0.1.1'
-      '@libsql/client': '*'
+      '@libsql/client': '>=0.10.0'
+      '@libsql/client-wasm': '>=0.10.0'
       '@neondatabase/serverless': '>=0.1'
       '@op-engineering/op-sqlite': '>=2'
       '@opentelemetry/api': ^1.4.1
@@ -2163,6 +2172,9 @@ packages:
 
   itty-time@1.0.6:
     resolution: {integrity: sha512-+P8IZaLLBtFv8hCkIjcymZOp4UJ+xW6bSlQsXGqrkmJh7vSiMFSlNne0mCYagEE0N7HDNR5jJBRxwN0oYv61Rw==}
+
+  js-base64@3.7.7:
+    resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -3609,6 +3621,15 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
+  '@libsql/client-wasm@0.14.0':
+    dependencies:
+      '@libsql/core': 0.14.0
+      js-base64: 3.7.7
+
+  '@libsql/core@0.14.0':
+    dependencies:
+      js-base64: 3.7.7
+
   '@next/env@15.0.1': {}
 
   '@next/swc-darwin-arm64@15.0.1':
@@ -4957,7 +4978,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.33.0(@cloudflare/workers-types@4.20241022.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(bun-types@1.1.32)(react@18.3.1):
+  drizzle-orm@0.35.3(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@types/react@18.3.12)(better-sqlite3@11.5.0)(bun-types@1.1.32)(react@18.3.1):
+    dependencies:
+      '@libsql/client-wasm': 0.14.0
     optionalDependencies:
       '@cloudflare/workers-types': 4.20241022.0
       '@types/react': 18.3.12
@@ -5333,6 +5356,8 @@ snapshots:
   isstream@0.1.2: {}
 
   itty-time@1.0.6: {}
+
+  js-base64@3.7.7: {}
 
   js-tokens@4.0.0: {}
 
