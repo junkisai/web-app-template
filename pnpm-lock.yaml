@@ -33,8 +33,8 @@ importers:
   apps/admin:
     dependencies:
       '@chakra-ui/react':
-        specifier: 3.0.0-next.32
-        version: 3.0.0-next.32(@emotion/react@11.13.3(@types/react@18.3.12)(react@18.3.1))(@internationalized/date@3.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.0.0
+        version: 3.0.0(@emotion/react@11.13.3(@types/react@18.3.12)(react@18.3.1))(@internationalized/date@3.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@emotion/react':
         specifier: 11.13.3
         version: 11.13.3(@types/react@18.3.12)(react@18.3.1)
@@ -110,8 +110,8 @@ importers:
   apps/app:
     dependencies:
       '@chakra-ui/react':
-        specifier: 3.0.0-next.32
-        version: 3.0.0-next.32(@emotion/react@11.13.3(@types/react@18.3.12)(react@18.3.1))(@internationalized/date@3.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 3.0.0
+        version: 3.0.0(@emotion/react@11.13.3(@types/react@18.3.12)(react@18.3.1))(@internationalized/date@3.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@emotion/react':
         specifier: 11.13.3
         version: 11.13.3(@types/react@18.3.12)(react@18.3.1)
@@ -277,8 +277,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@chakra-ui/react@3.0.0-next.32':
-    resolution: {integrity: sha512-/a1FZ+IY84sGGLKJtTQ6ox2oqtEE9MircRMc6vY1tT7f8FzVFKQO3sOtz4yU7WBfE9EqKdp6UMjAcJbZjLX/SQ==}
+  '@chakra-ui/react@3.0.0':
+    resolution: {integrity: sha512-Fe2bd97AS4hYJAi2AnypaJV6JtObybOs21AV8zIOyK/TIUJbMp3hVQP+5RsP+7lkizUGdQ2pigXyUYPwD0Kh5Q==}
     peerDependencies:
       '@emotion/react': '>=11'
       react: '>=18'
@@ -3135,7 +3135,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.2':
     optional: true
 
-  '@chakra-ui/react@3.0.0-next.32(@emotion/react@11.13.3(@types/react@18.3.12)(react@18.3.1))(@internationalized/date@3.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@chakra-ui/react@3.0.0(@emotion/react@11.13.3(@types/react@18.3.12)(react@18.3.1))(@internationalized/date@3.5.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@ark-ui/anatomy': 3.5.0(@internationalized/date@3.5.6)
       '@ark-ui/react': 4.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
