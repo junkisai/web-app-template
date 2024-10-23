@@ -1,0 +1,16 @@
+{
+  "versionGroups": [
+    {
+      "label": "Use workspace protocol (workspace packages)",
+      "dependencies": [
+        "@apps/*",
+        "@packages/*"
+      ],
+      "dependencyTypes": [
+        "prod",
+        "dev"
+      ],
+      "pinVersion": "workspace:*"
+    }
+  ]
+}
