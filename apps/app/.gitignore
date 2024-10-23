@@ -10,5 +10,5 @@ node_modules
 # output
 dist
 
-# Astro
-.astro
+# Next.js
+.next
