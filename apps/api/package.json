@@ -13,10 +13,10 @@
     "migrate:apply:remote": "wrangler d1 migrations apply web-app-template --remote",
     "lint": "conc -c auto pnpm:lint:*",
     "lint:tsc": "tsc --noEmit",
-    "lint:biome": "biome check .",
+    "lint:biome": "pnpm dlx @biomejs/biome lint .",
     "lint:prettier": "prettier --check './**/*.{md,yml,yaml,json}'",
     "fmt": "conc -c auto pnpm:fmt:*",
-    "fmt:biome": "biome format --write .",
+    "fmt:biome": "pnpm dlx @biomejs/biome format --write --unsafe .",
     "fmt:prettier": "prettier -w './**/*.{md,yml,yaml,json}'",
     "studio": "drizzle-kit studio"
   },

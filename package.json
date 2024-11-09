@@ -5,6 +5,7 @@
   "license": "UNLICENSED",
   "packageManager": "pnpm@9.11.0",
   "scripts": {
+    "gen": "turbo run gen",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "lint:packageVersion": "syncpack list-mismatches",

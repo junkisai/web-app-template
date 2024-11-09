@@ -11,11 +11,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "conc -c auto pnpm:lint:*",
-    "lint:biome": "biome check .",
+    "lint:biome": "pnpm dlx @biomejs/biome lint .",
     "lint:tsc": "tsc --noEmit",
     "lint:prettier": "prettier --check './**/*.{astro,md,yml,yaml,json}'",
     "fmt": "conc -c auto pnpm:fmt:*",
-    "fmt:biome": "biome format --write .",
+    "fmt:biome": "pnpm dlx @biomejs/biome format --write --unsafe .",
     "fmt:prettier": "prettier -w './**/*.{astro,md,yml,yaml,json}'"
   },
   "devDependencies": {
