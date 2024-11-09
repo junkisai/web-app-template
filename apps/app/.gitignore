@@ -8,7 +8,10 @@ node_modules
 .env
 
 # output
-dist
+dist/
 
-# Next.js
-.next
+# Astro
+.astro
+
+# tcm
+*.css.d.ts
