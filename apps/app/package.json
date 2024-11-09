@@ -7,10 +7,10 @@
   "license": "UNLICENSED",
   "scripts": {
     "gen": "conc -c auto pnpm:gen:*",
-    "gen:scss": "tcm src",
+    "gen:css": "tcm src",
     "dev": "conc -c auto pnpm:dev:*",
     "dev:astro": "astro dev --port=3000",
-    "dev:scss": "tcm src --watch",
+    "dev:css": "tcm src --watch",
     "build": "astro build",
     "lint": "conc -c auto pnpm:lint:*",
     "lint:astro": "astro check",
@@ -23,8 +23,6 @@
   },
   "dependencies": {
     "@astrojs/react": "3.6.2",
-    "@chakra-ui/react": "3.0.0",
-    "@emotion/react": "11.13.3",
     "astro": "4.16.7",
     "destyle.css": "4.0.1",
     "next": "15.0.1",
@@ -43,7 +41,6 @@
     "@types/react": "18.3.12",
     "concurrently": "9.0.1",
     "prettier-plugin-astro": "0.14.1",
-    "typed-css-modules": "0.9.1",
-    "typed-scss-modules": "8.0.1"
+    "typed-css-modules": "0.9.1"
   }
 }
