@@ -1,23 +1,12 @@
 {
   "extends": "@packages/tsconfig/base.json",
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "skipLibCheck": true,
-    "jsx": "preserve",
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "target": "ES2017",
-    "allowJs": true
+    }
   },
-  "include": ["./src/**/*", "env.d.ts", ".next/types/**/*.ts"],
+  "include": ["env.d.ts", "./src/**/*"],
   "exclude": ["dist"]
 }
