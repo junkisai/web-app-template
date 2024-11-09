@@ -18,7 +18,7 @@
     "lint:tsc": "tsc --noEmit",
     "lint:prettier": "prettier --check './**/*.{astro,md,yml,yaml,json}'",
     "fmt": "conc -c auto pnpm:fmt:*",
-    "fmt:biome": "biome format --write --unsafe .",
+    "fmt:biome": "pnpm dlx @biomejs/biome format --write --unsafe .",
     "fmt:prettier": "prettier -w './**/*.{astro,md,yml,yaml,json}'"
   },
   "dependencies": {
