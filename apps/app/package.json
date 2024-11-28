@@ -35,7 +35,7 @@
     "@packages/biome-config": "workspace:*",
     "@packages/prettier-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
-    "@types/node": "22.7.9",
+    "@types/node": "22.10.1",
     "@types/react": "18.3.12",
     "concurrently": "9.0.1",
     "prettier-plugin-astro": "0.14.1",
