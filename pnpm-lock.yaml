@@ -19,13 +19,13 @@ importers:
         version: 9.0.1
       syncpack:
         specifier: ^13.0.0
-        version: 13.0.0(typescript@5.6.2)
+        version: 13.0.0(typescript@5.7.2)
       turbo:
         specifier: 2.2.3
         version: 2.2.3
       typescript:
-        specifier: 5.6.2
-        version: 5.6.2
+        specifier: 5.7.2
+        version: 5.7.2
 
   apps/admin:
     dependencies:
@@ -111,7 +111,7 @@ importers:
         version: 3.6.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.4.10(@types/node@22.10.1)(lightningcss@1.25.1))
       astro:
         specifier: 4.16.7
-        version: 4.16.7(@types/node@22.10.1)(lightningcss@1.25.1)(rollup@4.24.0)(typescript@5.6.2)
+        version: 4.16.7(@types/node@22.10.1)(lightningcss@1.25.1)(rollup@4.24.0)(typescript@5.7.2)
       destyle.css:
         specifier: 4.0.1
         version: 4.0.1
@@ -127,7 +127,7 @@ importers:
     devDependencies:
       '@astrojs/check':
         specifier: 0.9.4
-        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.6.2)
+        version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.7.2)
       '@astrojs/ts-plugin':
         specifier: 1.10.4
         version: 1.10.4
@@ -3827,8 +3827,8 @@ packages:
   typescript-auto-import-cache@0.3.5:
     resolution: {integrity: sha512-fAIveQKsoYj55CozUiBoj4b/7WpN0i4o74wiGY5JVUEoD0XiqDk1tJqTEjgzL2/AizKQrXxyRosSebyDzBZKjw==}
 
-  typescript@5.6.2:
-    resolution: {integrity: sha512-NW8ByodCSNCwZeghjN3o+JX5OFH0Ojg6sadjEKY4huZ52TqbJTJnDo5+Tw98lSy63NZvi4n+ez5m2u5d4PkZyw==}
+  typescript@5.7.2:
+    resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -4283,12 +4283,12 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@astrojs/check@0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.6.2)':
+  '@astrojs/check@0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.7.2)':
     dependencies:
-      '@astrojs/language-server': 2.15.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.6.2)
+      '@astrojs/language-server': 2.15.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.7.2)
       chokidar: 4.0.1
       kleur: 4.1.5
-      typescript: 5.6.2
+      typescript: 5.7.2
       yargs: 17.7.2
     transitivePeerDependencies:
       - prettier
@@ -4298,12 +4298,12 @@ snapshots:
 
   '@astrojs/internal-helpers@0.4.1': {}
 
-  '@astrojs/language-server@2.15.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.6.2)':
+  '@astrojs/language-server@2.15.4(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.7.2)':
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/yaml2ts': 0.2.2
       '@jridgewell/sourcemap-codec': 1.5.0
-      '@volar/kit': 2.4.7(typescript@5.6.2)
+      '@volar/kit': 2.4.7(typescript@5.7.2)
       '@volar/language-core': 2.4.7
       '@volar/language-server': 2.4.7
       '@volar/language-service': 2.4.7
@@ -5388,12 +5388,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@volar/kit@2.4.7(typescript@5.6.2)':
+  '@volar/kit@2.4.7(typescript@5.7.2)':
     dependencies:
       '@volar/language-service': 2.4.7
       '@volar/typescript': 2.4.7
       typesafe-path: 0.2.2
-      typescript: 5.6.2
+      typescript: 5.7.2
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.0.8
 
@@ -6448,7 +6448,7 @@ snapshots:
     dependencies:
       printable-characters: 1.0.42
 
-  astro@4.16.7(@types/node@22.10.1)(lightningcss@1.25.1)(rollup@4.24.0)(typescript@5.6.2):
+  astro@4.16.7(@types/node@22.10.1)(lightningcss@1.25.1)(rollup@4.24.0)(typescript@5.7.2):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.1
@@ -6501,7 +6501,7 @@ snapshots:
       semver: 7.6.3
       shiki: 1.22.1
       tinyexec: 0.3.1
-      tsconfck: 3.1.4(typescript@5.6.2)
+      tsconfck: 3.1.4(typescript@5.7.2)
       unist-util-visit: 5.0.0
       vfile: 6.0.3
       vite: 5.4.10(@types/node@22.10.1)(lightningcss@1.25.1)
@@ -6511,7 +6511,7 @@ snapshots:
       yargs-parser: 21.1.1
       zod: 3.23.8
       zod-to-json-schema: 3.23.5(zod@3.23.8)
-      zod-to-ts: 1.2.0(typescript@5.6.2)(zod@3.23.8)
+      zod-to-ts: 1.2.0(typescript@5.7.2)(zod@3.23.8)
     optionalDependencies:
       sharp: 0.33.5
     transitivePeerDependencies:
@@ -6741,14 +6741,14 @@ snapshots:
       path-type: 4.0.0
       yaml: 1.10.2
 
-  cosmiconfig@9.0.0(typescript@5.6.2):
+  cosmiconfig@9.0.0(typescript@5.7.2):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.7.2
 
   cross-spawn@7.0.3:
     dependencies:
@@ -8466,13 +8466,13 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  syncpack@13.0.0(typescript@5.6.2):
+  syncpack@13.0.0(typescript@5.7.2):
     dependencies:
       '@effect/schema': 0.71.1(effect@3.6.5)
       chalk: 5.3.0
       chalk-template: 1.1.0
       commander: 12.1.0
-      cosmiconfig: 9.0.0(typescript@5.6.2)
+      cosmiconfig: 9.0.0(typescript@5.7.2)
       effect: 3.6.5
       enquirer: 2.4.1
       fast-check: 3.21.0
@@ -8522,9 +8522,9 @@ snapshots:
 
   ts-toolbelt@9.6.0: {}
 
-  tsconfck@3.1.4(typescript@5.6.2):
+  tsconfck@3.1.4(typescript@5.7.2):
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.7.2
 
   tslib@2.8.0: {}
 
@@ -8583,7 +8583,7 @@ snapshots:
     dependencies:
       semver: 7.6.3
 
-  typescript@5.6.2: {}
+  typescript@5.7.2: {}
 
   ufo@1.5.4: {}
 
@@ -8938,9 +8938,9 @@ snapshots:
     dependencies:
       zod: 3.23.8
 
-  zod-to-ts@1.2.0(typescript@5.6.2)(zod@3.23.8):
+  zod-to-ts@1.2.0(typescript@5.7.2)(zod@3.23.8):
     dependencies:
-      typescript: 5.6.2
+      typescript: 5.7.2
       zod: 3.23.8
 
   zod@3.23.8: {}
