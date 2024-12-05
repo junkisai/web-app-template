@@ -22,8 +22,8 @@
     "fmt:prettier": "prettier -w './**/*.{astro,md,yml,yaml,json}'"
   },
   "dependencies": {
-    "@astrojs/react": "3.6.2",
-    "astro": "4.16.7",
+    "@astrojs/react": "3.6.3",
+    "astro": "4.16.17",
     "destyle.css": "4.0.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
