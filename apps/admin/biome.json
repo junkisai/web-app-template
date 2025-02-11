@@ -1,11 +1,3 @@
 {
-  "extends": ["@packages/biome-config/biome"],
-  "overrides": [
-    {
-      "include": ["styled-system/**"],
-      "linter": {
-        "enabled": false
-      }
-    }
-  ]
+  "extends": ["@packages/biome-config/biome"]
 }

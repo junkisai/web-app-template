@@ -1,26 +1,29 @@
 {
   "extends": "@packages/tsconfig/base.json",
+  "include": [
+    "**/*",
+    "**/.server/**/*",
+    "**/.client/**/*",
+    ".react-router/types/**/*"
+  ],
   "compilerOptions": {
-    "types": ["@remix-run/node", "vite/client"],
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "types": ["node", "vite/client"],
+    "target": "ES2022",
+    "module": "ES2022",
     "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "target": "ES2019",
-    "strict": true,
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "noEmit": true,
+    "jsx": "react-jsx",
+    "rootDirs": [".", "./.react-router/types"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./app/*"],
-      "@/styled-system/*": ["./styled-system/*"]
-    }
-  },
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["dist"]
+      "@/react-router/*": ["./.react-router/types/app/routes/*"]
+    },
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true
+  }
 }

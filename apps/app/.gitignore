@@ -1,14 +1,4 @@
-node_modules
-
-.cache
-
-# Build files
-/build
-/public/build
-
-# Environment variables
-.env
-
+.react-router
 ## Panda
 styled-system
 styled-system-studio

@@ -1,37 +1,36 @@
 {
   "name": "admin",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "prepare": "pnpm gen",
     "gen": "conc -c auto pnpm:gen:*",
     "gen:css": "panda codegen",
-    "dev": "remix vite:dev",
-    "build": "remix vite:build",
-    "start": "remix-serve ./build/server/index.js",
-    "lint": "conc -c auto pnpm:lint:*",
-    "lint:biome": "pnpm dlx @biomejs/biome lint .",
-    "lint:tsc": "tsc",
-    "fmt": "conc -c auto pnpm:fmt:*",
-    "fmt:biome": "pnpm dlx @biomejs/biome format --write --unsafe ."
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "react-router-serve ./build/server/index.js"
   },
   "license": "UNLICENSED",
-  "type": "module",
   "dependencies": {
-    "@remix-run/node": "2.15.3",
-    "@remix-run/react": "2.15.3",
-    "@remix-run/serve": "2.15.3",
+    "@react-router/node": "7.1.5",
+    "@react-router/serve": "7.1.5",
     "isbot": "4",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-router": "7.1.5"
   },
   "devDependencies": {
     "@packages/biome-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
     "@pandacss/dev": "0.48.0",
-    "@remix-run/dev": "2.15.3",
-    "@types/react": "18.3.12",
+    "@react-router/dev": "7.1.5",
+    "@types/node": "22.13.1",
+    "@types/react": "19.0.0",
     "@types/react-dom": "19.0.3",
+    "autoprefixer": "10.4.5",
     "concurrently": "9.0.1",
+    "postcss": "8.4.49",
+    "react-router-devtools": "1.1.4",
     "vite": "6.1.0",
     "vite-tsconfig-paths": "5.1.4"
   }
