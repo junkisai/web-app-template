@@ -1,44 +1,38 @@
 {
   "name": "app",
-  "version": "1.0.0",
-  "private": true,
-  "sideEffects": false,
-  "type": "module",
-  "license": "UNLICENSED",
+  "version": "0.0.0",
   "scripts": {
+    "prepare": "pnpm gen",
     "gen": "conc -c auto pnpm:gen:*",
-    "gen:css": "tcm src",
-    "dev": "conc -c auto pnpm:dev:*",
-    "dev:astro": "astro dev --port=3000",
-    "dev:css": "tcm src --watch",
-    "build": "astro build",
+    "gen:css": "panda codegen",
+    "dev": "remix vite:dev",
+    "build": "remix vite:build",
+    "start": "remix-serve ./build/server/index.js",
     "lint": "conc -c auto pnpm:lint:*",
-    "lint:astro": "astro check",
     "lint:biome": "pnpm dlx @biomejs/biome lint .",
-    "lint:tsc": "tsc --noEmit",
-    "lint:prettier": "prettier --check './**/*.{astro,md,yml,yaml,json}'",
+    "lint:tsc": "tsc",
     "fmt": "conc -c auto pnpm:fmt:*",
-    "fmt:biome": "pnpm dlx @biomejs/biome format --write --unsafe .",
-    "fmt:prettier": "prettier -w './**/*.{astro,md,yml,yaml,json}'"
+    "fmt:biome": "pnpm dlx @biomejs/biome format --write --unsafe ."
   },
+  "license": "UNLICENSED",
+  "type": "module",
   "dependencies": {
-    "@astrojs/react": "3.6.2",
-    "astro": "4.16.7",
-    "destyle.css": "4.0.1",
+    "@remix-run/node": "2.15.3",
+    "@remix-run/react": "2.15.3",
+    "@remix-run/serve": "2.15.3",
+    "isbot": "4",
     "react": "18.3.1",
-    "react-dom": "18.3.1",
-    "react-icons": "5.3.0"
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.4",
-    "@astrojs/ts-plugin": "1.10.4",
     "@packages/biome-config": "workspace:*",
-    "@packages/prettier-config": "workspace:*",
     "@packages/tsconfig": "workspace:*",
-    "@types/node": "22.10.1",
+    "@pandacss/dev": "0.48.0",
+    "@remix-run/dev": "2.15.3",
     "@types/react": "18.3.12",
+    "@types/react-dom": "19.0.3",
     "concurrently": "9.0.1",
-    "prettier-plugin-astro": "0.14.1",
-    "typed-css-modules": "0.9.1"
+    "vite": "6.1.0",
+    "vite-tsconfig-paths": "5.1.4"
   }
 }
