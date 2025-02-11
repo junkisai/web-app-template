@@ -1,5 +1,26 @@
 # web-app-template
 
+| Kind        |                           |                           |
+| ----------- | ------------------------- | ------------------------- |
+| **app**     | Astro                     | React                     |
+|             | Panda CSS                 | destyle.css               |
+|             | Prisma (ORM)              | Astro                     |
+|             |                           | Astro                     |
+
+| Kind        |                           |                         |                               |
+| ----------- | ------------------------- | ----------------------- | ----------------------------- |
+| **app**     | Next.js (Framework)       | Tailwind CSS (CSS)      |                               |
+|             | React Hook Form (Form)    | Zod (Schema Validator)  |                               |
+|             | Prisma (ORM)              | NextAuth.js (Auth)      | OpenTelemetry (Observability) |
+|             |                           |                         |                               |
+| **Tools**   | TypeScript (Language)     | pnpm (Package Manager)  | NVM (Node Version manager)    |
+|             | Biome (Linter, Formatter) | Prettier (Formatter)    |                               |
+|             | lint-staged (Pre Commit)  | Docker Compose (Docker) |                               |
+|             |                           |                         |                               |
+| **Testing** | Vitest (Test Runner)      | Testing Library (React) | Playwright (E2E Testing)      |
+|             |                           |                         |                               |
+| **Others**  | GitHub Workflows (CI)     | Renovate (Deps Manager) | .vscode (Editor)              |
+
 ## Setup
 
 ### Install dependencies

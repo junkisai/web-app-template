@@ -1,23 +1,26 @@
 {
   "extends": "@packages/tsconfig/base.json",
   "compilerOptions": {
+    "types": ["@remix-run/node", "vite/client"],
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "target": "ES2019",
+    "strict": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "jsx": "preserve",
-    "jsxImportSource": "react",
+    "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "target": "ES2017",
-    "allowJs": true
+      "@/*": ["./app/*"],
+      "@/styled-system/*": ["./styled-system/*"]
+    }
   },
-  "include": ["./src/**/*", "env.d.ts", ".next/types/**/*.ts"],
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["dist"]
 }

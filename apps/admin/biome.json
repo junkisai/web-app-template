@@ -1,4 +1,11 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
-  "extends": ["@packages/biome-config/biome"]
+  "extends": ["@packages/biome-config/biome"],
+  "overrides": [
+    {
+      "include": ["styled-system/**"],
+      "linter": {
+        "enabled": false
+      }
+    }
+  ]
 }
