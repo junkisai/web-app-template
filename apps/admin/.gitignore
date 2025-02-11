@@ -1,14 +1,14 @@
-# dependencies
 node_modules
 
-# TypeScript cache
-*.tsbuildinfo
+.cache
 
-# dotenv environment variable files
+# Build files
+/build
+/public/build
+
+# Environment variables
 .env
 
-# output
-dist
-
-# Next.js
-.next
+## Panda
+styled-system
+styled-system-studio
