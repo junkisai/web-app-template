@@ -13,7 +13,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@react-router/node": "7.1.5",
-    "@react-router/serve": "7.1.5",
+    "@react-router/serve": "7.2.0",
     "isbot": "4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
