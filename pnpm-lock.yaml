@@ -31,10 +31,10 @@ importers:
     dependencies:
       '@react-router/node':
         specifier: 7.1.5
-        version: 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
+        version: 7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
       '@react-router/serve':
         specifier: 7.1.5
-        version: 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
+        version: 7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
       isbot:
         specifier: '4'
         version: 4.4.0
@@ -45,8 +45,8 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
       react-router:
-        specifier: 7.1.5
-        version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 7.5.2
+        version: 7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@packages/biome-config':
         specifier: workspace:*
@@ -59,7 +59,7 @@ importers:
         version: 0.48.0(typescript@5.6.2)
       '@react-router/dev':
         specifier: 7.1.5
-        version: 7.1.5(@react-router/serve@7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2))(@types/node@22.13.1)(babel-plugin-macros@3.1.0)(lightningcss@1.25.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))(wrangler@3.82.0(@cloudflare/workers-types@4.20241022.0))(yaml@2.6.0)
+        version: 7.1.5(@react-router/serve@7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2))(@types/node@22.13.1)(babel-plugin-macros@3.1.0)(lightningcss@1.25.1)(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))(wrangler@3.82.0(@cloudflare/workers-types@4.20241022.0))(yaml@2.6.0)
       '@types/node':
         specifier: 22.13.1
         version: 22.13.1
@@ -80,7 +80,7 @@ importers:
         version: 8.4.49
       react-router-devtools:
         specifier: 1.1.4
-        version: 1.1.4(@types/react-dom@19.0.3(@types/react@19.0.0))(@types/react@19.0.0)(react-dom@19.0.0(react@19.0.0))(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))
+        version: 1.1.4(@types/react-dom@19.0.3(@types/react@19.0.0))(@types/react@19.0.0)(react-dom@19.0.0(react@19.0.0))(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))
       vite:
         specifier: 6.1.0
         version: 6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0)
@@ -126,10 +126,10 @@ importers:
     dependencies:
       '@react-router/node':
         specifier: 7.1.5
-        version: 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
+        version: 7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
       '@react-router/serve':
         specifier: 7.1.5
-        version: 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
+        version: 7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
       isbot:
         specifier: '4'
         version: 4.4.0
@@ -140,8 +140,8 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
       react-router:
-        specifier: 7.1.5
-        version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 7.5.2
+        version: 7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@packages/biome-config':
         specifier: workspace:*
@@ -154,7 +154,7 @@ importers:
         version: 0.48.0(typescript@5.6.2)
       '@react-router/dev':
         specifier: 7.1.5
-        version: 7.1.5(@react-router/serve@7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2))(@types/node@22.13.1)(babel-plugin-macros@3.1.0)(lightningcss@1.25.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))(wrangler@3.82.0(@cloudflare/workers-types@4.20241022.0))(yaml@2.6.0)
+        version: 7.1.5(@react-router/serve@7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2))(@types/node@22.13.1)(babel-plugin-macros@3.1.0)(lightningcss@1.25.1)(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))(wrangler@3.82.0(@cloudflare/workers-types@4.20241022.0))(yaml@2.6.0)
       '@types/node':
         specifier: 22.13.1
         version: 22.13.1
@@ -175,7 +175,7 @@ importers:
         version: 8.4.49
       react-router-devtools:
         specifier: 1.1.4
-        version: 1.1.4(@types/react-dom@19.0.3(@types/react@19.0.0))(@types/react@19.0.0)(react-dom@19.0.0(react@19.0.0))(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))
+        version: 1.1.4(@types/react-dom@19.0.3(@types/react@19.0.0))(@types/react@19.0.0)(react-dom@19.0.0(react@19.0.0))(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))
       vite:
         specifier: 6.1.0
         version: 6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0)
@@ -485,6 +485,7 @@ packages:
 
   '@effect/schema@0.71.1':
     resolution: {integrity: sha512-XvFttkuBUL3s4ofZ+OVE4Pagb4wsPG8laSS8iO5lVI9Yt1zIM49uxlYIA2BJ45jjS3MdplUepC0NilotKnjU2A==}
+    deprecated: this package has been merged into the main effect package
     peerDependencies:
       effect: ^3.6.5
 
@@ -1796,9 +1797,6 @@ packages:
 
   '@tsconfig/strictest@2.0.5':
     resolution: {integrity: sha512-ec4tjL2Rr0pkZ5hww65c+EEPYwxOi4Ryv+0MtjeaSQRJyq322Q27eOQiFbuNgw2hpL4hB1/W/HBGk3VKS43osg==}
-
-  '@types/cookie@0.6.0':
-    resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
@@ -3525,8 +3523,8 @@ packages:
       react-router: '>=7.0.0'
       vite: '>=5.0.0 || >=6.0.0'
 
-  react-router@7.1.5:
-    resolution: {integrity: sha512-8BUF+hZEU4/z/JD201yK6S+UYhsf58bzYIDq2NS1iGpwxSXDu7F+DeGSkIXMFBuHZB21FSiCzEcUb18cQNdRkA==}
+  react-router@7.5.2:
+    resolution: {integrity: sha512-9Rw8r199klMnlGZ8VAsV/I8WrIF6IyJ90JQUdboupx1cdkgYqwnrYjH+I/nY/7cA1X5zia4mDJqH36npP7sxGQ==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -5449,7 +5447,7 @@ snapshots:
 
   '@radix-ui/rect@1.1.0': {}
 
-  '@react-router/dev@7.1.5(@react-router/serve@7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2))(@types/node@22.13.1)(babel-plugin-macros@3.1.0)(lightningcss@1.25.1)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))(wrangler@3.82.0(@cloudflare/workers-types@4.20241022.0))(yaml@2.6.0)':
+  '@react-router/dev@7.1.5(@react-router/serve@7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2))(@types/node@22.13.1)(babel-plugin-macros@3.1.0)(lightningcss@1.25.1)(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0))(wrangler@3.82.0(@cloudflare/workers-types@4.20241022.0))(yaml@2.6.0)':
     dependencies:
       '@babel/core': 7.26.8
       '@babel/generator': 7.26.8
@@ -5460,7 +5458,7 @@ snapshots:
       '@babel/traverse': 7.26.8
       '@babel/types': 7.26.8
       '@npmcli/package-json': 4.0.1
-      '@react-router/node': 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
+      '@react-router/node': 7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
       arg: 5.0.2
       babel-dead-code-elimination: 1.0.9
       chokidar: 4.0.3
@@ -5476,14 +5474,14 @@ snapshots:
       picomatch: 2.3.1
       prettier: 2.8.7
       react-refresh: 0.14.2
-      react-router: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       semver: 7.6.3
       set-cookie-parser: 2.7.1
       valibot: 0.41.0(typescript@5.6.2)
       vite: 6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0)
       vite-node: 3.0.0-beta.2(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0)
     optionalDependencies:
-      '@react-router/serve': 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
+      '@react-router/serve': 7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
       typescript: 5.6.2
       wrangler: 3.82.0(@cloudflare/workers-types@4.20241022.0)
     transitivePeerDependencies:
@@ -5502,33 +5500,33 @@ snapshots:
       - tsx
       - yaml
 
-  '@react-router/express@7.1.5(express@4.21.2)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)':
+  '@react-router/express@7.1.5(express@4.21.2)(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)':
     dependencies:
-      '@react-router/node': 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
+      '@react-router/node': 7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
       express: 4.21.2
-      react-router: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     optionalDependencies:
       typescript: 5.6.2
 
-  '@react-router/node@7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)':
+  '@react-router/node@7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)':
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
-      react-router: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       source-map-support: 0.5.21
       stream-slice: 0.1.2
       undici: 6.21.1
     optionalDependencies:
       typescript: 5.6.2
 
-  '@react-router/serve@7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)':
+  '@react-router/serve@7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)':
     dependencies:
-      '@react-router/express': 7.1.5(express@4.21.2)(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
-      '@react-router/node': 7.1.5(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
+      '@react-router/express': 7.1.5(express@4.21.2)(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
+      '@react-router/node': 7.1.5(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.6.2)
       compression: 1.8.0
       express: 4.21.2
       get-port: 5.1.1
       morgan: 1.10.0
-      react-router: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       source-map-support: 0.5.21
     transitivePeerDependencies:
       - supports-color
@@ -5601,8 +5599,6 @@ snapshots:
       path-browserify: 1.0.1
 
   '@tsconfig/strictest@2.0.5': {}
-
-  '@types/cookie@0.6.0': {}
 
   '@types/estree@1.0.6': {}
 
@@ -7284,7 +7280,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.0
 
-  react-router-devtools@1.1.4(@types/react-dom@19.0.3(@types/react@19.0.0))(@types/react@19.0.0)(react-dom@19.0.0(react@19.0.0))(react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0)):
+  react-router-devtools@1.1.4(@types/react-dom@19.0.3(@types/react@19.0.0))(@types/react@19.0.0)(react-dom@19.0.0(react@19.0.0))(react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0)):
     dependencies:
       '@babel/core': 7.26.8
       '@babel/generator': 7.26.8
@@ -7304,7 +7300,7 @@ snapshots:
       react-diff-viewer-continued: 4.0.5(@types/react@19.0.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-dom: 19.0.0(react@19.0.0)
       react-hotkeys-hook: 4.6.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react-router: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-router: 7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-tooltip: 5.28.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       vite: 6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(yaml@2.6.0)
     optionalDependencies:
@@ -7317,9 +7313,8 @@ snapshots:
       - '@types/react-dom'
       - supports-color
 
-  react-router@7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-router@7.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
-      '@types/cookie': 0.6.0
       cookie: 1.0.2
       react: 19.0.0
       set-cookie-parser: 2.7.1
