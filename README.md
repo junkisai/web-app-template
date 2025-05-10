@@ -30,6 +30,17 @@ APIトークン テンプレートの「Cloudflare Workers を編集する」を
 - **services.service**
 - **r2_buckets.bucket_name**
 
+### シンボリックリンクを作成
+
+以下のディレクトリでシンボリックリンクを作成してください。
+
+- apps/app
+- packages/db
+
+```sh
+ln -s ../../.env ./.env
+```
+
 ### Install dependencies
 
 ```sh
