@@ -1,0 +1,39 @@
+{
+  "name": "admin",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "UNLICENSED",
+  "scripts": {
+    "prepare": "panda codegen",
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && dotenv -e .env -- opennextjs-cloudflare deploy",
+    "lint": "concurrently \"pnpm:lint:*\"",
+    "lint:tsc": "tsc --noEmit",
+    "lint:biome": "biome check .",
+    "fmt": "concurrently \"pnpm:fmt:*\"",
+    "fmt:biome": "biome check --write --unsafe ."
+  },
+  "dependencies": {
+    "@opennextjs/cloudflare": "1.0.1",
+    "@packages/db": "workspace:*",
+    "lucide-react": "0.509.0",
+    "next": "15.3.2",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@packages/biome-config": "workspace:*",
+    "@pandacss/dev": "0.48.0",
+    "@tsconfig/strictest": "2.0.5",
+    "@types/node": "22.13.1",
+    "@types/react": "19.0.0",
+    "@types/react-dom": "19.0.3",
+    "concurrently": "9.0.1",
+    "dotenv-cli": "8.0.0",
+    "typescript": "5.6.2",
+    "wrangler": "4.14.4"
+  }
+}
