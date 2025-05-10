@@ -14,6 +14,22 @@
 
 ## Setup
 
+### Prisma Postgres
+
+[Prisma Postgresの管理画面](https://console.prisma.io/cm2k2bkw6033kz4nm3p680ptx/overview)にいき、プロジェクトを作成してください。
+プロジェクトを作成すると`DATABASE_URL`が発行されるので、`.env`ファイルに値をセットしてください。
+
+### Cloudflare
+
+[APIトークン](https://dash.cloudflare.com/7f1a98e6d518e869f7dbe928287cf37b/api-tokens)を作成します。
+APIトークン テンプレートの「Cloudflare Workers を編集する」を選択し、発行されたAPIトークンを`.env`ファイルにセットしてください。
+
+つぎに`apps/app/wrangler.jsonc`ファイルの中身の一部を作成するアプリケーション名に差し替えます。
+
+- **name**
+- **services.service**
+- **r2_buckets.bucket_name**
+
 ### Install dependencies
 
 ```sh
