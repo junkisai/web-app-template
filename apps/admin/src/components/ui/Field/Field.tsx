@@ -24,7 +24,6 @@ const Root = ({ children, ...props }: FieldRootProps) => {
           display: 'flex',
           flexDirection: 'column',
           gap: '1.5',
-          mb: '4',
         })}
         {...props}
       >
