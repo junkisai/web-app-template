@@ -10,19 +10,15 @@ import { css } from 'styled-system/css'
 import { Input } from './Input'
 import { FieldContext, useFieldContext } from './context'
 
-type FieldRootProps = PropsWithChildren &
-  HTMLAttributes<HTMLDivElement> & {
-    isInvalid?: boolean
-  }
+type FieldRootProps = PropsWithChildren & HTMLAttributes<HTMLDivElement>
 
-const Root = ({ children, isInvalid = false, ...props }: FieldRootProps) => {
+const Root = ({ children, ...props }: FieldRootProps) => {
   const reactId = useId()
   const inputId = `field-${reactId}`
-  const helperId = `${inputId}-helper`
   const errorId = `${inputId}-error`
 
   return (
-    <FieldContext.Provider value={{ isInvalid, inputId, helperId, errorId }}>
+    <FieldContext.Provider value={{ inputId, errorId }}>
       <div
         className={css({
           display: 'flex',
@@ -48,8 +44,7 @@ const Label = ({ children }: { children: ReactNode }) => {
 }
 
 const ErrorMessage = ({ children }: { children: ReactNode }) => {
-  const { isInvalid, errorId } = useFieldContext('Field.ErrorMessage')
-  if (!isInvalid) return null
+  const { errorId } = useFieldContext('Field.ErrorMessage')
   return (
     <p id={errorId} className={css({ fontSize: 'xs', color: 'red.600' })}>
       {children}
@@ -62,12 +57,9 @@ const Control = ({
 }: {
   children: React.ReactElement<React.InputHTMLAttributes<HTMLInputElement>>
 }) => {
-  const { inputId, isInvalid, helperId, errorId } =
-    useFieldContext('Field.Control')
+  const { inputId } = useFieldContext('Field.Control')
   return React.cloneElement(children, {
     id: inputId,
-    'aria-invalid': isInvalid,
-    'aria-describedby': isInvalid ? errorId : helperId,
   })
 }
 

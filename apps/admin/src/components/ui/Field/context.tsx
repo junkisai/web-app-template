@@ -1,9 +1,7 @@
 import { createContext, useContext } from 'react'
 
 type FieldContextProps = {
-  isInvalid?: boolean
   inputId: string
-  helperId?: string
   errorId?: string
 }
 
