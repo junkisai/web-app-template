@@ -53,7 +53,7 @@ export const Sidebar: FC = () => {
   return (
     <div className={wrapperStyle}>
       <div className={contentStyle}>
-        <div className={titleStyle}>Sapporo EATS - admin</div>
+        <div className={titleStyle}>web-app-template - admin</div>
         <div className={dividerStyle} />
         <div className={navStyle}>
           {NAV_ITEMS.map((item) => (
