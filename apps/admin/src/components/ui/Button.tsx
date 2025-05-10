@@ -68,9 +68,9 @@ type ButtonVariants = RecipeVariantProps<typeof buttonStyle>
 type Props = PropsWithChildren &
   ButtonVariants &
   (
-    | {
+    | ({
         as?: 'button'
-      }
+      } & React.ButtonHTMLAttributes<HTMLButtonElement>)
     | {
         as: 'a'
         href: string
