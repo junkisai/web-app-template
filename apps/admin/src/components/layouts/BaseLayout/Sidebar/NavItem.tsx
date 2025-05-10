@@ -9,6 +9,7 @@ const navItemStyle = css.raw({
   px: '2',
   py: '1',
   borderRadius: 'md',
+  fontSize: 'sm',
   _hover: {
     bg: 'stone.300',
   },
@@ -16,6 +17,7 @@ const navItemStyle = css.raw({
 
 const navItemActiveStyle = css.raw({
   bg: 'stone.200',
+  fontWeight: 'semibold',
 })
 
 export type Props = {
