@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import type { FC, PropsWithChildren } from 'react'
-import { type RecipeVariantProps, cva } from 'styled-system/css'
+import { type RecipeVariantProps, css, cva } from 'styled-system/css'
 import { styled } from 'styled-system/jsx'
 import { match } from 'ts-pattern'
+import { Spinner } from './Spinner'
 
 const buttonStyle = cva({
   base: {
@@ -10,14 +11,23 @@ const buttonStyle = cva({
     alignItems: 'center',
     cursor: 'pointer',
     borderRadius: 'md',
+    boxShadow: 'md',
   },
   variants: {
     variant: {
       solid: {
         bg: 'stone.800',
         color: 'white',
+        _disabled: {
+          bg: 'stone.300',
+          color: 'whiteAlpha.700',
+        },
         _hover: {
           bg: 'stone.700',
+          _disabled: {
+            bg: 'stone.300',
+            color: 'whiteAlpha.700',
+          },
         },
         _active: {
           bg: 'stone.600',
@@ -68,9 +78,11 @@ type ButtonVariants = RecipeVariantProps<typeof buttonStyle>
 type Props = PropsWithChildren &
   ButtonVariants &
   (
-    | ({
+    | (React.ButtonHTMLAttributes<HTMLButtonElement> & {
         as?: 'button'
-      } & React.ButtonHTMLAttributes<HTMLButtonElement>)
+        isLoading?: boolean
+        isDisabled?: boolean
+      })
     | {
         as: 'a'
         href: string
@@ -84,8 +96,18 @@ export const Button: FC<Props> = ({ children, ...props }) => {
 
       return <ButtonLink {...props}>{children}</ButtonLink>
     })
-    .otherwise((props) => {
+    .otherwise(({ isLoading, isDisabled, ...props }) => {
       const Button = styled('button', buttonStyle)
-      return <Button {...props}>{children}</Button>
+      const isInactive = isLoading || isDisabled
+
+      return (
+        <Button
+          {...props}
+          disabled={isInactive}
+          className={css({ cursor: isInactive ? 'not-allowed' : 'pointer' })}
+        >
+          {isLoading ? <Spinner size="sm" /> : children}
+        </Button>
+      )
     })
 }
