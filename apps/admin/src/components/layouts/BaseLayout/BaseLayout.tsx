@@ -7,13 +7,17 @@ const wrapperStyle = css({
   gap: '10',
 })
 
+const mainStyle = css({
+  pt: '10',
+})
+
 type Props = PropsWithChildren
 
 export const BaseLayout: FC<Props> = ({ children }) => {
   return (
     <div className={wrapperStyle}>
       <Sidebar />
-      {children}
+      <div className={mainStyle}>{children}</div>
     </div>
   )
 }
