@@ -24,7 +24,10 @@
 [APIトークン](https://dash.cloudflare.com/7f1a98e6d518e869f7dbe928287cf37b/api-tokens)を作成します。
 APIトークン テンプレートの「Cloudflare Workers を編集する」を選択し、発行されたAPIトークンを`.env`ファイルにセットしてください。
 
-つぎに[apps/app/wrangler.jsonc](./apps/app/wrangler.jsonc)ファイルの中身の一部を作成するアプリケーション名に差し替えます。
+つぎにR2バケットを作成します。
+[R2オブジェクトストレージ](https://dash.cloudflare.com/7f1a98e6d518e869f7dbe928287cf37b/r2/overview)に移動し、アプリケーション名と同じ名前でバケットを作成します。
+
+最後に[apps/app/wrangler.jsonc](./apps/app/wrangler.jsonc)ファイルの中身の一部を作成するアプリケーション名に差し替えます。
 
 - **name**
 - **services.service**
