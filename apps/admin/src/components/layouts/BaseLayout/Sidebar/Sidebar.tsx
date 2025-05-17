@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/Button'
 import type { FC } from 'react'
 import { css } from 'styled-system/css'
 import { NavItem, type Props as NavItemProps } from './NavItem'
@@ -42,6 +43,14 @@ const dividerStyle = css({
   borderColor: 'stone.300',
 })
 
+const bodyStyle = css({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  p: '2',
+})
+
 const navStyle = css({
   display: 'flex',
   flexDirection: 'column',
@@ -55,10 +64,15 @@ export const Sidebar: FC = () => {
       <div className={contentStyle}>
         <div className={titleStyle}>web-app-template - admin</div>
         <div className={dividerStyle} />
-        <div className={navStyle}>
-          {NAV_ITEMS.map((item) => (
-            <NavItem key={item.label} label={item.label} href={item.href} />
-          ))}
+        <div className={bodyStyle}>
+          <div className={navStyle}>
+            {NAV_ITEMS.map((item) => (
+              <NavItem key={item.label} label={item.label} href={item.href} />
+            ))}
+          </div>
+          <Button as="a" href="/auth/logout" size="sm" variant="solid">
+            Logout
+          </Button>
         </div>
       </div>
     </div>
