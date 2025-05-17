@@ -16,6 +16,7 @@
     "fmt:biome": "biome check --write --unsafe ."
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "4.5.1",
     "@opennextjs/cloudflare": "1.0.1",
     "@packages/db": "workspace:*",
     "lucide-react": "0.509.0",
