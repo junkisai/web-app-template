@@ -34,7 +34,7 @@ type Props = {
   onClick: () => void
 }
 
-export const InlineEditButton: FC<Props> = ({ value, onClick }) => {
+export const ValueDisplay: FC<Props> = ({ value, onClick }) => {
   return (
     <button type="button" className={`group ${buttonStyle}`} onClick={onClick}>
       <span>{value}</span>

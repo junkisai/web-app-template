@@ -1,9 +1,12 @@
+'use client'
+
 import { Check, X } from 'lucide-react'
 import { type FC, useCallback, useState } from 'react'
 import { css } from 'styled-system/css'
-import type { InlineEditFieldType } from './types'
+import type { NumberFieldProps } from '../types'
 
 const wrapperStyle = css({
+  flex: 1,
   display: 'flex',
   alignItems: 'center',
   gap: 2,
@@ -46,36 +49,28 @@ const iconStyle = css({
   color: 'white',
 })
 
-type Props = {
-  type?: InlineEditFieldType
-  initialValue: string
-  onSave: (value: string) => void
+type Props = NumberFieldProps & {
   onCancel: () => void
 }
 
-export const EditModeField: FC<Props> = ({
-  type = 'text',
-  initialValue,
-  onSave,
-  onCancel,
-}) => {
+export const Field: FC<Props> = ({ initialValue, onSave, onCancel }) => {
   const [value, setValue] = useState(initialValue)
-
-  const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(event.target.value)
-    },
-    [],
-  )
 
   const handleClickSave = useCallback(() => {
     onSave(value)
   }, [onSave, value])
 
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValue(Number(event.target.value))
+    },
+    [],
+  )
+
   return (
     <div className={wrapperStyle}>
       <input
-        type={type}
+        type="number"
         value={value}
         className={inputStyle}
         onChange={handleChange}
