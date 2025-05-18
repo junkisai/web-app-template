@@ -21,5 +21,6 @@ yarn-error.log*
 # cloudflare
 .wrangler
 
-# enviroments
+# environments
 .env
+.env.production
