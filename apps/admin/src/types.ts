@@ -1,3 +1,3 @@
 export type PageProps = {
-  params: Record<string, string | string[]>
+  params: Promise<Record<string, string | string[]>>
 }
