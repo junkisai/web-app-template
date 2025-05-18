@@ -6,7 +6,8 @@
   "main": "src/index.ts",
   "scripts": {
     "gen": "prisma generate --no-engine",
-    "migrate:dev": "prisma migrate dev"
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy"
   },
   "prisma": {
     "seed": "pnpm vite-node prisma/seed.ts"
