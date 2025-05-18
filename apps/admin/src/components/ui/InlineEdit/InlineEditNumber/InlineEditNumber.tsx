@@ -1,9 +1,9 @@
 import { type FC, useCallback, useState } from 'react'
 import { ValueDisplay } from '../ValueDisplay'
-import type { NumberInlineEditField } from '../types'
+import type { NumberFieldProps } from '../types'
 import { Field } from './Field'
 
-type Props = NumberInlineEditField
+type Props = NumberFieldProps
 
 export const InlineEditNumber: FC<Props> = ({ type, initialValue, onSave }) => {
   const [isEditing, setIsEditing] = useState(false)
