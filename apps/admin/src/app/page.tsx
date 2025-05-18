@@ -1,4 +1,3 @@
-import { prisma } from '@packages/db'
 import { css } from 'styled-system/css'
 
 export default async function Page() {
