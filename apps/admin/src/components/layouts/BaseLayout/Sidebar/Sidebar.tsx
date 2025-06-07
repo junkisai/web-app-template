@@ -17,6 +17,8 @@ const wrapperStyle = css({
 })
 
 const contentStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
   position: 'sticky',
   top: '20px',
   w: '16rem',
@@ -55,7 +57,6 @@ const navStyle = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '1',
-  p: '2',
 })
 
 export const Sidebar: FC = () => {
