@@ -17,7 +17,7 @@
     "fmt:biome": "biome check --write --unsafe ."
   },
   "dependencies": {
-    "@auth0/nextjs-auth0": "4.5.1",
+    "@auth0/nextjs-auth0": "4.6.1",
     "@hookform/resolvers": "5.0.1",
     "@opennextjs/cloudflare": "1.0.1",
     "@packages/db": "workspace:*",
