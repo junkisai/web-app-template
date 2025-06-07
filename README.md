@@ -33,11 +33,37 @@ APIトークン テンプレートの「Cloudflare Workers を編集する」を
 - **services.service**
 - **r2_buckets.bucket_name**
 
+### Auth0
+
+アプリケーションを新規作成して、発行された環境変数を`.env`ファイルにセットしてください。
+
+- AUTH0_DOMAIN
+- AUTH0_CLIENT_ID
+- AUTH0_CLIENT_SECRET
+
+`AUTH0_SECRET`は`.env.template`に記載されているコマンドを実行することで得られる値をセットしてください。
+
+次に、アプリケーションのSettingsメニューからコールバックURLを設定します。
+本番環境のURLも登録する必要があります。
+
+**Allowed Callback URLs**
+
+```txt
+http://localhost:3001/auth/callback, https://XXX.YYY.workers.dev/auth/callback
+```
+
+**Allowed Logout URLs**
+
+```txt
+http://localhost:3001, http://localhost:3001/auth/logout, https://XXX.YYY.workers.dev, https://XXX.YYY.workers.dev/auth/logout
+```
+
 ### シンボリックリンクを作成
 
 以下のディレクトリでシンボリックリンクを作成してください。
 
 - apps/app
+- apps/admin
 - packages/db
 
 ```sh
