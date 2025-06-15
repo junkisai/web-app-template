@@ -7,6 +7,7 @@ const wrapperStyle = css({
   flexDir: 'column',
   gap: '7',
   maxW: '720px',
+  h: 'full',
   margin: '0 auto',
 })
 

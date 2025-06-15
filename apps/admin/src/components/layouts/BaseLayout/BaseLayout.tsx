@@ -7,9 +7,11 @@ const wrapperStyle = css({
   display: 'grid',
   gridTemplateColumns: 'auto 1fr',
   gap: '10',
+  h: 'full',
 })
 
 const mainStyle = css({
+  minH: 0,
   pt: '10',
   pr: '5',
 })
