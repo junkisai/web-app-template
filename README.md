@@ -33,6 +33,43 @@ APIトークン テンプレートの「Cloudflare Workers を編集する」を
 - **services.service**
 - **r2_buckets.bucket_name**
 
+### Cloudflare R2 環境変数
+
+R2 バケットを作成したら、ダッシュボードの **S3 API** タブから発行される値を確認し、`.env` に設定します。
+`.env.template` に記載されている以下の変数を置き換えてください。
+
+```env
+NEXT_PUBLIC_R2_BUCKET_NAME="<作成したバケット名>"
+NEXT_PUBLIC_R2_BUCKET_URL="<パブリックバケット URL>"
+NEXT_PUBLIC_R2_ACCESS_KEY="<Access Key ID>"
+NEXT_PUBLIC_R2_SECRET_KEY="<Access Key Secret>"
+NEXT_PUBLIC_R2_ENDPOINT="<S3 API エンドポイント>"
+```
+
+#### CORS の設定
+
+R2 のバケット設定画面から **CORS** を有効にし、アプリで利用するドメインを許可してください。開発用に `http://localhost:3000` と `http://localhost:3001` を追加します。許可するメソッドは `GET`, `HEAD`, `PUT` を指定します。以下は開発環境向けの例です。Workers にデプロイして `https://<service>.workers.dev` やカスタムドメインを利用する場合は、それらの URL も `AllowedOrigins` に追加してください。
+
+```json
+[
+  {
+    "AllowedOrigins": [
+      "http://localhost:3000",
+      "http://localhost:3001"
+    ],
+    "AllowedMethods": [
+      "GET",
+      "HEAD",
+      "PUT"
+    ],
+    "AllowedHeaders": [
+      "*"
+    ],
+    "MaxAgeSeconds": 3000
+  }
+]
+```
+
 ### Auth0
 
 アプリケーションを新規作成して、発行された環境変数を`.env`ファイルにセットしてください。
