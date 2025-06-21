@@ -36,11 +36,20 @@ const buttonStyle = cva({
       outline: {
         borderWidth: '1px',
         borderColor: 'stone.300',
+        _disabled: {
+          color: 'stone.300',
+        },
         _hover: {
           bg: 'stone.100',
+          _disabled: {
+            bg: 'transparent',
+          },
         },
         _active: {
           bg: 'stone.200',
+          _disabled: {
+            bg: 'transparent',
+          },
         },
       },
     },
