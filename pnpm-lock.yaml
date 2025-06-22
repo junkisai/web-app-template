@@ -15,8 +15,8 @@ importers:
         specifier: workspace:*
         version: link:packages/prettier-config
       concurrently:
-        specifier: 9.0.1
-        version: 9.0.1
+        specifier: 9.2.0
+        version: 9.2.0
       syncpack:
         specifier: 13.0.0
         version: 13.0.0(typescript@5.6.2)
@@ -91,8 +91,8 @@ importers:
         specifier: 19.0.3
         version: 19.0.3(@types/react@19.0.0)
       concurrently:
-        specifier: 9.0.1
-        version: 9.0.1
+        specifier: 9.2.0
+        version: 9.2.0
       dotenv-cli:
         specifier: 8.0.0
         version: 8.0.0
@@ -146,8 +146,8 @@ importers:
         specifier: 19.0.3
         version: 19.0.3(@types/react@19.0.0)
       concurrently:
-        specifier: 9.0.1
-        version: 9.0.1
+        specifier: 9.2.0
+        version: 9.2.0
       dotenv-cli:
         specifier: 8.0.0
         version: 8.0.0
@@ -787,6 +787,7 @@ packages:
 
   '@effect/schema@0.71.1':
     resolution: {integrity: sha512-XvFttkuBUL3s4ofZ+OVE4Pagb4wsPG8laSS8iO5lVI9Yt1zIM49uxlYIA2BJ45jjS3MdplUepC0NilotKnjU2A==}
+    deprecated: this package has been merged into the main effect package
     peerDependencies:
       effect: ^3.6.5
 
@@ -2862,8 +2863,8 @@ packages:
   commander@2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
 
-  concurrently@9.0.1:
-    resolution: {integrity: sha512-wYKvCd/f54sTXJMSfV6Ln/B8UrfLBKOYa+lzc6CHay3Qek+LorVSBdMVfyewFhRbH0Rbabsk4D+3PL/VjQ5gzg==}
+  concurrently@9.2.0:
+    resolution: {integrity: sha512-IsB/fiXTupmagMW4MNp2lx2cdSN2FfZq78vF90LBB+zZHArbIQZjQtzXCiXnvTxCZSvXanTqFLWBjw2UkLx1SQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -7949,7 +7950,7 @@ snapshots:
 
   commander@2.20.3: {}
 
-  concurrently@9.0.1:
+  concurrently@9.2.0:
     dependencies:
       chalk: 4.1.2
       lodash: 4.17.21
