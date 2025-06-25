@@ -58,7 +58,8 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      {mounted && portalRef.current &&
+      {mounted &&
+        portalRef.current &&
         createPortal(
           <div
             className={css({
