@@ -82,8 +82,8 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       '@types/node':
-        specifier: 22.13.1
-        version: 22.13.1
+        specifier: 22.16.5
+        version: 22.16.5
       '@types/react':
         specifier: 19.0.0
         version: 19.0.0
@@ -137,8 +137,8 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       '@types/node':
-        specifier: 22.13.1
-        version: 22.13.1
+        specifier: 22.16.5
+        version: 22.16.5
       '@types/react':
         specifier: 19.0.0
         version: 19.0.0
@@ -174,8 +174,8 @@ importers:
         specifier: 2.0.5
         version: 2.0.5
       '@types/node':
-        specifier: 22.13.1
-        version: 22.13.1
+        specifier: 22.16.5
+        version: 22.16.5
       prisma:
         specifier: 6.7.0
         version: 6.7.0(typescript@5.6.2)
@@ -184,7 +184,7 @@ importers:
         version: 5.6.2
       vite-node:
         specifier: 3.1.3
-        version: 3.1.3(@types/node@22.13.1)(lightningcss@1.25.1)(terser@5.16.9)(yaml@2.7.1)
+        version: 3.1.3(@types/node@22.16.5)(lightningcss@1.25.1)(terser@5.16.9)(yaml@2.7.1)
 
   packages/prettier-config:
     devDependencies:
@@ -787,6 +787,7 @@ packages:
 
   '@effect/schema@0.71.1':
     resolution: {integrity: sha512-XvFttkuBUL3s4ofZ+OVE4Pagb4wsPG8laSS8iO5lVI9Yt1zIM49uxlYIA2BJ45jjS3MdplUepC0NilotKnjU2A==}
+    deprecated: this package has been merged into the main effect package
     peerDependencies:
       effect: ^3.6.5
 
@@ -2647,8 +2648,8 @@ packages:
   '@types/node@17.0.45':
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
 
-  '@types/node@22.13.1':
-    resolution: {integrity: sha512-jK8uzQlrvXqEU91UxiK5J7pKHyzgnI1Qnl0QDHIgVGuolJhRb9EEl28Cj9b3rGR8B2lhFCtvIm5os8lFnO/1Ew==}
+  '@types/node@22.16.5':
+    resolution: {integrity: sha512-bJFoMATwIGaxxx8VJPeM8TonI8t579oRvgAuT8zFugJsJZgzqv0Fu8Mhp68iecjzG7cnN3mO2dJQ5uUM2EFrgQ==}
 
   '@types/react-dom@19.0.3':
     resolution: {integrity: sha512-0Knk+HJiMP/qOZgMyNFamlIjw9OFCsyC2ZbigmEEyXXixgre6IQpm/4V+r3qH4GC1JPvRJKInw+on2rV6YZLeA==}
@@ -4226,8 +4227,8 @@ packages:
   ufo@1.5.4:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
 
-  undici-types@6.20.0:
-    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
   undici@5.29.0:
     resolution: {integrity: sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==}
@@ -7717,9 +7718,9 @@ snapshots:
 
   '@types/node@17.0.45': {}
 
-  '@types/node@22.13.1':
+  '@types/node@22.16.5':
     dependencies:
-      undici-types: 6.20.0
+      undici-types: 6.21.0
 
   '@types/react-dom@19.0.3(@types/react@19.0.0)':
     dependencies:
@@ -9352,7 +9353,7 @@ snapshots:
 
   ufo@1.5.4: {}
 
-  undici-types@6.20.0: {}
+  undici-types@6.21.0: {}
 
   undici@5.29.0:
     dependencies:
@@ -9419,13 +9420,13 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-node@3.1.3(@types/node@22.13.1)(lightningcss@1.25.1)(terser@5.16.9)(yaml@2.7.1):
+  vite-node@3.1.3(@types/node@22.16.5)(lightningcss@1.25.1)(terser@5.16.9)(yaml@2.7.1):
     dependencies:
       cac: 6.7.14
       debug: 4.4.0
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(terser@5.16.9)(yaml@2.7.1)
+      vite: 6.1.0(@types/node@22.16.5)(lightningcss@1.25.1)(terser@5.16.9)(yaml@2.7.1)
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -9440,13 +9441,13 @@ snapshots:
       - tsx
       - yaml
 
-  vite@6.1.0(@types/node@22.13.1)(lightningcss@1.25.1)(terser@5.16.9)(yaml@2.7.1):
+  vite@6.1.0(@types/node@22.16.5)(lightningcss@1.25.1)(terser@5.16.9)(yaml@2.7.1):
     dependencies:
       esbuild: 0.24.2
       postcss: 8.5.2
       rollup: 4.34.6
     optionalDependencies:
-      '@types/node': 22.13.1
+      '@types/node': 22.16.5
       fsevents: 2.3.3
       lightningcss: 1.25.1
       terser: 5.16.9
