@@ -1,24 +1,4 @@
-import { auth0 } from '@/libs/auth0'
-import { type NextRequest, NextResponse } from 'next/server'
-
-export async function middleware(request: NextRequest) {
-  const authRes = await auth0.middleware(request)
-
-  // authentication routes — let the middleware handle it
-  if (request.nextUrl.pathname.startsWith('/auth')) {
-    return authRes
-  }
-
-  const { origin } = new URL(request.url)
-  const session = await auth0.getSession()
-
-  // user does not have a session — redirect to login
-  if (!session) {
-    return NextResponse.redirect(`${origin}/auth/login`)
-  }
-
-  return authRes
-}
+export async function middleware() {}
 
 export const config = {
   matcher: [

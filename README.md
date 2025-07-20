@@ -70,30 +70,9 @@ R2 のバケット設定画面から **CORS** を有効にし、アプリで利�
 ]
 ```
 
-### Auth0
+### Auth.js
 
-アプリケーションを新規作成して、発行された環境変数を`.env`ファイルにセットしてください。
-
-- AUTH0_DOMAIN
-- AUTH0_CLIENT_ID
-- AUTH0_CLIENT_SECRET
-
-`AUTH0_SECRET`は`.env.template`に記載されているコマンドを実行することで得られる値をセットしてください。
-
-次に、アプリケーションのSettingsメニューからコールバックURLを設定します。
-本番環境のURLも登録する必要があります。
-
-**Allowed Callback URLs**
-
-```txt
-http://localhost:3001/auth/callback, https://XXX.YYY.workers.dev/auth/callback
-```
-
-**Allowed Logout URLs**
-
-```txt
-http://localhost:3001, http://localhost:3001/auth/logout, https://XXX.YYY.workers.dev, https://XXX.YYY.workers.dev/auth/logout
-```
+`AUTH_SECRET`は`.env.template`に記載されているコマンドを実行することで得られる値をセットしてください。
 
 ### シンボリックリンクを作成
 
