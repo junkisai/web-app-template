@@ -19,13 +19,13 @@ importers:
         version: 9.0.1
       syncpack:
         specifier: 13.0.0
-        version: 13.0.0(typescript@5.6.2)
+        version: 13.0.0(typescript@5.9.2)
       turbo:
         specifier: 2.2.3
         version: 2.2.3
       typescript:
-        specifier: 5.6.2
-        version: 5.6.2
+        specifier: 5.9.2
+        version: 5.9.2
 
   apps/admin:
     dependencies:
@@ -64,7 +64,7 @@ importers:
         version: 5.7.0
       valibot:
         specifier: 1.1.0
-        version: 1.1.0(typescript@5.6.2)
+        version: 1.1.0(typescript@5.9.2)
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
@@ -74,7 +74,7 @@ importers:
         version: link:../../packages/biome-config
       '@pandacss/dev':
         specifier: 0.54.0
-        version: 0.54.0(typescript@5.6.2)
+        version: 0.54.0(typescript@5.9.2)
       '@tsconfig/strictest':
         specifier: 2.0.5
         version: 2.0.5
@@ -94,8 +94,8 @@ importers:
         specifier: 8.0.0
         version: 8.0.0
       typescript:
-        specifier: 5.6.2
-        version: 5.6.2
+        specifier: 5.9.2
+        version: 5.9.2
       wrangler:
         specifier: 4.14.4
         version: 4.14.4
@@ -129,7 +129,7 @@ importers:
         version: link:../../packages/biome-config
       '@pandacss/dev':
         specifier: 0.54.0
-        version: 0.54.0(typescript@5.6.2)
+        version: 0.54.0(typescript@5.9.2)
       '@tsconfig/strictest':
         specifier: 2.0.5
         version: 2.0.5
@@ -149,8 +149,8 @@ importers:
         specifier: 8.0.0
         version: 8.0.0
       typescript:
-        specifier: 5.6.2
-        version: 5.6.2
+        specifier: 5.9.2
+        version: 5.9.2
       wrangler:
         specifier: 4.14.4
         version: 4.14.4
@@ -165,7 +165,7 @@ importers:
     dependencies:
       '@prisma/client':
         specifier: 6.7.0
-        version: 6.7.0(prisma@6.7.0(typescript@5.6.2))(typescript@5.6.2)
+        version: 6.7.0(prisma@6.7.0(typescript@5.9.2))(typescript@5.9.2)
     devDependencies:
       '@tsconfig/strictest':
         specifier: 2.0.5
@@ -175,10 +175,10 @@ importers:
         version: 22.13.1
       prisma:
         specifier: 6.7.0
-        version: 6.7.0(typescript@5.6.2)
+        version: 6.7.0(typescript@5.9.2)
       typescript:
-        specifier: 5.6.2
-        version: 5.6.2
+        specifier: 5.9.2
+        version: 5.9.2
       vite-node:
         specifier: 3.1.3
         version: 3.1.3(@types/node@22.13.1)(lightningcss@1.25.1)(terser@5.16.9)(yaml@2.7.1)
@@ -1570,6 +1570,7 @@ packages:
 
   '@opennextjs/cloudflare@1.0.1':
     resolution: {integrity: sha512-fcClRf6ktPW+w5XRXjkbGk/WWxbHSv6+DtfDHP4UGQkEQl7LRSR+f0ZSlAj5dHI2KvMrpFtzHr8durEFqgQBYg==}
+    deprecated: CVE-2025-6087 was fixed in 1.3.0
     hasBin: true
     peerDependencies:
       wrangler: ^4.14.0
@@ -4056,6 +4057,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@5.9.2:
+    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   ufo@1.5.4:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
 
@@ -6221,13 +6227,13 @@ snapshots:
       postcss-selector-parser: 6.1.2
       ts-pattern: 5.0.8
 
-  '@pandacss/dev@0.54.0(typescript@5.6.2)':
+  '@pandacss/dev@0.54.0(typescript@5.9.2)':
     dependencies:
       '@clack/prompts': 0.9.1
       '@pandacss/config': 0.54.0
       '@pandacss/logger': 0.54.0
-      '@pandacss/node': 0.54.0(typescript@5.6.2)
-      '@pandacss/postcss': 0.54.0(typescript@5.6.2)
+      '@pandacss/node': 0.54.0(typescript@5.9.2)
+      '@pandacss/postcss': 0.54.0(typescript@5.9.2)
       '@pandacss/preset-panda': 0.54.0
       '@pandacss/shared': 0.54.0
       '@pandacss/token-dictionary': 0.54.0
@@ -6237,10 +6243,10 @@ snapshots:
       - jsdom
       - typescript
 
-  '@pandacss/extractor@0.54.0(typescript@5.6.2)':
+  '@pandacss/extractor@0.54.0(typescript@5.9.2)':
     dependencies:
       '@pandacss/shared': 0.54.0
-      ts-evaluator: 1.2.0(typescript@5.6.2)
+      ts-evaluator: 1.2.0(typescript@5.9.2)
       ts-morph: 24.0.0
     transitivePeerDependencies:
       - jsdom
@@ -6267,13 +6273,13 @@ snapshots:
       '@pandacss/types': 0.54.0
       kleur: 4.1.5
 
-  '@pandacss/node@0.54.0(typescript@5.6.2)':
+  '@pandacss/node@0.54.0(typescript@5.9.2)':
     dependencies:
       '@pandacss/config': 0.54.0
       '@pandacss/core': 0.54.0
       '@pandacss/generator': 0.54.0
       '@pandacss/logger': 0.54.0
-      '@pandacss/parser': 0.54.0(typescript@5.6.2)
+      '@pandacss/parser': 0.54.0(typescript@5.9.2)
       '@pandacss/reporter': 0.54.0
       '@pandacss/shared': 0.54.0
       '@pandacss/token-dictionary': 0.54.0
@@ -6296,16 +6302,16 @@ snapshots:
       prettier: 3.2.5
       ts-morph: 24.0.0
       ts-pattern: 5.0.8
-      tsconfck: 3.0.2(typescript@5.6.2)
+      tsconfck: 3.0.2(typescript@5.9.2)
     transitivePeerDependencies:
       - jsdom
       - typescript
 
-  '@pandacss/parser@0.54.0(typescript@5.6.2)':
+  '@pandacss/parser@0.54.0(typescript@5.9.2)':
     dependencies:
       '@pandacss/config': 0.54.0
       '@pandacss/core': 0.54.0
-      '@pandacss/extractor': 0.54.0(typescript@5.6.2)
+      '@pandacss/extractor': 0.54.0(typescript@5.9.2)
       '@pandacss/logger': 0.54.0
       '@pandacss/shared': 0.54.0
       '@pandacss/types': 0.54.0
@@ -6317,9 +6323,9 @@ snapshots:
       - jsdom
       - typescript
 
-  '@pandacss/postcss@0.54.0(typescript@5.6.2)':
+  '@pandacss/postcss@0.54.0(typescript@5.9.2)':
     dependencies:
-      '@pandacss/node': 0.54.0(typescript@5.6.2)
+      '@pandacss/node': 0.54.0(typescript@5.9.2)
       postcss: 8.4.49
     transitivePeerDependencies:
       - jsdom
@@ -6354,10 +6360,10 @@ snapshots:
 
   '@pandacss/types@0.54.0': {}
 
-  '@prisma/client@6.7.0(prisma@6.7.0(typescript@5.6.2))(typescript@5.6.2)':
+  '@prisma/client@6.7.0(prisma@6.7.0(typescript@5.9.2))(typescript@5.9.2)':
     optionalDependencies:
-      prisma: 6.7.0(typescript@5.6.2)
-      typescript: 5.6.2
+      prisma: 6.7.0(typescript@5.9.2)
+      typescript: 5.9.2
 
   '@prisma/config@6.7.0':
     dependencies:
@@ -7723,14 +7729,14 @@ snapshots:
 
   cookie@0.7.2: {}
 
-  cosmiconfig@9.0.0(typescript@5.6.2):
+  cosmiconfig@9.0.0(typescript@5.9.2):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.9.2
 
   cross-spawn@7.0.6:
     dependencies:
@@ -8609,13 +8615,13 @@ snapshots:
 
   printable-characters@1.0.42: {}
 
-  prisma@6.7.0(typescript@5.6.2):
+  prisma@6.7.0(typescript@5.9.2):
     dependencies:
       '@prisma/config': 6.7.0
       '@prisma/engines': 6.7.0
     optionalDependencies:
       fsevents: 2.3.3
-      typescript: 5.6.2
+      typescript: 5.9.2
     transitivePeerDependencies:
       - supports-color
 
@@ -8967,13 +8973,13 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  syncpack@13.0.0(typescript@5.6.2):
+  syncpack@13.0.0(typescript@5.9.2):
     dependencies:
       '@effect/schema': 0.71.1(effect@3.6.5)
       chalk: 5.3.0
       chalk-template: 1.1.0
       commander: 12.1.0
-      cosmiconfig: 9.0.0(typescript@5.6.2)
+      cosmiconfig: 9.0.0(typescript@5.9.2)
       effect: 3.6.5
       enquirer: 2.4.1
       fast-check: 3.21.0
@@ -9020,12 +9026,12 @@ snapshots:
 
   tree-kill@1.2.2: {}
 
-  ts-evaluator@1.2.0(typescript@5.6.2):
+  ts-evaluator@1.2.0(typescript@5.9.2):
     dependencies:
       ansi-colors: 4.1.3
       crosspath: 2.0.0
       object-path: 0.11.8
-      typescript: 5.6.2
+      typescript: 5.9.2
 
   ts-morph@24.0.0:
     dependencies:
@@ -9040,9 +9046,9 @@ snapshots:
 
   ts-tqdm@0.8.6: {}
 
-  tsconfck@3.0.2(typescript@5.6.2):
+  tsconfck@3.0.2(typescript@5.9.2):
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.9.2
 
   tslib@1.14.1: {}
 
@@ -9082,6 +9088,8 @@ snapshots:
       mime-types: 3.0.1
 
   typescript@5.6.2: {}
+
+  typescript@5.9.2: {}
 
   ufo@1.5.4: {}
 
@@ -9140,9 +9148,9 @@ snapshots:
 
   uuid@9.0.1: {}
 
-  valibot@1.1.0(typescript@5.6.2):
+  valibot@1.1.0(typescript@5.9.2):
     optionalDependencies:
-      typescript: 5.6.2
+      typescript: 5.9.2
 
   validate-npm-package-name@5.0.1: {}
 
