@@ -84,6 +84,7 @@ R2 のバケット設定画面から **CORS** を有効にし、アプリで利�
 
 ```sh
 ln -s ../../.env ./.env
+ln -s ../../.env.production ./.env.production
 ```
 
 ### Install dependencies
