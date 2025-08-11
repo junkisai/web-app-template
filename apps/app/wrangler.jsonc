@@ -3,6 +3,8 @@
   "main": ".open-next/worker.js",
   // TODO: アプリケーションの名前と一致するように変更してください
   "name": "web-app-template",
+  // TODO: wrangler login でログインしたアカウントのアカウントIDを設定してください
+  "account_id": "XXXXXXXXXXXXX",
   "compatibility_date": "2024-12-30",
   "compatibility_flags": [
     // Enable Node.js API

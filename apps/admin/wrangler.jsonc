@@ -1,7 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
+  // TODO: アプリケーションの名前と一致するように変更してください
   "name": "web-app-template-admin",
+  // TODO: wrangler login でログインしたアカウントのアカウントIDを設定してください
+  "account_id": "XXXXXXXXXXXXX",
   "compatibility_date": "2024-12-30",
   "compatibility_flags": [
     // Enable Node.js API
@@ -18,6 +21,7 @@
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
+      // TODO: アプリケーションの名前と一致するように変更してください
       // The service should match the "name" of your worker
       "service": "web-app-template-admin"
     }
@@ -26,6 +30,7 @@
     // Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
     {
       "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      // TODO: アプリケーションの名前と一致するように変更してください
       "bucket_name": "web-app-template"
     }
   ]
