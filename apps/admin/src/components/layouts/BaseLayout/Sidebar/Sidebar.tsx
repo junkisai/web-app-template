@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/Button'
 import type { FC } from 'react'
-import { css } from 'styled-system/css'
 import { NavItem, type Props as NavItemProps } from './NavItem'
 
 const NAV_ITEMS: NavItemProps[] = [
@@ -11,62 +10,16 @@ const NAV_ITEMS: NavItemProps[] = [
   { label: 'Settings', href: '/settings' },
 ]
 
-const wrapperStyle = css({
-  pt: '5',
-  pl: '5',
-})
-
-const contentStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
-  position: 'sticky',
-  top: '20px',
-  w: '16rem',
-  minH: '95vh',
-  maxH: '95vh',
-  bg: 'stone.50',
-  border: '1px solid',
-  borderColor: 'stone.100',
-  borderRadius: 'xl',
-  boxShadow: 'md',
-})
-
-const titleStyle = css({
-  px: '4',
-  py: '3',
-  fontSize: 'lg',
-  fontWeight: 'medium',
-})
-
-const dividerStyle = css({
-  w: 'full',
-  h: '0.1px',
-  border: '0.2px dashed',
-  borderColor: 'stone.300',
-})
-
-const bodyStyle = css({
-  flex: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  p: '2',
-})
-
-const navStyle = css({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '1',
-})
-
 export const Sidebar: FC = () => {
   return (
-    <div className={wrapperStyle}>
-      <div className={contentStyle}>
-        <div className={titleStyle}>web-app-template - admin</div>
-        <div className={dividerStyle} />
-        <div className={bodyStyle}>
-          <div className={navStyle}>
+    <div className="pt-5 pl-5">
+      <div className="flex flex-col sticky top-5 w-64 min-h-[95vh] max-h-[95vh] bg-stone-50 border border-stone-100 rounded-xl shadow-md">
+        <div className="px-4 py-3 text-lg font-medium">
+          web-app-template - admin
+        </div>
+        <div className="w-full h-px border-t border-dashed border-stone-300" />
+        <div className="flex-1 flex flex-col justify-between p-2">
+          <div className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => (
               <NavItem key={item.label} label={item.label} href={item.href} />
             ))}

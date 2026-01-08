@@ -2,17 +2,9 @@
 
 import { Tag } from '@/components/ui/Tag'
 import { type FC, useCallback, useState } from 'react'
-import { css } from 'styled-system/css'
 import { ValueDisplay } from '../ValueDisplay'
 import type { MultiSelectFieldProps } from '../types'
 import { Field } from './Field'
-
-const tagListStyle = css({
-  display: 'inline-flex',
-  gap: 1,
-  alignItems: 'center',
-  justifyContent: 'flex-start',
-})
 
 type Props = MultiSelectFieldProps
 
@@ -51,7 +43,7 @@ export const InlineEditMultiSelect: FC<Props> = ({
   ) : (
     <ValueDisplay
       value={
-        <div className={tagListStyle}>
+        <div className="inline-flex gap-1 items-center justify-start">
           {selectedLabels.map((label) => (
             <Tag key={label}>{label}</Tag>
           ))}

@@ -1,29 +1,15 @@
 import { ToastProvider } from '@/components/ui/Toast'
 import type { FC, PropsWithChildren } from 'react'
-import { css } from 'styled-system/css'
 import { Sidebar } from './Sidebar'
-
-const wrapperStyle = css({
-  display: 'grid',
-  gridTemplateColumns: 'auto 1fr',
-  gap: '10',
-  h: 'full',
-})
-
-const mainStyle = css({
-  minH: 0,
-  pt: '10',
-  pr: '5',
-})
 
 type Props = PropsWithChildren
 
 export const BaseLayout: FC<Props> = ({ children }) => {
   return (
     <ToastProvider>
-      <div className={wrapperStyle}>
+      <div className="grid grid-cols-[auto_1fr] gap-10 h-full">
         <Sidebar />
-        <div className={mainStyle}>{children}</div>
+        <div className="min-h-0 pt-10 pr-5">{children}</div>
       </div>
     </ToastProvider>
   )

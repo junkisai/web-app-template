@@ -1,25 +1,21 @@
-import { cva } from 'styled-system/css'
-import { styled } from 'styled-system/jsx'
+import type { FC } from 'react'
 
-const spinnerStyle = cva({
-  base: {
-    display: 'inline-block',
-    border: '2px solid',
-    borderColor: 'transparent',
-    borderTopColor: 'stone.100',
-    borderRadius: 'full',
-    animation: 'spin 0.8s linear infinite',
-  },
-  variants: {
-    size: {
-      sm: { width: '4', height: '4' },
-      md: { width: '6', height: '6' },
-      lg: { width: '8', height: '8' },
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-  },
-})
+type SpinnerSize = 'sm' | 'md' | 'lg'
 
-export const Spinner = styled('div', spinnerStyle)
+const sizeStyles: Record<SpinnerSize, string> = {
+  sm: 'w-4 h-4',
+  md: 'w-6 h-6',
+  lg: 'w-8 h-8',
+}
+
+type Props = {
+  size?: SpinnerSize
+}
+
+export const Spinner: FC<Props> = ({ size = 'md' }) => {
+  return (
+    <div
+      className={`inline-block border-2 border-transparent border-t-stone-100 rounded-full animate-spin ${sizeStyles[size]}`}
+    />
+  )
+}

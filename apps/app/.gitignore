@@ -1,6 +1,5 @@
-.next
+# Build output
+dist
 
-.open-next
-## Panda
-styled-system
-styled-system-studio
+# Generated route tree
+src/routeTree.gen.ts

@@ -1,33 +1,5 @@
 import { Pencil } from 'lucide-react'
 import type { FC, ReactNode } from 'react'
-import { css } from 'styled-system/css'
-
-const buttonStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 2,
-  px: 2,
-  py: 1,
-  borderRadius: 'md',
-  cursor: 'pointer',
-  transition: 'background-color 0.2s',
-  _hover: {
-    bg: 'stone.100',
-  },
-  _active: {
-    bg: 'stone.200',
-  },
-})
-
-const iconStyle = css({
-  w: 4,
-  h: 4,
-  opacity: 0,
-  transition: 'opacity 0.2s',
-  _groupHover: {
-    opacity: 1,
-  },
-})
 
 type Props = {
   value: ReactNode
@@ -36,9 +8,13 @@ type Props = {
 
 export const ValueDisplay: FC<Props> = ({ value, onClick }) => {
   return (
-    <button type="button" className={`group ${buttonStyle}`} onClick={onClick}>
+    <button
+      type="button"
+      className="group flex items-center gap-2 px-2 py-1 rounded-md cursor-pointer transition-colors duration-200 hover:bg-stone-100 active:bg-stone-200"
+      onClick={onClick}
+    >
       <span>{value}</span>
-      <Pencil className={iconStyle} />
+      <Pencil className="w-4 h-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
     </button>
   )
 }

@@ -6,7 +6,6 @@ import React, {
   useId,
   type PropsWithChildren,
 } from 'react'
-import { css } from 'styled-system/css'
 import { Input } from './Input'
 import { FieldContext, useFieldContext } from './context'
 
@@ -19,14 +18,7 @@ const Root = ({ children, ...props }: FieldRootProps) => {
 
   return (
     <FieldContext.Provider value={{ inputId, errorId }}>
-      <div
-        className={css({
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1.5',
-        })}
-        {...props}
-      >
+      <div className="flex flex-col gap-1.5" {...props}>
         {children}
       </div>
     </FieldContext.Provider>
@@ -36,7 +28,7 @@ const Root = ({ children, ...props }: FieldRootProps) => {
 const Label = ({ children }: { children: ReactNode }) => {
   const { inputId } = useFieldContext('Field.Label')
   return (
-    <label htmlFor={inputId} className={css({ fontSize: 'sm' })}>
+    <label htmlFor={inputId} className="text-sm">
       {children}
     </label>
   )
@@ -45,7 +37,7 @@ const Label = ({ children }: { children: ReactNode }) => {
 const ErrorMessage = ({ children }: { children: ReactNode }) => {
   const { errorId } = useFieldContext('Field.ErrorMessage')
   return (
-    <p id={errorId} className={css({ fontSize: 'xs', color: 'red.600' })}>
+    <p id={errorId} className="text-xs text-red-600">
       {children}
     </p>
   )

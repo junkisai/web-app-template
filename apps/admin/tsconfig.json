@@ -1,14 +1,14 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
-  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "../../env.d.ts"],
-  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.tsx", "../../env.d.ts"],
+  "exclude": ["node_modules", "dist"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "types": ["node"],
     "target": "ES2022",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
@@ -19,11 +19,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "incremental": true,
     "allowJs": true
   }

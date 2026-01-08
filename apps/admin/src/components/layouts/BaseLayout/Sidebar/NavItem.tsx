@@ -1,24 +1,7 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, useLocation } from '@tanstack/react-router'
 import type { FC } from 'react'
-import { css } from 'styled-system/css'
-
-const navItemStyle = css.raw({
-  px: '2',
-  py: '1',
-  borderRadius: 'md',
-  fontSize: 'sm',
-  _hover: {
-    bg: 'stone.300',
-  },
-})
-
-const navItemActiveStyle = css.raw({
-  bg: 'stone.200',
-  fontWeight: 'semibold',
-})
 
 export type Props = {
   label: string
@@ -26,16 +9,15 @@ export type Props = {
 }
 
 export const NavItem: FC<Props> = ({ label, href }) => {
-  const pathname = usePathname()
-  const isActive = href === pathname
+  const location = useLocation()
+  const isActive = href === location.pathname
 
   return (
     <Link
-      data-active={isActive}
-      href={href}
-      className={css(navItemStyle, {
-        '&[data-active=true]': navItemActiveStyle,
-      })}
+      to={href}
+      className={`px-2 py-1 rounded-md text-sm hover:bg-stone-300 ${
+        isActive ? 'bg-stone-200 font-semibold' : ''
+      }`}
     >
       {label}
     </Link>

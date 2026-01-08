@@ -11,10 +11,7 @@ import {
   useState,
 } from 'react'
 import { createPortal } from 'react-dom'
-import { css } from 'styled-system/css'
 import { match } from 'ts-pattern'
-
-const iconStyle = css({ w: '3.5', h: '3.5' })
 
 type ToastType = 'info' | 'success' | 'error'
 
@@ -34,6 +31,12 @@ export const useToast = () => {
   const ctx = useContext(ToastContext)
   if (!ctx) throw new Error('useToast must be used within <ToastProvider>')
   return ctx
+}
+
+const toastBgColors: Record<ToastType, string> = {
+  success: 'bg-green-600',
+  error: 'bg-red-600',
+  info: 'bg-stone-700',
 }
 
 export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
@@ -61,42 +64,17 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
       {mounted &&
         portalRef.current &&
         createPortal(
-          <div
-            className={css({
-              position: 'fixed',
-              top: '4',
-              right: '4',
-              zIndex: 'toast',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '2',
-            })}
-          >
+          <div className="fixed top-4 right-4 z-[var(--z-toast)] flex flex-col gap-2">
             {toasts.map((toast) => (
               <div
                 key={toast.id}
-                className={css({
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '3',
-                  px: '4',
-                  py: '2',
-                  borderRadius: 'sm',
-                  bg:
-                    toast.type === 'success'
-                      ? 'green.600'
-                      : toast.type === 'error'
-                        ? 'red.600'
-                        : 'stone.700',
-                  color: 'white',
-                  fontSize: 'xs',
-                  boxShadow: 'md',
-                  animation: 'slide-in-right 0.3s ease-out',
-                })}
+                className={`flex items-center gap-3 px-4 py-2 rounded-sm text-white text-xs shadow-md animate-[slide-in-right_0.3s_ease-out] ${toastBgColors[toast.type]}`}
               >
                 {match(toast.type)
-                  .with('error', () => <CircleAlert className={iconStyle} />)
-                  .with('success', () => <CircleCheck className={iconStyle} />)
+                  .with('error', () => <CircleAlert className="w-3.5 h-3.5" />)
+                  .with('success', () => (
+                    <CircleCheck className="w-3.5 h-3.5" />
+                  ))
                   .with('info', () => null)
                   .exhaustive()}
                 {toast.message}

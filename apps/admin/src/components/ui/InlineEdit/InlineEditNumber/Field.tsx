@@ -2,52 +2,7 @@
 
 import { Check, X } from 'lucide-react'
 import { type FC, useCallback, useState } from 'react'
-import { css } from 'styled-system/css'
 import type { NumberFieldProps } from '../types'
-
-const wrapperStyle = css({
-  flex: 1,
-  display: 'flex',
-  alignItems: 'center',
-  gap: 2,
-})
-
-const inputStyle = css({
-  px: 2,
-  h: 8,
-  borderRadius: 'md',
-  bg: 'stone.100',
-  outline: 'none',
-})
-
-const buttonsStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: 1,
-})
-
-const buttonStyle = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  w: 8,
-  h: 8,
-  borderRadius: 'md',
-  bg: 'stone.900',
-  cursor: 'pointer',
-  _hover: {
-    bg: 'stone.800',
-  },
-  _active: {
-    bg: 'stone.700',
-  },
-})
-
-const iconStyle = css({
-  w: 4,
-  h: 4,
-  color: 'white',
-})
 
 type Props = NumberFieldProps & {
   onCancel: () => void
@@ -68,19 +23,27 @@ export const Field: FC<Props> = ({ initialValue, onSave, onCancel }) => {
   )
 
   return (
-    <div className={wrapperStyle}>
+    <div className="flex-1 flex items-center gap-2">
       <input
         type="number"
         value={value}
-        className={inputStyle}
+        className="px-2 h-8 rounded-md bg-stone-100 outline-none"
         onChange={handleChange}
       />
-      <div className={buttonsStyle}>
-        <button type="button" className={buttonStyle} onClick={handleClickSave}>
-          <Check className={iconStyle} />
+      <div className="flex items-center gap-1">
+        <button
+          type="button"
+          className="flex items-center justify-center w-8 h-8 rounded-md bg-stone-900 cursor-pointer hover:bg-stone-800 active:bg-stone-700"
+          onClick={handleClickSave}
+        >
+          <Check className="w-4 h-4 text-white" />
         </button>
-        <button type="button" className={buttonStyle} onClick={onCancel}>
-          <X className={iconStyle} />
+        <button
+          type="button"
+          className="flex items-center justify-center w-8 h-8 rounded-md bg-stone-900 cursor-pointer hover:bg-stone-800 active:bg-stone-700"
+          onClick={onCancel}
+        >
+          <X className="w-4 h-4 text-white" />
         </button>
       </div>
     </div>

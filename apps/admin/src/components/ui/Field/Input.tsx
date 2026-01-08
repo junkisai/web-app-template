@@ -1,11 +1,10 @@
-import React, { forwardRef, type InputHTMLAttributes } from 'react'
-import { css } from 'styled-system/css'
+import { forwardRef, type InputHTMLAttributes } from 'react'
 import { useFieldContext } from './context'
 
 type Props = InputHTMLAttributes<HTMLInputElement>
 
 export const Input = forwardRef<HTMLInputElement, Props>(
-  ({ className, type = 'text', ...props }, ref) => {
+  ({ type = 'text', ...props }, ref) => {
     const { inputId } = useFieldContext('Field.Input')
 
     return (
@@ -13,14 +12,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         type={type}
         ref={ref}
         id={inputId}
-        className={css({
-          h: '10',
-          px: '3',
-          borderRadius: 'md',
-          border: 'solid 1px',
-          borderColor: 'stone.300',
-          fontSize: 'sm',
-        })}
+        className="h-10 px-3 rounded-md border border-stone-300 text-sm"
         {...props}
       />
     )

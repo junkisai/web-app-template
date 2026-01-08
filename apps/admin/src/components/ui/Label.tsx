@@ -1,47 +1,24 @@
 import type { FC, PropsWithChildren } from 'react'
-import { cva } from 'styled-system/css'
 
-const tagStyle = cva({
-  base: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 1.5,
-    px: 2,
-    py: 1,
-    borderRadius: 'sm',
-    fontSize: 'sm',
-    fontWeight: 'medium',
-    lineHeight: 1,
-  },
-  variants: {
-    color: {
-      base: {
-        bg: 'stone.200',
-        color: 'stone.900',
-      },
-      green: {
-        bg: 'green.200',
-        color: 'green.900',
-      },
-      red: {
-        bg: 'rose.200',
-        color: 'rose.900',
-      },
-      yellow: {
-        bg: 'yellow.200',
-        color: 'yellow.900',
-      },
-    },
-  },
-  defaultVariants: {
-    color: 'base',
-  },
-})
+type LabelColor = 'base' | 'green' | 'red' | 'yellow'
+
+const colorStyles: Record<LabelColor, string> = {
+  base: 'bg-stone-200 text-stone-900',
+  green: 'bg-green-200 text-green-900',
+  red: 'bg-rose-200 text-rose-900',
+  yellow: 'bg-yellow-200 text-yellow-900',
+}
 
 type Props = PropsWithChildren & {
-  color?: 'base' | 'green' | 'red' | 'yellow'
+  color?: LabelColor
 }
 
 export const Label: FC<Props> = ({ children, color = 'base' }) => {
-  return <div className={tagStyle({ color })}>{children}</div>
+  return (
+    <div
+      className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-sm text-sm font-medium leading-none ${colorStyles[color]}`}
+    >
+      {children}
+    </div>
+  )
 }

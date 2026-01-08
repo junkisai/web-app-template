@@ -1,3 +1,5 @@
+'use client'
+
 import { type FC, useCallback, useState } from 'react'
 import { ValueDisplay } from '../ValueDisplay'
 import type { NumberFieldProps } from '../types'

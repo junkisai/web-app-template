@@ -1,7 +1,0 @@
-@layer reset, base, tokens, recipes, utilities;
-
-@layer base {
-  html {
-    height: 100%;
-  }
-}
