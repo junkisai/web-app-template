@@ -12,7 +12,7 @@
     "fmt": "turbo run fmt"
   },
   "devDependencies": {
-    "concurrently": "9.0.1",
+    "concurrently": "9.2.1",
     "oxfmt": "0.42.0",
     "oxlint": "1.57.0",
     "syncpack": "13.0.0",
