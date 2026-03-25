@@ -63,8 +63,8 @@ importers:
         specifier: 5.7.0
         version: 5.7.0
       valibot:
-        specifier: 1.1.0
-        version: 1.1.0(typescript@6.0.1-rc)
+        specifier: 1.2.0
+        version: 1.2.0(typescript@6.0.1-rc)
     devDependencies:
       '@pandacss/dev':
         specifier: 0.54.0
@@ -706,6 +706,7 @@ packages:
 
   '@effect/schema@0.71.1':
     resolution: {integrity: sha512-XvFttkuBUL3s4ofZ+OVE4Pagb4wsPG8laSS8iO5lVI9Yt1zIM49uxlYIA2BJ45jjS3MdplUepC0NilotKnjU2A==}
+    deprecated: this package has been merged into the main effect package
     peerDependencies:
       effect: ^3.6.5
 
@@ -4254,8 +4255,8 @@ packages:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
 
-  valibot@1.1.0:
-    resolution: {integrity: sha512-Nk8lX30Qhu+9txPYTwM0cFlWLdPFsFr6LblzqIySfbZph9+BFsAHsNvHOymEviUepeIW6KFHzpX8TKhbptBXXw==}
+  valibot@1.2.0:
+    resolution: {integrity: sha512-mm1rxUsmOxzrwnX5arGS+U4T25RdvpPjPN4yR0u9pUBov9+zGVtO84tif1eY4r6zWxVxu3KzIyknJy3rxfRZZg==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -9196,7 +9197,7 @@ snapshots:
 
   uuid@9.0.1: {}
 
-  valibot@1.1.0(typescript@6.0.1-rc):
+  valibot@1.2.0(typescript@6.0.1-rc):
     optionalDependencies:
       typescript: 6.0.1-rc
 

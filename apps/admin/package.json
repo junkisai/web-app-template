@@ -28,7 +28,7 @@
     "react-dom": "19.1.0",
     "react-hook-form": "7.57.0",
     "ts-pattern": "5.7.0",
-    "valibot": "1.1.0"
+    "valibot": "1.2.0"
   },
   "devDependencies": {
     "@pandacss/dev": "0.54.0",
