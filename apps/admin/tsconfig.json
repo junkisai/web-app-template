@@ -9,9 +9,9 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "jsx": "preserve",
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "styled-system/*": ["./styled-system/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,

@@ -14,3 +14,5 @@ declare module 'process' {
     }
   }
 }
+
+declare module '*.css'
