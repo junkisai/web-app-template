@@ -24,3 +24,6 @@ yarn-error.log*
 # environments
 .env
 .env.production
+
+# Python
+__pycache__
