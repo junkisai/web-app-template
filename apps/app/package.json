@@ -4,7 +4,6 @@
   "license": "UNLICENSED",
   "type": "module",
   "scripts": {
-    "prepare": "panda codegen",
     "dev": "next dev -p 3000",
     "build": "next build",
     "secret:sync": "bash scripts/set-secrets.sh .env.production",
@@ -25,13 +24,14 @@
     "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "@pandacss/dev": "0.54.0",
+    "@tailwindcss/postcss": "4.1.7",
     "@tsconfig/strictest": "2.0.5",
     "@types/node": "22.13.1",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "concurrently": "9.0.1",
     "dotenv-cli": "8.0.0",
+    "tailwindcss": "4.1.7",
     "typescript": "6.0.1-rc",
     "wrangler": "4.14.4"
   }
