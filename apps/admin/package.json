@@ -1,8 +1,8 @@
 {
   "name": "admin",
   "version": "0.0.0",
-  "type": "module",
   "license": "UNLICENSED",
+  "type": "module",
   "scripts": {
     "prepare": "panda codegen",
     "dev": "next dev -p 3001",
@@ -12,9 +12,9 @@
     "deploy": "pnpm secret:sync && opennextjs-cloudflare build && dotenv -e .env.production -- opennextjs-cloudflare deploy",
     "lint": "concurrently \"pnpm:lint:*\"",
     "lint:tsc": "tsc --noEmit",
-    "lint:biome": "biome check .",
+    "lint:oxlint": "oxlint .",
     "fmt": "concurrently \"pnpm:fmt:*\"",
-    "fmt:biome": "biome check --write --unsafe ."
+    "fmt:oxfmt": "oxfmt --write ."
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.828.0",
@@ -31,8 +31,6 @@
     "valibot": "1.1.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@packages/biome-config": "workspace:*",
     "@pandacss/dev": "0.54.0",
     "@tsconfig/strictest": "2.0.5",
     "@types/node": "22.13.1",
