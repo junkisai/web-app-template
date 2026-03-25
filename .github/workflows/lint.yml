@@ -18,8 +18,12 @@ jobs:
           node-version-file: '.node-version'
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 9.11.0
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
+      - name: Ensure oxlint Linux binding
+        run: pnpm add -Dw @oxlint/binding-linux-x64-gnu@1.57.0
       - name: codegen
         run: pnpm gen
       - name: Run linter
