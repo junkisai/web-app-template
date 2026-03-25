@@ -1,1 +1,10 @@
-@layer reset, base, tokens, recipes, utilities;
+@import "tailwindcss";
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}

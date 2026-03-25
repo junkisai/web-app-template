@@ -4,7 +4,7 @@
 | -------------------------------- | ---------------------------- | --------------------------------- | -------------------------------- |
 | **言語・マークアップ**           | TypeScript (Language)        | HTML (Markup)                     |                                  |
 |                                  |                              |                                   |                                  |
-| **スタイル・デザイン**           | CSS (Style Sheet Language)   | Panda CSS (CSS Framework)         |                                  |
+| **スタイル・デザイン**           | CSS (Style Sheet Language)   | Tailwind CSS (CSS Framework)      |                                  |
 |                                  |                              |                                   |                                  |
 | **UIライブラリ／フレームワーク** | React (UI Library)           | Next.js (React Framework)         | lucide-react (Icon Library)      |
 |                                  |                              |                                   |                                  |

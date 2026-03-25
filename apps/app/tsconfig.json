@@ -10,8 +10,7 @@
     "moduleResolution": "bundler",
     "jsx": "preserve",
     "paths": {
-      "@/*": ["./src/*"],
-      "styled-system/*": ["./styled-system/*"]
+      "@/*": ["./src/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,
