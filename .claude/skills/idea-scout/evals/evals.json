@@ -1,0 +1,23 @@
+{
+  "skill_name": "idea-scout",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "個人開発で何か作りたい。最近のトレンドから穴場のアイデアを5件出して。REPORTS.mdと各アイデアの詳細ファイル、competitors.csv を生成してください。",
+      "expected_output": "REPORTS.mdに5件のアイデアサマリー、各アイデアの詳細mdファイル5件、competitors.csvが生成される。各アイデアには市場規模・競合・MVPスタック・収益モデル・リスクが含まれる。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Redditとかで開発者が不満を持ってるのに、ちゃんとしたツールがないものを調べて、SaaSのアイデアを5件まとめてください。REPORTS.mdと詳細ファイル、competitors.csvも作って。",
+      "expected_output": "実際のRedditペインポイントを根拠にした5件のSaaSアイデア。REPORTS.md・詳細md・competitors.csvが生成される。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "モバイルアプリで月$1000以上稼げそうなニッチなアイデアを、ProductHuntやIndie Hackersの事例から探して5件まとめて。REPORTS.mdと詳細ファイル、competitors.csvをください。",
+      "expected_output": "ProductHunt/Indie Hackersの事例に基づいた収益可能なモバイルアプリアイデア5件。収益モデルと根拠が明記されている。",
+      "files": []
+    }
+  ]
+}
