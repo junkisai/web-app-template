@@ -1,3 +1,0 @@
-{
-  "extends": ["@packages/biome-config/biome"]
-}
