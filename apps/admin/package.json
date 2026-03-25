@@ -38,7 +38,7 @@
     "@types/react-dom": "19.1.6",
     "concurrently": "9.0.1",
     "dotenv-cli": "8.0.0",
-    "typescript": "5.6.2",
+    "typescript": "6.0.1-rc",
     "wrangler": "4.14.4"
   }
 }
