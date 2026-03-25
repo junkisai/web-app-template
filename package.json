@@ -12,9 +12,9 @@
     "fmt": "turbo run fmt"
   },
   "devDependencies": {
-    "@packages/biome-config": "workspace:*",
-    "@packages/prettier-config": "workspace:*",
     "concurrently": "9.0.1",
+    "oxfmt": "0.42.0",
+    "oxlint": "1.57.0",
     "syncpack": "13.0.0",
     "turbo": "2.2.3",
     "typescript": "5.6.2"

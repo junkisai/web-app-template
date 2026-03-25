@@ -1,7 +1,0 @@
-{
-  "name": "@packages/prettier-config",
-  "version": "1.0.0",
-  "devDependencies": {
-    "prettier": "^3.2.5"
-  }
-}

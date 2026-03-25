@@ -5,7 +5,7 @@ import { useFieldContext } from './context'
 type Props = InputHTMLAttributes<HTMLInputElement>
 
 export const Input = forwardRef<HTMLInputElement, Props>(
-  ({ className, type = 'text', ...props }, ref) => {
+  ({ className: _className, type = 'text', ...props }, ref) => {
     const { inputId } = useFieldContext('Field.Input')
 
     return (
