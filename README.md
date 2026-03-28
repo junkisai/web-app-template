@@ -6,11 +6,16 @@
 |                                  |                              |                                   |                                  |
 | **スタイル・デザイン**           | CSS (Style Sheet Language)   | Tailwind CSS (CSS Framework)      |                                  |
 |                                  |                              |                                   |                                  |
-| **UIライブラリ／フレームワーク** | React (UI Library)           | TanStack Start (React Framework)  | lucide-react (Icon Library)      |
+| **UIライブラリ／フレームワーク** | React (UI Library)           | TanStack Start (React Framework)  | TanStack Router (Router)         |
+|                                  | lucide-react (Icon Library)  |                                   |                                  |
 |                                  |                              |                                   |                                  |
-| **バックエンド／クラウドサービス** | Turso (libSQL Database)      | @libsql/client (DB Client)        | Cloudflare R2 (Object Storage)   |
+| **ビルド・実行環境**             | Vite (Build Tool)            | Cloudflare Workers (Runtime)      | Wrangler (Deployment CLI)        |
 |                                  |                              |                                   |                                  |
-| **開発ツール／ユーティリティ**   | Biome (Linter/Formatter)     | VSCode (Code Editor)              | GitHub Actions (CI/CD)           |
+| **データベース**                 | Turso (libSQL Database)      | @libsql/client (DB Client)        | Drizzle ORM (ORM)                |
+|                                  | drizzle-kit (Migration Tool) | drizzle-seed (Seed Tool)          | Cloudflare R2 (Object Storage)   |
+|                                  |                              |                                   |                                  |
+| **開発ツール／ユーティリティ**   | pnpm (Package Manager)       | Turborepo (Monorepo Task Runner)  | oxlint (Linter)                  |
+|                                  | oxfmt (Formatter)            | VSCode (Code Editor)              | GitHub Actions (CI/CD)           |
 
 ## Setup
 
