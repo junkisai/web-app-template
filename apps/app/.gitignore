@@ -1,6 +1,7 @@
 .next
-
-.open-next
+.output
+.wrangler
+dist
 ## Panda
 styled-system
 styled-system-studio
