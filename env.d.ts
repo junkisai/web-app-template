@@ -3,7 +3,6 @@ declare module 'process' {
     namespace NodeJS {
       interface ProcessEnv {
         readonly NODE_ENV?: string
-        readonly APP_BASE_URL?: string
       }
     }
   }
