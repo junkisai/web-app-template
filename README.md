@@ -6,18 +6,29 @@
 |                                  |                              |                                   |                                  |
 | **スタイル・デザイン**           | CSS (Style Sheet Language)   | Tailwind CSS (CSS Framework)      |                                  |
 |                                  |                              |                                   |                                  |
-| **UIライブラリ／フレームワーク** | React (UI Library)           | Next.js (React Framework)         | lucide-react (Icon Library)      |
+| **UIライブラリ／フレームワーク** | React (UI Library)           | TanStack Start (React Framework)  | lucide-react (Icon Library)      |
 |                                  |                              |                                   |                                  |
-| **バックエンド／クラウドサービス** | Prisma (ORM)                 | PostgreSQL (Database)             | Cloudflare R2 (Object Storage)   |
+| **バックエンド／クラウドサービス** | Turso (libSQL Database)      | @libsql/client (DB Client)        | Cloudflare R2 (Object Storage)   |
 |                                  |                              |                                   |                                  |
 | **開発ツール／ユーティリティ**   | Biome (Linter/Formatter)     | VSCode (Code Editor)              | GitHub Actions (CI/CD)           |
 
 ## Setup
 
-### Prisma Postgres
+### Turso
 
-[Prisma Postgresの管理画面](https://console.prisma.io/cm2k2bkw6033kz4nm3p680ptx/overview)にいき、プロジェクトを作成してください。
-プロジェクトを作成すると`DATABASE_URL`が発行されるので、`.env`ファイルに値をセットしてください。
+Turso でデータベースを作成し、接続情報を `.env` に設定してください。
+
+```env
+TURSO_DATABASE_URL="libsql://<your-database>.turso.io"
+TURSO_AUTH_TOKEN="<your-auth-token>"
+```
+
+初期テーブル作成と seed は以下を実行します。
+
+```sh
+pnpm -F db migrate
+pnpm -F db seed
+```
 
 ### Cloudflare
 

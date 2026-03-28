@@ -4,11 +4,12 @@
   "license": "UNLICENSED",
   "type": "module",
   "scripts": {
-    "dev": "next dev -p 3000",
-    "build": "next build",
+    "dev": "vite dev --port 3000",
+    "build": "vite build && tsc --noEmit",
     "secret:sync": "bash scripts/set-secrets.sh .env.production",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "pnpm secret:sync && opennextjs-cloudflare build && dotenv -e .env.production -- opennextjs-cloudflare deploy",
+    "preview": "vite preview",
+    "deploy": "pnpm secret:sync && vite build && dotenv -e .env.production -- wrangler deploy",
+    "cf-typegen": "wrangler types",
     "lint": "concurrently \"pnpm:lint:*\"",
     "lint:tsc": "tsc --noEmit",
     "lint:oxlint": "oxlint .",
@@ -16,23 +17,26 @@
     "fmt:oxfmt": "oxfmt --write ."
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "1.0.1",
+    "@cloudflare/vite-plugin": "1.30.1",
     "@packages/db": "workspace:*",
+    "@tailwindcss/vite": "4.2.2",
+    "@tanstack/react-router": "1.168.3",
+    "@tanstack/react-start": "1.167.6",
+    "@vitejs/plugin-react": "6.0.1",
     "lucide-react": "0.509.0",
-    "next": "15.3.2",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "vite": "8.0.2"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.1.7",
     "@tsconfig/strictest": "2.0.5",
     "@types/node": "22.13.1",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "concurrently": "9.0.1",
     "dotenv-cli": "8.0.0",
-    "tailwindcss": "4.1.7",
+    "tailwindcss": "4.2.2",
     "typescript": "6.0.1-rc",
-    "wrangler": "4.14.4"
+    "wrangler": "4.77.0"
   }
 }
