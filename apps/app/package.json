@@ -37,6 +37,6 @@
     "dotenv-cli": "8.0.0",
     "tailwindcss": "4.2.2",
     "typescript": "6.0.1-rc",
-    "wrangler": "4.77.0"
+    "wrangler": "4.78.0"
   }
 }
