@@ -1,9 +1,4 @@
-type User = {
-  id: number
-  name: string
-  createdAt: string
-  updatedAt: string
-}
+import type { User } from '@packages/db'
 
 type Props = {
   users: User[]
@@ -16,9 +11,6 @@ export function TopPage({ users }: Props) {
         <h1 className="text-3xl font-bold text-emerald-500">
           Hello, TanStack Start!
         </h1>
-        <p className="text-sm text-slate-600">
-          Next.js をやめて TanStack Router ベースに移行しました。
-        </p>
       </div>
       <section className="space-y-3">
         <ul>

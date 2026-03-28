@@ -6,3 +6,5 @@ export const users = sqliteTable('users', {
   createdAt: text('created_at').notNull(),
   updatedAt: text('updated_at').notNull(),
 })
+
+export type User = typeof users.$inferSelect
