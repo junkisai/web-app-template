@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "build": "vite build && tsc --noEmit",
-    "secret:sync": "bash scripts/set-secrets.sh .env.production",
     "preview": "vite preview",
-    "deploy": "pnpm secret:sync && vite build && dotenv -e .env.production -- wrangler deploy",
+    "secret:sync": "bash scripts/set-secrets.sh .env",
+    "deploy": "pnpm secret:sync && vite build && wrangler deploy",
     "cf-typegen": "wrangler types",
     "lint": "concurrently \"pnpm:lint:*\"",
     "lint:tsc": "tsc --noEmit",
@@ -37,6 +37,6 @@
     "dotenv-cli": "8.0.0",
     "tailwindcss": "4.2.2",
     "typescript": "6.0.1-rc",
-    "wrangler": "4.77.0"
+    "wrangler": "4.78.0"
   }
 }
