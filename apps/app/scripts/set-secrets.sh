@@ -1,6 +1,6 @@
 #!/bin/bash
 # wrangler.jsonc の secrets.required に定義されたキーだけを対象に、
-# 指定した dotenv ファイルの値を `wrangler secret put` で Cloudflare に同期する。
+# 指定した dotenv ファイルの値を `wrangler versions secret put` で Cloudflare に同期する。
 
 set -euo pipefail
 
@@ -23,7 +23,7 @@ if [ ! -f "$CONFIG_PATH" ]; then
   exit 1
 fi
 
-echo "🔐 Setting secrets from $ENV_PATH to environment..."
+echo "🔐 Staging secrets from $ENV_PATH for the next Worker deployment..."
 
 # dotenv 形式をそのまま読み込む
 set -a
@@ -56,8 +56,8 @@ awk '
     exit 1
   fi
 
-  echo "▶ Setting $key..."
-  printf '%s' "${!key}" | wrangler secret put "$key"
+  echo "▶ Staging $key..."
+  printf '%s' "${!key}" | wrangler versions secret put "$key"
 done
 
-echo "✅ All secrets set."
+echo "✅ All secrets staged. They will be applied on the next deployment."

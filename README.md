@@ -100,12 +100,9 @@ ln -s ../../.env ./.env
 
 ### Deploy
 
-デプロイ時は `.env` を使って Cloudflare の secrets 同期と `wrangler deploy` を実行します。
-デプロイに必要な値は `.env` に設定してください。
-
-```sh
-pnpm -F app deploy
-```
+デプロイは `main` へのマージをトリガーに自動で実行されます。
+事前に `.env` を用意したうえで、Cloudflare に必要な値を次回デプロイ向けに反映するために `pnpm -F app cf:set-env` を実行してください。
+このコマンドは `wrangler versions secret put` を使うため、その場では本番反映されず、`main` マージ後の自動デプロイで反映されます。
 
 ### Install dependencies
 
