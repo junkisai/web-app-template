@@ -2,10 +2,14 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   // TODO: アプリケーションの名前と一致するように変更してください
   "name": "web-app-template",
+  "preview_urls": true,
   "compatibility_date": "2026-03-17",
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
   "observability": {
     "enabled": true,
+  },
+  "secrets": {
+    "required": ["TURSO_DATABASE_URL", "TURSO_AUTH_TOKEN"],
   },
 }
