@@ -4,6 +4,7 @@ import * as schema from '../schema'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { betterAuth } from 'better-auth'
 import { tanstackStartCookies } from 'better-auth/tanstack-start'
+import { hashPassword, verifyPassword } from './password'
 
 const SOCIAL_PROVIDER_ENV_PREFIXES = [
   ['apple', 'APPLE'],
@@ -32,6 +33,10 @@ export const auth = enableAuth
       }),
       emailAndPassword: {
         enabled: true,
+        password: {
+          hash: hashPassword,
+          verify: verifyPassword,
+        },
       },
       ...(socialProviders ? { socialProviders } : {}),
       plugins: [tanstackStartCookies()],
