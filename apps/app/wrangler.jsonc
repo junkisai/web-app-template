@@ -10,6 +10,13 @@
     "enabled": true,
   },
   "secrets": {
-    "required": ["TURSO_DATABASE_URL", "TURSO_AUTH_TOKEN"],
+    "required": [
+      "TURSO_DATABASE_URL",
+      "TURSO_AUTH_TOKEN",
+      "ENABLE_AUTH",
+      "APP_BASE_URL",
+      "BETTER_AUTH_URL",
+      "BETTER_AUTH_SECRET",
+    ],
   },
 }
