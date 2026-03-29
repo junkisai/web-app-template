@@ -1,46 +1,114 @@
-const PASSWORD_HASH_PREFIX = 'pbkdf2-sha256'
-const PASSWORD_HASH_VERSION = 'v1'
-const PASSWORD_HASH_ITERATIONS = 2_000
-const PASSWORD_HASH_LENGTH = 32
+import { scrypt as scryptCallback, timingSafeEqual } from 'node:crypto'
+
+const LEGACY_PASSWORD_HASH_PREFIX = 'pbkdf2-sha256'
+const LEGACY_PASSWORD_HASH_VERSION = 'v1'
+const LEGACY_PASSWORD_HASH_LENGTH = 32
 const PASSWORD_SALT_LENGTH = 16
 
-export async function hashPassword(password: string) {
-  const salt = crypto.getRandomValues(new Uint8Array(PASSWORD_SALT_LENGTH))
-  const derivedKey = await deriveKey(password, salt, PASSWORD_HASH_ITERATIONS)
+const SCRYPT_KEY_LENGTH = 64
+const SCRYPT_OPTIONS = {
+  N: 16_384,
+  r: 16,
+  p: 1,
+  maxmem: 128 * 16_384 * 16 * 2,
+} as const
 
-  return [
-    PASSWORD_HASH_PREFIX,
-    PASSWORD_HASH_VERSION,
-    String(PASSWORD_HASH_ITERATIONS),
-    toBase64Url(salt),
-    toBase64Url(derivedKey),
-  ].join('$')
+export async function hashPassword(password: string) {
+  const salt = bytesToHex(
+    crypto.getRandomValues(new Uint8Array(PASSWORD_SALT_LENGTH)),
+  )
+  const derivedKey = await deriveScryptKey(password, salt)
+
+  return `${salt}:${bytesToHex(derivedKey)}`
 }
 
 export async function verifyPassword(input: {
   hash: string
   password: string
 }) {
-  const parsedHash = parsePasswordHash(input.hash)
+  // Keep existing PBKDF2 users working while new hashes move back to scrypt.
+  if (isLegacyPbkdf2Hash(input.hash)) {
+    return verifyLegacyPassword(input)
+  }
+
+  const parsedHash = parseScryptHash(input.hash)
 
   if (!parsedHash) {
     console.warn('Unsupported password hash format encountered.', {
+      prefix: input.hash.split(':')[0] ?? '<empty>',
+    })
+
+    return false
+  }
+
+  const derivedKey = await deriveScryptKey(input.password, parsedHash.salt)
+
+  return timingSafeEqual(Buffer.from(derivedKey), Buffer.from(parsedHash.hash))
+}
+
+async function deriveScryptKey(password: string, salt: string) {
+  const normalizedPassword = password.normalize('NFKC')
+
+  return new Promise<Uint8Array>((resolve, reject) => {
+    scryptCallback(
+      normalizedPassword,
+      salt,
+      SCRYPT_KEY_LENGTH,
+      SCRYPT_OPTIONS,
+      (error, derivedKey) => {
+        if (error) {
+          reject(error)
+          return
+        }
+
+        resolve(new Uint8Array(derivedKey))
+      },
+    )
+  })
+}
+
+function parseScryptHash(value: string) {
+  const [salt, hash, ...rest] = value.split(':')
+
+  if (!salt || !hash || rest.length > 0) {
+    return null
+  }
+
+  if (!isHexString(salt) || !isHexString(hash)) {
+    return null
+  }
+
+  return {
+    salt,
+    hash: hexToBytes(hash),
+  }
+}
+
+function isLegacyPbkdf2Hash(value: string) {
+  return value.startsWith(`${LEGACY_PASSWORD_HASH_PREFIX}$`)
+}
+
+async function verifyLegacyPassword(input: { hash: string; password: string }) {
+  const parsedHash = parseLegacyPasswordHash(input.hash)
+
+  if (!parsedHash) {
+    console.warn('Unsupported legacy password hash format encountered.', {
       prefix: input.hash.split('$')[0] ?? '<empty>',
     })
 
     return false
   }
 
-  const derivedKey = await deriveKey(
+  const derivedKey = await deriveLegacyKey(
     input.password,
     parsedHash.salt,
     parsedHash.iterations,
   )
 
-  return constantTimeEqual(derivedKey, parsedHash.hash)
+  return timingSafeEqual(Buffer.from(derivedKey), Buffer.from(parsedHash.hash))
 }
 
-async function deriveKey(
+async function deriveLegacyKey(
   password: string,
   salt: Uint8Array,
   iterations: number,
@@ -61,18 +129,18 @@ async function deriveKey(
       iterations,
     },
     keyMaterial,
-    PASSWORD_HASH_LENGTH * 8,
+    LEGACY_PASSWORD_HASH_LENGTH * 8,
   )
 
   return new Uint8Array(derivedBits)
 }
 
-function parsePasswordHash(value: string) {
+function parseLegacyPasswordHash(value: string) {
   const [prefix, version, iterations, salt, hash] = value.split('$')
 
   if (
-    prefix !== PASSWORD_HASH_PREFIX ||
-    version !== PASSWORD_HASH_VERSION ||
+    prefix !== LEGACY_PASSWORD_HASH_PREFIX ||
+    version !== LEGACY_PASSWORD_HASH_VERSION ||
     !iterations ||
     !salt ||
     !hash
@@ -97,8 +165,16 @@ function parsePasswordHash(value: string) {
   }
 }
 
-function toBase64Url(value: Uint8Array) {
-  return Buffer.from(value).toString('base64url')
+function bytesToHex(value: Uint8Array) {
+  return Buffer.from(value).toString('hex')
+}
+
+function hexToBytes(value: string) {
+  return new Uint8Array(Buffer.from(value, 'hex'))
+}
+
+function isHexString(value: string) {
+  return value.length > 0 && value.length % 2 === 0 && /^[\da-f]+$/i.test(value)
 }
 
 function fromBase64Url(value: string) {
@@ -107,20 +183,6 @@ function fromBase64Url(value: string) {
 
 function toArrayBuffer(value: Uint8Array) {
   return new Uint8Array(value).buffer
-}
-
-function constantTimeEqual(left: Uint8Array, right: Uint8Array) {
-  if (left.length !== right.length) {
-    return false
-  }
-
-  let result = 0
-
-  for (let index = 0; index < left.length; index += 1) {
-    result |= left[index]! ^ right[index]!
-  }
-
-  return result === 0
 }
 
 const textEncoder = new TextEncoder()
