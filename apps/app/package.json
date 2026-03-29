@@ -7,7 +7,7 @@
     "dev": "vite dev --port 3000",
     "build": "vite build && tsc --noEmit",
     "preview": "vite preview",
-    "cf:set-env": "bash scripts/set-secrets.sh .env",
+    "cf:set-env": "bash scripts/set-secrets.sh .env.production",
     "lint": "concurrently \"pnpm:lint:*\"",
     "lint:tsc": "tsc --noEmit",
     "lint:oxlint": "oxlint .",
@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "1.30.1",
+    "@packages/auth": "workspace:*",
     "@packages/db": "workspace:*",
     "@tailwindcss/vite": "4.2.2",
     "@tanstack/react-router": "1.168.3",

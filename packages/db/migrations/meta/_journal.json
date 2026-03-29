@@ -15,6 +15,13 @@
       "when": 1774677593771,
       "tag": "0001_noisy_master_chief",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1774772273476,
+      "tag": "0002_hard_deathbird",
+      "breakpoints": true
     }
   ]
 }
