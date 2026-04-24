@@ -18,6 +18,18 @@
       "prompt": "PRを作りたいんだけど、ファイルの変更がまだコミットされてない状態。どうすればいい？",
       "expected_output": "未コミット状態であることを伝え、先にコミットするよう案内する（commit スキルを勧める）",
       "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "PR本文に `pnpm lint` や `$FOO` を含めたい。create-pr スキルでそのまま PR を作って。",
+      "expected_output": "PR本文をシェル引数に直埋めせず一時ファイルに書き出して --body-file で gh pr create を実行する",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "feature/safe-pr ブランチで push 済み。PR を作って。",
+      "expected_output": "gh repo view と gh pr create と gh pr view の GitHub 通信コマンドを最初から権限昇格付きで実行する",
+      "files": []
     }
   ]
 }
