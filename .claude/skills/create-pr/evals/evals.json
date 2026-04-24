@@ -4,7 +4,7 @@
     {
       "id": 1,
       "prompt": "いまのブランチで PR を作って。feature/user-auth というブランチで3つコミットがあって、main に向けてマージしたい。",
-      "expected_output": "コミット履歴から日本語タイトルを生成し、Summary + スクリーンショット欄を含む本文で gh pr create を実行する",
+      "expected_output": "コミット履歴から日本語タイトルを生成し、変更概要を含み、必要なら背景・アプローチも追加した本文で gh pr create を実行する",
       "files": []
     },
     {
