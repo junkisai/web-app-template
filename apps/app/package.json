@@ -15,7 +15,7 @@
     "fmt:oxfmt": "oxfmt --write ."
   },
   "dependencies": {
-    "@cloudflare/vite-plugin": "1.30.1",
+    "@cloudflare/vite-plugin": "1.34.0",
     "@packages/auth": "workspace:*",
     "@packages/db": "workspace:*",
     "@tailwindcss/vite": "4.2.2",
