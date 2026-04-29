@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@tsconfig/strictest": "2.0.8",
-    "@types/node": "22.13.1",
+    "@types/node": "22.19.17",
     "drizzle-kit": "0.31.10",
     "tsx": "4.20.6",
     "typescript": "6.0.3"
