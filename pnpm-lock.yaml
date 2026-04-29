@@ -19,13 +19,13 @@ importers:
         version: 1.57.0
       syncpack:
         specifier: 13.0.0
-        version: 13.0.0(typescript@6.0.1-rc)
+        version: 13.0.0(typescript@6.0.3)
       turbo:
         specifier: 2.2.3
         version: 2.2.3
       typescript:
-        specifier: 6.0.1-rc
-        version: 6.0.1-rc
+        specifier: 6.0.3
+        version: 6.0.3
 
   apps/app:
     dependencies:
@@ -85,8 +85,8 @@ importers:
         specifier: 4.2.2
         version: 4.2.2
       typescript:
-        specifier: 6.0.1-rc
-        version: 6.0.1-rc
+        specifier: 6.0.3
+        version: 6.0.3
       wrangler:
         specifier: 4.78.0
         version: 4.78.0
@@ -116,8 +116,8 @@ importers:
         specifier: 22.13.1
         version: 22.13.1
       typescript:
-        specifier: 6.0.1-rc
-        version: 6.0.1-rc
+        specifier: 6.0.3
+        version: 6.0.3
 
   packages/db:
     dependencies:
@@ -147,8 +147,8 @@ importers:
         specifier: 4.20.6
         version: 4.20.6
       typescript:
-        specifier: 6.0.1-rc
-        version: 6.0.1-rc
+        specifier: 6.0.3
+        version: 6.0.3
 
   packages/tsconfig:
     devDependencies:
@@ -3610,8 +3610,8 @@ packages:
     resolution: {integrity: sha512-5lDvSqIxCYJ/BAd6rQGK/AzFRhBkbu4JHVMLmGh/hCb7U3CqSnr5Tjwfy9vc+/5wG2DJ6wttgAaA7MoCgvBKZQ==}
     hasBin: true
 
-  typescript@6.0.1-rc:
-    resolution: {integrity: sha512-7XlzYb+p/7YxX6qSOzwB4mxVFRdAgWWkj1PgAZ+jzldeuFV6Z77vwFbNxHsUXAL/bhlWY2jCT8shLwDJR8337g==}
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -5610,14 +5610,14 @@ snapshots:
 
   cookie@1.1.1: {}
 
-  cosmiconfig@9.0.0(typescript@6.0.1-rc):
+  cosmiconfig@9.0.0(typescript@6.0.3):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.1
       js-yaml: 4.1.1
       parse-json: 5.2.0
     optionalDependencies:
-      typescript: 6.0.1-rc
+      typescript: 6.0.3
 
   cross-fetch@4.1.0:
     dependencies:
@@ -6684,13 +6684,13 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  syncpack@13.0.0(typescript@6.0.1-rc):
+  syncpack@13.0.0(typescript@6.0.3):
     dependencies:
       '@effect/schema': 0.71.1(effect@3.6.5)
       chalk: 5.3.0
       chalk-template: 1.1.0
       commander: 12.1.0
-      cosmiconfig: 9.0.0(typescript@6.0.1-rc)
+      cosmiconfig: 9.0.0(typescript@6.0.3)
       effect: 3.6.5
       enquirer: 2.4.1
       fast-check: 3.21.0
@@ -6804,7 +6804,7 @@ snapshots:
       turbo-windows-64: 2.2.3
       turbo-windows-arm64: 2.2.3
 
-  typescript@6.0.1-rc: {}
+  typescript@6.0.3: {}
 
   ufo@1.6.3: {}
 
