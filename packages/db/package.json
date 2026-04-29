@@ -13,7 +13,7 @@
     "migrate": "drizzle-kit migrate"
   },
   "dependencies": {
-    "@libsql/client": "0.17.2",
+    "@libsql/client": "0.17.3",
     "dotenv": "17.3.1",
     "drizzle-orm": "0.45.2",
     "drizzle-seed": "0.3.1"
