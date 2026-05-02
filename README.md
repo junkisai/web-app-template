@@ -223,6 +223,30 @@ pnpm dev
 pnpm -F app dev
 ```
 
+## Agent config sync
+
+このプロジェクトの `.claude` / `.agent` / `.agents` / `.codex` は、`junkisai/web-app-template` を source of truth として同期します。
+
+### 同期方法
+
+GitHub Actions の `Sync agent config` workflow により、毎週月曜に自動で同期 PR が作成されます。
+
+手動で同期したい場合は、GitHub Actions から `Sync agent config` を `workflow_dispatch` で実行してください。
+
+ローカルで同期したい場合は以下を実行します。
+
+```sh
+pnpm sync:agents
+```
+
+### 注意
+
+同期対象ディレクトリは `web-app-template` 側の内容で完全同期されます。
+
+そのため、各プロジェクト側で `.claude` / `.agent` / `.agents` / `.codex` に独自ファイルを追加していた場合、次回同期時に削除されます。
+
+共通設定を変更したい場合は、派生プロジェクトではなく `web-app-template` 側に反映してください。
+
 ## Deploy
 
 デプロイは `main` へのマージをトリガーに自動で実行されます。事前に `.env` を用意したうえで、Cloudflare の secret を次回デプロイ向けに登録してください。

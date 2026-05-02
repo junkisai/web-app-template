@@ -9,7 +9,8 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "lint:packageVersion": "syncpack list-mismatches",
-    "fmt": "turbo run fmt"
+    "fmt": "turbo run fmt",
+    "sync:agents": "bash scripts/sync-agent-config.sh"
   },
   "devDependencies": {
     "concurrently": "9.2.1",
