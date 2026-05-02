@@ -1,0 +1,54 @@
+name: Sync agent config
+
+on:
+  workflow_dispatch:
+  schedule:
+    # JST Monday 09:00 = UTC Monday 00:00
+    - cron: '0 0 * * 1'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync-agent-config:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+
+      - name: Sync agent config from web-app-template
+        shell: bash
+        run: bash scripts/sync-agent-config.sh
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: chore/sync-agent-config
+          commit-message: 'chore: sync agent config from web-app-template'
+          title: 'chore: sync agent config from web-app-template'
+          body: |
+            web-app-template から AI agent 設定を同期します。
+
+            ## 同期対象
+
+            - .claude
+            - .agent
+            - .agents
+            - .codex
+
+            ## 補足
+
+            - web-app-template 側の内容を source of truth として同期します
+            - 同期対象ディレクトリは完全同期されます
+            - template 側に存在しないファイルは削除されます
+            - .agent-sync.lock に同期元 commit を記録します
+            - 差分がない場合、PR は作成・更新されません
+
+          add-paths: |
+            .claude
+            .agent
+            .agents
+            .codex
+            .agent-sync.lock
