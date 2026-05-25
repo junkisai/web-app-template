@@ -1,0 +1,9 @@
+source_repo: junkisai/web-app-template
+source_branch: main
+source_commit: 927f71d928fa6aa37c41ba36ca8ed6de6b1a3047
+synced_at: 2026-05-25T01:14:43Z
+synced_dirs:
+  - .claude
+  - .agent
+  - .agents
+  - .codex
