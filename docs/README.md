@@ -10,6 +10,7 @@
 | [specs/](specs/) | 何を作ればいい? | 機能の企画〜実装中 |
 | [runbooks/](runbooks/) | どう操作する? | 手順が変わったとき（常に最新を維持） |
 | [references/](references/) | 何を参考にした? | デザイン・構成を検討したとき |
+| [transcripts/](transcripts/) | 誰が何を話した? | 録音・文字起こししたとき |
 
 ## ファイル命名ルール
 
@@ -41,3 +42,7 @@
 ### references
 
 - 
+
+### transcripts
+
+- [transcripts/](transcripts/README.md) — ボイスレコーダーの文字起こしデータ置き場（命名規則・テンプレ・音声の扱い）
