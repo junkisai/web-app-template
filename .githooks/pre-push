@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+
+echo "pre-push: pnpm lint を実行します"
+pnpm lint
