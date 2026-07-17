@@ -16,7 +16,7 @@
 |                                  | Better Auth (Authentication) |                                   |                                  |
 |                                  |                              |                                   |                                  |
 | **開発ツール／ユーティリティ**   | pnpm (Package Manager)       | Turborepo (Monorepo Task Runner)  | oxlint (Linter)                  |
-|                                  | oxfmt (Formatter)            | VSCode (Code Editor)              | GitHub Actions (CI/CD)           |
+|                                  | oxfmt (Formatter)            | VSCode (Code Editor)              |                                  |
 
 ## Workspace
 
@@ -31,6 +31,8 @@
 ```sh
 pnpm install
 ```
+
+`pnpm install` 時に `prepare` スクリプトが `core.hooksPath` を `.githooks` に設定します。これにより `git push` 前に pre-push フックで `pnpm lint` が自動実行され、lint エラーがある場合は push が中断されます。
 
 ### 2. Create `.env`
 
