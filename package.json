@@ -14,7 +14,7 @@
     "sync:agents": "bash scripts/sync-agent-config.sh"
   },
   "devDependencies": {
-    "concurrently": "9.2.4",
+    "concurrently": "10.0.4",
     "oxfmt": "0.61.0",
     "oxlint": "1.77.0",
     "syncpack": "13.0.4",
