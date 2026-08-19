@@ -21,6 +21,8 @@
 ## Workspace
 
 - `apps/app`: TanStack Start アプリケーション
+
+ディレクトリ構成と置き場所の規約は [docs/architecture/20260819_directory-structure.md](./docs/architecture/20260819_directory-structure.md) にあります。要約は [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。
 - `packages/db`: DB client、業務 schema、Drizzle migration runner
 - `packages/auth`: Better Auth 設定、auth schema、auth client
 

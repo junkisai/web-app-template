@@ -29,7 +29,7 @@
 
 ### architecture
 
-- 
+- [20260819_directory-structure.md](architecture/20260819_directory-structure.md) — `apps/app` の置き場所の規約（判断フロー・各層の責務・依存の方向・命名）
 
 ### specs
 

@@ -15,7 +15,7 @@ export default defineConfig({
     alias: {
       'node-fetch': path.resolve(
         import.meta.dirname,
-        'src/native-fetch-shim.ts',
+        'src/lib/native-fetch-shim.ts',
       ),
     },
   },
