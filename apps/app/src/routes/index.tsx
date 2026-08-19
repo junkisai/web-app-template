@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { TopPage } from '@/components/pages/top'
+import { TopPage } from '@/pages/Top'
 import { getUsers } from '@/server/queries/users'
 
 export const Route = createFileRoute('/')({

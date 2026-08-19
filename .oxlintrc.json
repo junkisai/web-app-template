@@ -4,5 +4,95 @@
   "categories": {
     "correctness": "error"
   },
-  "rules": {}
+  "rules": {},
+  "overrides": [
+    {
+      "files": ["**/src/routes/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/scripts/**"],
+                "message": "scripts/ はビルド・運用時だけ動くコードです。src/ から import しないでください"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/src/pages/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/scripts/**"],
+                "message": "scripts/ はビルド・運用時だけ動くコードです。src/ から import しないでください"
+              },
+              {
+                "group": ["@/pages/**"],
+                "message": "画面から別の画面を import しないでください。共有したいものは src/components/ に上げてください"
+              },
+              {
+                "group": ["@/routes/**"],
+                "message": "routes は URL の定義だけです。画面から import しないでください"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/src/components/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/scripts/**"],
+                "message": "scripts/ はビルド・運用時だけ動くコードです。src/ から import しないでください"
+              },
+              {
+                "group": ["@/server/**", "@packages/db", "@packages/db/**"],
+                "message": "共通コンポーネントからデータを引かないでください。取得は src/server/ に置き、loader から渡してください"
+              },
+              {
+                "group": ["@/pages/**"],
+                "message": "共通コンポーネントから画面を import しないでください"
+              },
+              {
+                "group": ["@/routes/**"],
+                "message": "routes は URL の定義だけです。コンポーネントから import しないでください"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/src/server/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/scripts/**"],
+                "message": "scripts/ はビルド・運用時だけ動くコードです。src/ から import しないでください"
+              },
+              {
+                "group": ["@/pages/**", "@/components/**", "@/routes/**"],
+                "message": "server は画面を知りません。依存の向きが逆です"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
