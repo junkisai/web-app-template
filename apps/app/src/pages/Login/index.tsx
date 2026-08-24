@@ -1,6 +1,8 @@
-import { authClient } from '@packages/auth/auth-client'
-import { Link, useNavigate } from '@tanstack/react-router'
 import { useState, useTransition } from 'react'
+
+import { Link, useNavigate } from '@tanstack/react-router'
+
+import { authClient } from '@packages/auth/auth-client'
 
 type AuthMode = 'sign-in' | 'sign-up'
 
@@ -134,15 +136,15 @@ export function LoginPage() {
         <section className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm lg:p-12">
           <div className="flex h-full flex-col justify-between gap-12">
             <div className="space-y-6">
-              <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs uppercase tracking-[0.28em] text-slate-500">
+              <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs tracking-[0.28em] text-slate-500 uppercase">
                 Better Auth
               </div>
 
               <div className="space-y-4">
-                <p className="text-sm uppercase tracking-[0.3em] text-emerald-600">
+                <p className="text-sm tracking-[0.3em] text-emerald-600 uppercase">
                   Access Ledger
                 </p>
-                <h1 className="text-5xl font-semibold leading-none text-slate-900 md:text-6xl">
+                <h1 className="text-5xl leading-none font-semibold text-slate-900 md:text-6xl">
                   Sign in without turning the app into a side quest.
                 </h1>
                 <p className="max-w-xl text-base leading-7 text-slate-600 md:text-lg">
@@ -177,7 +179,7 @@ export function LoginPage() {
           <div className="space-y-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm uppercase tracking-[0.24em] text-slate-500">
+                <p className="text-sm tracking-[0.24em] text-slate-500 uppercase">
                   Session Desk
                 </p>
                 <h2 className="text-3xl font-semibold text-slate-900">
@@ -207,7 +209,7 @@ export function LoginPage() {
             {hasSession ? (
               <div className="space-y-4 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5">
                 <div className="space-y-1">
-                  <p className="text-sm uppercase tracking-[0.2em] text-slate-500">
+                  <p className="text-sm tracking-[0.2em] text-slate-500 uppercase">
                     Active session
                   </p>
                   <h3 className="text-2xl font-semibold text-slate-900">
@@ -358,7 +360,7 @@ function ModeButton(props: {
 function ValueCard(props: { label: string; value: string; detail: string }) {
   return (
     <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
-      <p className="text-xs uppercase tracking-[0.22em] text-slate-500">
+      <p className="text-xs tracking-[0.22em] text-slate-500 uppercase">
         {props.label}
       </p>
       <p className="mt-3 text-3xl font-semibold text-slate-900">

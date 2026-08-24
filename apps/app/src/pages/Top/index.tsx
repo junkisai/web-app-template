@@ -1,6 +1,9 @@
-import { authClient } from '@packages/auth/auth-client'
-import { Link } from '@tanstack/react-router'
 import { useState, useTransition } from 'react'
+
+import { Link } from '@tanstack/react-router'
+
+import { authClient } from '@packages/auth/auth-client'
+
 import type { User } from '@packages/db'
 
 type Props = {
