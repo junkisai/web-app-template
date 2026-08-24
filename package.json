@@ -8,13 +8,14 @@
     "prepare": "git config core.hooksPath .githooks",
     "gen": "turbo run gen",
     "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "lint": "turbo run lint && pnpm lint:knip",
+    "lint:knip": "knip",
     "lint:packageVersion": "syncpack list-mismatches",
     "fmt": "turbo run fmt",
     "sync:agents": "bash scripts/sync-agent-config.sh"
   },
   "devDependencies": {
-    "concurrently": "10.0.4",
+    "knip": "6.32.2",
     "oxfmt": "0.61.0",
     "oxlint": "1.77.0",
     "syncpack": "13.0.4",
