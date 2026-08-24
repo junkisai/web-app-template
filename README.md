@@ -16,7 +16,7 @@
 |                                  | Better Auth (Authentication) |                                   |                                  |
 |                                  |                              |                                   |                                  |
 | **開発ツール／ユーティリティ**   | pnpm (Package Manager)       | Turborepo (Monorepo Task Runner)  | oxlint (Linter)                  |
-|                                  | oxfmt (Formatter)            | VSCode (Code Editor)              |                                  |
+|                                  | oxfmt (Formatter)            | knip (Unused Code Detector)       | VSCode (Code Editor)             |
 
 ## Workspace
 
@@ -39,7 +39,7 @@ pnpm install
 | フック | 実行内容 |
 | --- | --- |
 | pre-commit | ステージ済みの JS/TS に `oxlint --fix` と `oxfmt` をかけ、修正結果を自動でステージし直します |
-| pre-push | `pnpm lint`（`tsc --noEmit` と `oxlint`）を実行し、エラーがあれば push を中断します |
+| pre-push | `pnpm lint`（`tsc --noEmit`・`oxlint`・`knip`）を実行し、エラーがあれば push を中断します |
 
 フックを一時的に飛ばしたいときは `LEFTHOOK=0 git commit` のように環境変数を付けます。
 
