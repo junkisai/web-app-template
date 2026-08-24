@@ -59,11 +59,13 @@ export const env = createEnv({
     TURSO_DATABASE_URL: v.pipe(v.string(), v.url()),
     TURSO_AUTH_TOKEN: v.pipe(v.string(), v.nonEmpty()),
 
+    // R2 の 5 つはコードから読まれておらず、.env.template も XXXX のまま配っている。
+    // ここで形式を課すと R2 を使わない構成が起動しなくなるので、存在の宣言だけに留める。
     R2_BUCKET_NAME: optionalString,
-    R2_BUCKET_URL: optionalUrl,
+    R2_BUCKET_URL: optionalString,
     R2_ACCESS_KEY: optionalString,
     R2_SECRET_KEY: optionalString,
-    R2_ENDPOINT: optionalUrl,
+    R2_ENDPOINT: optionalString,
 
     ...socialProviderCredentials,
   },
@@ -71,6 +73,10 @@ export const env = createEnv({
   // ローカル（dotenv）と本番（Workers）を同じ参照元で扱える。
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
+  // knip は drizzle.config.ts を読み込んで解析するため、この module も評価される。
+  // 秘密情報を持たない環境で lint を通せるようにするための逃がし口で、
+  // 立てるとスキーマを通さない生の値が返るのでアプリの実行時には使わない。
+  skipValidation: !!process.env['SKIP_ENV_VALIDATION'],
   onValidationError: (issues) => {
     const lines = issues.map(
       (issue) => `  - ${formatIssuePath(issue.path)}: ${issue.message}`,

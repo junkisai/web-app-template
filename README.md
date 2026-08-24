@@ -16,7 +16,7 @@
 |                                  | Better Auth (Authentication) |                                   |                                  |
 |                                  |                              |                                   |                                  |
 | **開発ツール／ユーティリティ**   | pnpm (Package Manager)       | Turborepo (Monorepo Task Runner)  | oxlint (Linter)                  |
-|                                  | oxfmt (Formatter)            | VSCode (Code Editor)              |                                  |
+|                                  | oxfmt (Formatter)            | knip (Unused Code Detector)       | VSCode (Code Editor)             |
 
 ## Workspace
 
@@ -35,7 +35,14 @@
 pnpm install
 ```
 
-`pnpm install` 時に `prepare` スクリプトが `core.hooksPath` を `.githooks` に設定します。これにより `git push` 前に pre-push フックで `pnpm lint` が自動実行され、lint エラーがある場合は push が中断されます。
+`pnpm install` 時に `prepare` スクリプトが lefthook の Git フックをインストールします。フックの内容は [lefthook.yml](./lefthook.yml) にあります。
+
+| フック | 実行内容 |
+| --- | --- |
+| pre-commit | ステージ済みの JS/TS に `oxlint --fix` と `oxfmt` をかけ、修正結果を自動でステージし直します |
+| pre-push | `pnpm lint`（`tsc --noEmit`・`oxlint`・`knip`）を実行し、エラーがあれば push を中断します |
+
+フックを一時的に飛ばしたいときは `LEFTHOOK=0 git commit` のように環境変数を付けます。
 
 ### 2. Create `.env`
 
@@ -134,6 +141,8 @@ env.ENABLE_AUTH // boolean
 - `ENABLE_AUTH` は `1` / `true` / `yes` / `on` と `0` / `false` / `no` / `off` を受け付けます。未設定なら `true`、それ以外の文字列はエラーです
 
 変数を増やすときは `.env.template` と schema の両方に追加します。schema にないキーは `env` から読めません。
+
+`SKIP_ENV_VALIDATION` を立てると検証を飛ばして生の値を返します。`pnpm lint` の knip がこれを使っていて、`.env` の無い環境でも lint が通ります。アプリの実行時には使いません。
 
 ブラウザに渡す値はこの package には置きません。`packages/env` は drizzle-kit や tsx からも読まれるため `process.env` だけを参照します。`VITE_` プレフィックスの値を使う場合は、`import.meta.env` を `runtimeEnv` にした env を `apps/app` 側に別途定義してください。
 
