@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "packageManager": "pnpm@11.23.0",
   "scripts": {
-    "prepare": "git config core.hooksPath .githooks",
+    "prepare": "lefthook install",
     "gen": "turbo run gen",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "concurrently": "10.0.4",
+    "lefthook": "2.1.10",
     "oxfmt": "0.61.0",
     "oxlint": "1.77.0",
     "syncpack": "13.0.4",

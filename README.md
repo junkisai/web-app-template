@@ -34,7 +34,14 @@
 pnpm install
 ```
 
-`pnpm install` 時に `prepare` スクリプトが `core.hooksPath` を `.githooks` に設定します。これにより `git push` 前に pre-push フックで `pnpm lint` が自動実行され、lint エラーがある場合は push が中断されます。
+`pnpm install` 時に `prepare` スクリプトが lefthook の Git フックをインストールします。フックの内容は [lefthook.yml](./lefthook.yml) にあります。
+
+| フック | 実行内容 |
+| --- | --- |
+| pre-commit | ステージ済みの JS/TS に `oxlint --fix` と `oxfmt` をかけ、修正結果を自動でステージし直します |
+| pre-push | `pnpm lint`（`tsc --noEmit` と `oxlint`）を実行し、エラーがあれば push を中断します |
+
+フックを一時的に飛ばしたいときは `LEFTHOOK=0 git commit` のように環境変数を付けます。
 
 ### 2. Create `.env`
 
