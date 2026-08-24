@@ -1,72 +1,159 @@
 # ディレクトリ構成
 
-`apps/app` の置き場所の規約。**新しいファイルを作る前にここを読み、下の判断フローで置き場所を決める。**
-
-基本は Feature 型（画面ごとにまとめる）で、共通化したいものだけ Layer 型（技術ごとにまとめる）に上げる。
+`apps/app` の置き場所の規約。**新しいファイルを作る前にここを読み、[置き場所の判断フロー](#置き場所の判断フロー)で置き場所を決める。**
 
 ## 設計の考え方
 
 ディレクトリの分け方には 2 つの軸がある。
 
-| 軸 | 何で分けるか | 例 | 強い点 | 弱い点 |
-| --- | --- | --- | --- | --- |
-| Layer 型 | 技術 | `components/`, `hooks/`, `lib/`、Atomic Design、MVC | 階層を作ることで、共通化によって生じる依存の向きを整理できる | 階層の定義が曖昧になり、必要以上の階層ができて依存が複雑になる |
-| Feature 型 | ドメイン | `pages/<Page>/` に部品・hooks・server function を同居させる | 疎結合・高凝集になり、影響範囲が限定される | ドメインの境界が曖昧になり、ドメイン間で処理が重複する |
+| 軸 | 何で分けるか | 強い点 | 弱い点 |
+| --- | --- | --- | --- |
+| Feature 型 | ドメイン | 疎結合・高凝集になり、影響範囲が限定される | ドメインの境界が曖昧になり、ドメイン間で処理が重複する |
+| Layer 型 | 技術 | 階層を作ることで、共通化によって生じる依存の向きを整理できる | 階層の定義が曖昧になり、必要以上の階層ができて依存が複雑になる |
 
 どちらかが正しいのではない。**弱点が互い違いなので、組み合わせて打ち消す。**
 
-方針は 2 つ。
+### Feature 型を基本にする
 
-1. **基本は Feature 型で考える。** 凝集度が上がり、変更の影響範囲が読める
-2. **共通化したいものだけ Layer 型に上げる。** 共通化すると複数箇所から参照されて依存が生まれるので、技術単位の階層に置いて向きを一方向に固定する
+まず Feature 型で考える。凝集度が上がり、変更の影響範囲が読める。
 
-この構成では `pages/<Page>/` が Feature、`components/`・`server/`・`hooks/`・`lib/` が Layer にあたる。判断フローの 3 が Feature 側、4〜7 が Layer 側。
+**ただし Feature 型は、ドメイン間で依存を発生させた時点で成立しなくなる。** 影響範囲が限定されることが Feature 型の唯一の利点なので、ドメイン A がドメイン B の中身を参照した瞬間、A を触ると B が壊れるようになり、利点が消える。残るのは弱点（境界が曖昧・処理が重複）だけになる。
 
-**入れ子になっているのが要点。** `pages/Top/components/` は「Feature の中の Layer」。逆に `components/layout/SiteHeader/` は「Layer の中の小さな Feature」で、必要ならスタイルやテストを同居させられる。この入れ子はどの深さでも同じ考え方で繰り返せるので、階層が深くなっても判断の仕方は変わらない。
+**Feature どうしは、直接参照しない。組み合わせるのは画面の仕事で、共有したくなったら Layer に上げる。**
 
-### 表に載っていないものを置くとき
+### Layer は共通化の受け皿
 
-判断フローに当てはまらないものが出たら、次の順で考える。
+Feature 型は共通化を扱えない。同じ処理を 2 つのドメインから使いたくなったとき、置き場所がないからだ。そこで Layer を使う。
 
-1. **いくつの場所から使われるか。** 1 つなら Feature 側（使う場所の中）に閉じる
-2. 2 つ以上から使われるなら、**何の技術か**で Layer を選ぶ
-3. どの Layer にも当てはまらないとき、**Layer を新設する前に一番近い Layer に置く。** 同種が 3 つ目に現れてから切り出す
-4. それでも迷ったら、**依存の向きが一方向に保てる置き方**を選ぶ
+共通化すると、複数箇所から同じ処理を参照するので依存が生まれる。**依存で問題になるのは依存の方向であって、依存があること自体ではない。** Layer は、その方向を一方向に固定するための装置である。技術の単位で階層を切り、上から下へだけ参照させる。
 
-**先に共通化しない。** 「あとで使うかも」で Layer に上げると、参照元が 1 つのまま依存だけが増える。Feature 型の強み（影響範囲が読める）を捨てて、Layer 型の弱み（階層が増えて依存が複雑になる）だけを受け取ることになる。
+つまり Layer は「技術ごとの置き場」ではない。**共通化したものを受け止め、依存の向きを整えるための階層**である。
 
-この「組み合わせる」判断の根拠として、参考記事はコンウェイの法則を挙げている。組織が最終的にハイブリッド形態に落ち着くのと同じように、システムの構造もハイブリッドに落ち着くという見立てである。
+### 境界は、関係者と共有できる言葉で引く
 
-参考: [フロントエンドのディレクトリ設計を考える](https://zenn.dev/mybest_dev/articles/c0570e67978673)
+Feature 型が破綻する典型は、**エンジニアだけで分割点を決めること**にある。実装の都合で引いた境界は、プロダクトの言葉と一致しないので、同じデータを扱う処理が境界の両側に生まれる。
+
+ドメインの境界は、**プロダクトの言葉**（企画やデザインの会話に出てくる名前）から引く。「SSR 用」「クライアント用」のような、どう実装するかによる区切りでは引かない。それは実装の都合であって、エンジニア以外は使わない言葉だからだ。
+
+URL と画面の単位が Feature の境界に向くのは、まさにこの点による。エンジニア以外とも共通認識を持てるので、境界が言葉として安定する。ファイルベースルーティングが Feature 型と相性が良いのはそのためである。
+
+### URL の定義と画面の実体を分ける
+
+`routes/` は **URL を定義する場所**であって、画面を書く場所ではない。ルートファイルはルートの契約（URL・`head`・`loader`・パラメータの受け取り）だけを持ち、画面の実体は `screens/` にある。
+
+分ける理由は 2 つある。
+
+- **ルートの入れ子は URL 設計で決まっていて、コードの凝集で決まっていない。** 画面の中身を `routes/` に置くと、URL を変えただけでコードが丸ごと動く
+- **`routes/` の中では、TanStack Router が名前でファイルを解釈する。** `__root.tsx` や `$slug.tsx` のような綴りが規約であり、`routeTree.gen.ts` の生成対象にもなる。`routes/` の外なら、この衝突は起こらない
+
+### 入れ子にする
+
+Feature の中に Layer を作れる。`features/users/` の中に `api/` `components/` `types/` を切るのがそれ。
+
+**画面も Feature なので、同じ形になる。** `screens/login/` の中にも `components/` `hooks/` `utils/` を切る。ディレクトリ名まで同じで、違うのは中身がドメインのものか、その画面だけのものかだけ。
+
+この入れ子はどの深さでも同じ考え方で繰り返せるので、階層が深くなっても判断の仕方は変わらない。
+
+### 先に共通化しない
+
+**ドメインを持たないもの**は、「あとで使うかも」で共有層に上げない。参照元が 1 つのまま依存だけが増え、Feature 型の強み（影響範囲が読める）を捨てて、Layer 型の弱み（階層が増えて依存が複雑になる）だけを受け取ることになる。2 つ目の参照元が実際に現れてから上げる。
+
+**ドメインを持つものは違う。** 参照元が 1 つでも、最初から `features/<ドメイン>/` に置く。これは共通化ではなく、そのドメインの住所を決める話だからだ。
 
 ## 全体像
 
 ```text
 apps/app/
-├─ scripts/                   ビルド・運用時だけ動くコード。ブラウザに載らない
-├─ public/                    そのまま配信される静的ファイル
-└─ src/                       ブラウザに載るコード
-   ├─ routes/                 URL とページの対応だけを書く薄い層
-   ├─ pages/                  画面の実体。1 画面 1 ディレクトリ
-   │  └─ <Page>/
-   │     ├─ index.tsx         画面のルートコンポーネント
-   │     ├─ components/       この画面だけで使うコンポーネント
-   │     ├─ hooks/            この画面だけで使う hooks
-   │     └─ server/           この画面だけで使う server function
-   ├─ components/             複数の画面から使うコンポーネント
-   │  ├─ ui/                  ドメインを知らない部品（Button, Modal など）
-   │  └─ layout/              サイト共通の枠（Header, Footer など）
-   ├─ server/                 複数の画面から使う server function（Data Access Layer）
-   ├─ hooks/                  複数の画面から使う hooks
-   ├─ lib/                    複数の画面から使う純粋な関数
-   ├─ styles/                 グローバル CSS
-   ├─ router.tsx              ルーター定義
-   └─ routeTree.gen.ts        TanStack Router が生成。手で触らない
+├─ scripts/                ビルド・運用時だけ動くコード。ブラウザに載らない
+├─ public/                 そのまま配信される静的ファイル
+└─ src/
+   ├─ routes/              URL の定義だけ。画面の実体は置かない
+   ├─ screens/             画面の実体。1 画面 1 ディレクトリ。features を組み合わせる
+   │  └─ <画面>/
+   │     ├─ index.tsx      画面のルートコンポーネント
+   │     ├─ components/    その画面だけで使う部品
+   │     ├─ hooks/         その画面だけの状態・副作用
+   │     ├─ types/         その画面だけの型
+   │     └─ utils/         その画面だけの整形・計算
+   ├─ features/            ドメイン。そのドメインのものは全部ここに入れる
+   │  └─ <ドメイン>/
+   │     ├─ api/           そのドメインのデータ取得（server function）
+   │     ├─ components/    そのドメインを表示する部品
+   │     ├─ hooks/         そのドメインの状態・副作用
+   │     ├─ types/         そのドメインの型
+   │     └─ utils/         そのドメインの整形・計算
+   ├─ components/          ドメインを知らない共有部品
+   │  ├─ ui/               単体で完結する UI 部品
+   │  └─ layout/           サイト共通の枠
+   ├─ hooks/               ドメインを知らない共有 hooks
+   ├─ utils/               ドメインを知らない純粋関数
+   ├─ lib/                 外部ライブラリをこのアプリ用に設定したもの
+   ├─ styles/              グローバル CSS
+   ├─ router.tsx           ルーター定義
+   └─ routeTree.gen.ts     TanStack Router が生成。手で触らない
 ```
 
-`components/ui`・`components/layout`・`hooks` は空の状態で始まる。**必要になったらこのパスに作る。別の名前のディレクトリを新設しない。**
+`screens/<画面>/` と `features/<ドメイン>/` の中は、**必要なディレクトリだけ作る。** 全部そろえない。1〜2 個のうちは `index.tsx` の横に平置きし（`screens/login/mode-button.tsx`）、3 つ目が来てから `components/` を掘る。
+
+`components/ui`・`components/layout`・`hooks`・`utils` は空の状態で始まる。**必要になったらこのパスに作る。別の名前のディレクトリを新設しない。**
 
 `scripts/` はサブディレクトリを作らずフラットに置き、ファイル名で役割を表す。
+
+**`screens/<画面>/api/` は作らない。** 画面はドメインを持たないので、データ取得の置き場にならない。取得は `routes/` の `loader` から `features/<ドメイン>/api/` を呼ぶ。複数のドメインをまたぐ画面も、組み合わせるのは `loader` の仕事。
+
+### `features/` と `lib/` の違い
+
+**ドメインの言葉で名前が付くかどうか**で分ける。付くなら `features/<ドメイン>/`、付かないなら共有層（`components/` `hooks/` `utils/` `lib/`）。
+
+`lib/` は**外部ライブラリをこのアプリ用に設定したもの**を置く場所である。fetch の shim、クライアント SDK のラッパーなど。ドメインは入らない。
+
+| 置きたいもの | 行き先 |
+| --- | --- |
+| ユーザーの取得・型・一覧表示 | `features/users/` の `api/` `types/` `components/` |
+| fetch の差し替え | `lib/` |
+| 日付を整形する | `utils/` |
+| ボタン・モーダル | `components/ui/` |
+
+**境界が「ドメインかどうか」の 1 本で決まるので、置き場所で迷わない。** ドメインに属するものを技術で切り分けて別の場所に置くと、同じドメイン名のディレクトリが複数の層にでき、そのたびにどちらに置くかを考えることになる。
+
+この分け方は bulletproof-react と同じ。向こうでも `lib/` は「アプリ用に事前設定された再利用可能なライブラリ」で、ドメインに属するものは api・components・hooks・types まで全部 `features/<ドメイン>/` に入る。
+
+### `@packages/*` の扱い
+
+| パッケージ | 誰が触るか |
+| --- | --- |
+| `@packages/db` | `features/<ドメイン>/api/` だけ |
+| `@packages/auth` | 制限しない |
+
+`@packages/db` はデータそのものなので、ドメインの中に閉じる。**画面や共有層から DB を引かない。**
+
+`@packages/auth` の `auth-client` は better-auth が用意するクライアント SDK で、性質としては `lib/` に置くものと同じ。ドメインではないので、画面から直接使ってよい（bulletproof-react も認証クライアントを `lib/` に置いている）。サーバー側の `auth` は `routes/api/auth/` が使う。
+
+**DB スキーマの型を画面まで通さない。** `@packages/db` の型が要るときは `features/<ドメイン>/types/` で受けてから渡す（`features/users/types/user.ts`）。ここを挟んでおくと、テーブル定義を変えても画面側の import が動かない。
+
+### 画面のディレクトリは URL の入れ子を写さない
+
+`screens/` はフラットに並べ、**画面そのものを指す言葉**で名前を付ける。
+
+| ルート | ルートファイル | 画面 |
+| --- | --- | --- |
+| `/` | `routes/index.tsx` | `screens/top/` |
+| `/login` | `routes/login.tsx` | `screens/login/` |
+| `/users/<id>` | `routes/users/$id.tsx` | `screens/user-detail/` |
+
+URL を写すと、`routes/` と同じ木がもう 1 本できて、URL を変えるたびに両方を動かすことになる。名前を画面側の言葉にしておけば、導線の都合で URL が変わっても画面は動かない。
+
+### `-` で始まるディレクトリは使わない
+
+TanStack Router は `-` で始まるファイル・ディレクトリをルート生成から除外するので、`routes/-components/` のようにコロケーションもできる。**これは使わない。**
+
+画面の実体を `routes/` の外に置けば、ルーティング対象かどうかを名前で示す必要がなくなる。`routes/` にあるものは全部 URL の定義、それ以外は全部 `routes/` の外、という 1 本の線で足りる。
+
+### `screens` という名前
+
+`pages` にしない。`routes` と `pages` は語としてほぼ同義で、**URL の定義と画面の実体という違いが名前から読み取れない。** `screens` なら、ルーティングの話をしているのか画面の話をしているのかが、パスを見た時点で分かる。
+
+`screens/<画面>/` の仕事は、**features を組み合わせて 1 画面にすること。** ドメインのロジックは持たない。
 
 ## 置き場所の判断フロー
 
@@ -74,74 +161,141 @@ apps/app/
 
 1. **ビルド時・運用時にしか動かないか**（Vite plugin、生成スクリプト、Node API を使う）→ `scripts/`
 2. **URL を増やす／変えるか** → `src/routes/`
-3. **1 つの画面でしか使わないか** → `src/pages/<Page>/` の `components/`・`hooks/`・`server/`
-4. **複数の画面から使うコンポーネントか**
-   - ドメインを知らない部品 → `src/components/ui/`
-   - サイト共通の枠 → `src/components/layout/`
-5. **複数の画面から使う server function か** → `src/server/`
-6. **複数の画面から使う hooks か** → `src/hooks/`
-7. **複数の画面から使う純粋な関数か** → `src/lib/`
+3. **画面そのものか** → `src/screens/<画面>/index.tsx`
+4. **ドメインの言葉で名前が付くか** → `src/features/<ドメイン>/` の `api/` `components/` `hooks/` `types/` `utils/`
+5. **その画面の組み立てにしか意味がないか** → `src/screens/<画面>/` の `components/` `hooks/` `types/` `utils/`
+6. **ドメインを知らない表示部品か** → `src/components/ui/`・`src/components/layout/`
+7. **ドメインを知らない hooks か** → `src/hooks/`
+8. **副作用のない汎用関数か** → `src/utils/`
+9. **外部ライブラリの設定・ラッパーか** → `src/lib/`
 
-**迷ったら、まず 3（画面の中）に置く。** 2 つ目の画面から使いたくなった時点で 4〜7 に上げる。先に共通化しない。
+**迷ったら 4。** ドメインの言葉で名前を付けられるなら `features/` に置く。
+
+4 と 5 は同じ「どこに置くか」に見えるが、**順番が効く。** 4 が先にあるのは、ドメインに属するものを画面の外に出すため。画面の中に置くと、2 つ目の画面で同じ取得・同じ整形を書くことになる。これが Feature 型の弱点そのもので、ドメインの住所を先に決めるのはこれを防ぐためである。
+
+**4 と 5 で掘るディレクトリの名前は同じ。** 違うのは、その中身がドメインの言葉で説明できるか、その画面の都合でしかないかだけ。「ユーザー一覧カード」は 4、「ログイン画面のモード切替ボタン」は 5 になる。
 
 ## 各層の責務
 
 | 場所 | 責務 | やらないこと |
 | --- | --- | --- |
 | `scripts/` | 生成処理、デプロイ補助、Vite plugin | React を書く |
-| `src/routes/` | URL・loader・`head`（meta / canonical）の定義。中身は `pages/` に委譲する | 画面のマークアップを書く |
-| `src/pages/<Page>/` | 画面の組み立て。受け取ったデータを並べる | データ取得の実装（`server/` に置き、loader から呼ぶ） |
+| `src/routes/**/*.tsx` | URL の契約。`head`・パラメータの受け取り・`loader` から `features/<ドメイン>/api/` を呼ぶ。受け取った値を `screens/` へ渡す | マークアップを書く。整形・集計する。DB を引く |
+| `src/screens/<画面>/` | 画面の組み立て。features を並べる | URL を知る。`head` を持つ。ドメインのロジックを持つ |
+| `src/screens/<画面>/` の `components/` `hooks/` `types/` `utils/` | その画面の組み立てにしか使わないもの | 他の画面から参照される。ドメインの言葉で名前が付く |
+| `src/features/<ドメイン>/` | そのドメインのデータ取得・型・表示・整形 | 他の features を参照する。画面と URL を知る |
 | `src/components/ui/` | 単体で完結する見た目の部品 | ドメインの型を知る |
-| `src/components/layout/` | 全ページ共通の枠 | ドメインの型を知る |
-| `src/server/` | server function、DB / 外部 API とのやりとり | 画面を書く |
-| `src/lib/` | 入力と出力だけで完結する関数 | React に依存する |
+| `src/components/layout/` | サイト共通の枠 | ドメインの型を知る |
+| `src/hooks/` | ドメインを知らない React の状態・副作用 | ドメインの型を知る |
+| `src/utils/` | 副作用のない純粋関数 | ドメインの型を知る。React に依存する |
+| `src/lib/` | 外部ライブラリのラッパー・設定 | ドメインを知る |
 
-`packages/db` や `packages/auth` を直接触るのは `src/server/` と `src/routes/` だけにする。コンポーネントから DB を引かない。
+ルートファイルを薄く保つのは、**URL の契約と、中身の実装を別々に読めるようにするため。** ドメインを `features/` に置いておけば同じデータを別の画面からも出せるし、画面を `screens/` に置いておけば URL を変えても画面は動かない。
 
 ## 依存の方向
 
 矢印の向きにだけ import する。逆向きが必要になったら、設計を間違えている。
 
-```text
-routes/  →  pages/  →  components/{ui,layout}
-                    →  hooks/, lib/
-         →  server/  →  @packages/*
+```mermaid
+flowchart LR
+  routes["routes/ (__root, index, ...)"]
+  screen["screens/&lt;画面&gt;/"]
+  feature["features/&lt;ドメイン&gt;/"]
+  shared["components/, hooks/, utils/, lib/"]
+  pkg["@packages/db"]
+
+  routes --> screen
+  routes --> feature
+  screen --> feature
+  screen --> shared
+  feature --> shared
+  feature --> pkg
 ```
 
 守るルール。
 
 - **`src/` から `scripts/` を import しない。** ブラウザに Node のコードが載る
-- **`pages/a` から `pages/b` を import しない。** 共有したくなったら `components/` に上げる
-- **`components/` は `server/` と `@packages/db` を import しない。** データを持たない部品にしておく
-- **`server/` から `pages/`・`components/`・`routes/` を import しない。**
-- **`routes/` にロジックを書かない。** loader の中で組み立てたくなったら `pages/` か `lib/` に出す
+- **features どうしは参照しない。** 組み合わせるのは `screens/` の仕事。共有したくなったら共有層へ上げる
+- **`features/` から `screens/`・`routes/` を import しない。** ドメインが画面や URL に依存すると、別の画面から使えなくなる
+- **画面どうしは参照しない。** `screens/<画面A>/` から `screens/<画面B>/` を import しない
+- **`screens/` から `routes/` を import しない。** 画面が URL を知ると、URL を変えたときに画面が壊れる
+- **共有層（`components/` `hooks/` `utils/` `lib/`）は `features/`・`screens/`・`routes/` を import しない。** ドメインを知らない部品にしておく
+- **`@packages/db` に触るのは `features/<ドメイン>/api/` だけ。** 画面・共有層・`routes/` から DB を引かない
+- **`routes/` にロジックを書かない。** `loader` の中で組み立てたくなったら `features/` に出す
+
+`routeTree.gen.ts` はこの向きの対象外。TanStack Router が全ルートを集める生成物なので、手で編集しない。
 
 ### lint で強制している
 
 最後の 1 つ（`routes/` にロジックを書かない）以外は `.oxlintrc.json` の `overrides` + `no-restricted-imports` で `pnpm lint` が落ちる。違反すると、どこに置くべきかを書いたメッセージが出る。
 
+| ここから | これを import できない |
+| --- | --- |
+| `src/routes/**` | `scripts/`、`@packages/db` |
+| `src/screens/**` | `scripts/`、`routes/`、他の画面、`@packages/db` |
+| `src/features/**` | `scripts/`、`routes/`、`screens/`、他の features |
+| `src/components/**`・`src/hooks/**`・`src/utils/**`・`src/lib/**` | `scripts/`、`routes/`、`screens/`、`features/`、`@packages/db` |
+
 知っておくべき制約が 2 つある。
 
 - **oxlint の `overrides` は、同じルールが複数のブロックにマッチすると最後のブロックが前のブロックを置き換える**（合成されない）。そのためディレクトリごとのブロックに共通ルールを書き写している。ルールを足すときは該当する全ブロックに入れる
-- **判定は import 文の文字列に対するパターンマッチで、解決後のパスではない。** ディレクトリを越える import には必ず `@/` エイリアスを使う。`../../components/...` のような相対パスで書くと検出をすり抜ける
+- **判定は import 文の文字列に対するパターンマッチで、解決後のパスではない。** そのため `@/` エイリアス形（`@/screens/**`）に加えて、相対パス形（`**/screens/**`）も同じ group に入れて塞いである。`../../screens/top` のような書き方でも落ちる
+
+ドメイン直下のファイル（`features/<ドメイン>/*.ts`）は `../` が必ずドメインの外に出るので、そこだけ `../**` も禁止している。**ドメインの中で 2 階層以上さかのぼって隣のドメインへ行く形だけは、正当な `../../types/...` と文字列で区別できないため lint に入れていない。** ここはレビューで見る。
 
 ## 命名
 
-**判定基準は 1 つ。そのディレクトリが React コンポーネント 1 つ、または画面 1 つを指すなら PascalCase、それ以外は小文字。**
+**パスに現れるものは、ディレクトリもファイルもすべて kebab-case。** 大文字は使わない。PascalCase になるのは、コードの中の識別子（コンポーネント名・型名）だけ。
 
-`ui` と `layout` はコンポーネントではなく分類なので小文字。
+大文字小文字を混ぜないのは、**混ぜた瞬間に環境差で踏むから。** macOS はファイル名の大文字小文字を区別せず、CI（Linux）は区別する。ローカルで通ったものがビルドで落ちる。`git mv` での大文字小文字だけの改名も、macOS では一度別名を経由しないと通らない。全部小文字なら、この差は起こりようがない。
 
 | 対象 | 記法 | 例 |
 | --- | --- | --- |
-| コンポーネント 1 つを指すディレクトリ | PascalCase | `layout/SiteHeader/`, `components/Pagination/` |
-| 画面 1 つを指すディレクトリ | PascalCase | `pages/Top/`, `pages/Login/` |
-| 分類のディレクトリ | 小文字 | `pages/`, `components/`, `ui/`, `layout/`, `server/`, `hooks/`, `lib/`, `styles/`, `scripts/` |
-| コンポーネントのファイル | `index.tsx` 固定 | `pages/Top/index.tsx` |
-| コンポーネント以外のモジュール | kebab-case | `lib/native-fetch-shim.ts`, `server/queries/users.ts` |
-| URL になるもの | 小文字・ハイフン | `routes/` |
+| URL になるディレクトリ・ファイル | kebab-case | `routes/users/`, `routes/login.tsx` |
+| 動的セグメント | `$` プレフィックス | `routes/users/$id.tsx` |
+| TanStack Router の予約ファイル | 規約どおり | `__root.tsx`, `routeTree.gen.ts` |
+| 画面のディレクトリ | kebab-case | `screens/top/`, `screens/user-detail/` |
+| ドメインのディレクトリ | kebab-case。プロダクトの言葉 | `features/users/` |
+| 分類のディレクトリ | kebab-case | `components/`, `ui/`, `layout/`, `api/`, `hooks/`, `types/`, `utils/`, `scripts/` |
+| モジュール・コンポーネントのファイル | kebab-case | `components/ui/button.tsx`, `features/users/api/get-users.ts` |
+| React コンポーネント・型 | PascalCase の名前付き export | `button.tsx` が `Button` を export |
+| 関数・変数 | camelCase | `getUsers`, `formatDate` |
 
-コンポーネントは 1 ディレクトリ 1 ファイルで `index.tsx` に置き、名前付き export にする。コンポーネント名はディレクトリ名と対応させる（`pages/Top/index.tsx` は `TopPage` を export する）。
+**ファイル名とその中の識別子は、綴りだけ変えて対応させる。** `user-card.tsx` が `UserCard` を export する。default export は使わない。
 
-`routes/` の中身は TanStack Router が URL に対応づけるので、記法を変えられない。
+部品に CSS やテストを添えたくなったら、**kebab-case のディレクトリを切って `index.tsx` に置く**（`components/ui/button/index.tsx`）。1 ファイルで済むうちは切らない。
 
-macOS はファイル名の大文字小文字を区別しないが、CI（Linux）は区別する。**import のパスは `git ls-files` の表記と一字一句合わせる。** ローカルで通ってもビルドが落ちる。
+**バレルファイル（`index.ts` で再 export するだけのファイル）は作らない。** Vite の tree shaking を妨げる。上の `button/index.tsx` はコンポーネントの実体なので当たらないが、`features/users/index.ts` のようにドメインの中身をまとめて再 export するのは禁止。実装ファイルを直接 import する。
+
+**画面の名前は URL ではなく、画面そのものを指す言葉で付ける。** URL は導線の都合で変わるが、その画面が何をする場所かは変わらない。ルート（`/`）だけは URL に名前がないので `top` とする。
+
+`features/` の中のファイル名は、**プロダクトの言葉をそのまま使う。** 実装の都合で付けた名前（`helper.ts`、`common.ts`、`manager.ts`）は、どのドメインの何を扱うか分からなくなるので使わない。
+
+**import のパスは `git ls-files` の表記と一字一句合わせる。** パスを全部 kebab-case にしているのは、この一致を保ちやすくするためでもある。
+
+### import の書き方
+
+ディレクトリを越える import には `@/` エイリアス（`tsconfig.json` で `./src/*`）を使う。`../../../components/...` のような相対パスは、階層が変わるたびに壊れるうえ、依存の向きが読み取れない。
+
+**自分の画面・自分のドメインの中を指すときだけ `./` で始まる相対パスを使う。** `features/users/components/user-card.tsx` から `../types/user` のように書く。中身はまとめて動くので、相対のほうが移動に強い。
+
+## テストの置き場所
+
+対象実装と同じディレクトリの `__tests__/` 配下に置く。画面やドメインのディレクトリを移動するときは、テストも一緒に動く。
+
+## 入口が増えたとき
+
+入口が 1 つのうちは、`screens/` をフラットに並べる。
+
+管理画面や外部向け API のような **2 つ目の入口**ができたら、`screens/<入口>/<画面>/` の形にして 1 段挟む。入口どうしは参照せず、共有したいものは `features/` か共有層へ上げる、という考え方は同じ。
+
+**この形にするのは、実際に 2 つ目の入口ができてから。** 先に器を作ると、1 つしかない入口の名前が全パスに乗るだけになる。
+
+## 全体像にないディレクトリ
+
+次の 2 つは条件を満たすまで作らない。
+
+| ディレクトリ | 作る条件 |
+| --- | --- |
+| `stores/` | 複数のドメインをまたぐクライアント状態が出てきたとき |
+| `types/` | 複数のドメインで共有する型が出てきたとき。ドメインの型は `features/<ドメイン>/types/` |
