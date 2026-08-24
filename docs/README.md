@@ -37,7 +37,7 @@
 
 ### runbooks
 
-- 
+- [20260825_minimum-release-age.md](runbooks/20260825_minimum-release-age.md) — 公開から 7 日未満のバージョンを入れる手順（pnpm / Renovate の設定と例外の書き方）
 
 ### references
 
