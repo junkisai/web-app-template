@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { TopPage } from '@/pages/Top'
-import { getUsers } from '@/server/queries/users'
+import { TopPage } from '@/screens/top'
+import { getUsers } from '@/features/users/api/get-users'
 
 export const Route = createFileRoute('/')({
   loader: async () => await getUsers(),

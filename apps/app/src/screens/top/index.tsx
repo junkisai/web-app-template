@@ -4,7 +4,7 @@ import { Link } from '@tanstack/react-router'
 
 import { authClient } from '@packages/auth/auth-client'
 
-import type { User } from '@packages/db'
+import type { User } from '@/features/users/types/user'
 
 type Props = {
   users: User[]

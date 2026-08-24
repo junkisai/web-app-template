@@ -8,11 +8,13 @@
 
 分け方には Layer 型（技術で分ける。依存の向きを整理できるが階層が増えて複雑になる）と Feature 型（ドメインで分ける。高凝集で影響範囲が読めるが境界が曖昧になり重複しやすい）がある。弱点が互い違いなので組み合わせる。
 
-**基本は Feature 型（`src/pages/<Page>/`）で考え、複数の画面から使うものだけ Layer 型（`components/`, `server/`, `hooks/`, `lib/`）に上げる。** 共通化すると複数箇所から参照されて依存が生まれるため、技術単位の階層に置いて向きを一方向に固定する。
+**ドメインの言葉で名前が付くものは `src/features/<ドメイン>/` に入れる。** データ取得も型も表示部品も、そのドメインのものは全部。付かないものだけ Layer（`components/`, `hooks/`, `utils/`, `lib/`）に置く。境界が「ドメインかどうか」の 1 本で決まるので、置き場所で迷わない。
 
-`src/pages/<Page>/components/` のように入れ子にできる。「Feature の中の Layer」で、この考え方はどの深さでも同じ。
+**URL の定義は `src/routes/`、画面の実体は `src/screens/<画面>/`。** 画面は features を組み合わせて 1 画面にする場所で、ドメインのロジックは持たない。
 
-**先に共通化しない。** 参照元が 1 つのまま Layer に上げると、Feature 型の強みを捨てて Layer 型の弱みだけを受け取る。表に載っていないものは「いくつの場所から使われるか」→「何の技術か」→「依存の向きが一方向に保てるか」の順で決める。詳細は architecture のドキュメントにある。
+`features/<ドメイン>/components/` や `screens/<画面>/components/` のように入れ子にできる。「Feature の中の Layer」で、この考え方はどの深さでも同じ。
+
+**先に共通化しない。** ドメインを持たないものは、2 つ目の参照元が現れてから Layer に上げる。ただし**ドメインを持つものは参照元が 1 つでも最初から `features/` に置く。** 共通化ではなく、住所を決める話だから。
 
 ## 置き場所（要約）
 
@@ -20,39 +22,50 @@
 
 1. ビルド時・運用時にしか動かない（Node API を使う、Vite plugin、生成スクリプト） → `apps/app/scripts/`
 2. URL を増やす・変える → `apps/app/src/routes/`
-3. 1 つの画面でしか使わない → `apps/app/src/pages/<Page>/` の `components/`・`hooks/`・`server/`
-4. 複数の画面から使うコンポーネント → `apps/app/src/components/ui/`（ドメインを知らない部品）か `apps/app/src/components/layout/`（サイト共通の枠）
-5. 複数の画面から使う server function → `apps/app/src/server/`
-6. 複数の画面から使う hooks → `apps/app/src/hooks/`
-7. 複数の画面から使う純粋な関数 → `apps/app/src/lib/`
+3. 画面そのもの → `apps/app/src/screens/<画面>/index.tsx`
+4. ドメインの言葉で名前が付く → `apps/app/src/features/<ドメイン>/` の `api/`・`components/`・`hooks/`・`types/`・`utils/`
+5. その画面の組み立てにしか意味がない → `apps/app/src/screens/<画面>/` の `components/`・`hooks/`・`types/`・`utils/`
+6. ドメインを知らない表示部品 → `apps/app/src/components/ui/`（単体で完結する部品）か `apps/app/src/components/layout/`（サイト共通の枠）
+7. ドメインを知らない hooks → `apps/app/src/hooks/`
+8. 副作用のない汎用関数 → `apps/app/src/utils/`
+9. 外部ライブラリの設定・ラッパー → `apps/app/src/lib/`
 
-迷ったら 3 に置く。2 つ目の画面から使いたくなった時点で上に上げる。先に共通化しない。
+**迷ったら 4。** ドメインの言葉で名前を付けられるなら `features/` に置く。
 
-`src/components/ui`・`src/components/layout`・`src/hooks` は空の状態で始まる。必要になったらこのパスに作り、別名のディレクトリを新設しない。`apps/app/scripts/` はフラットに置き、サブディレクトリを作らない。
+`src/components/ui`・`src/components/layout`・`src/hooks`・`src/utils` は空の状態で始まる。必要になったらこのパスに作り、別名のディレクトリを新設しない。`apps/app/scripts/` はフラットに置き、サブディレクトリを作らない。
+
+**`screens/<画面>/api/` は作らない。** 取得は `routes/` の `loader` から `features/<ドメイン>/api/` を呼ぶ。複数ドメインをまたぐ画面も、組み合わせるのは `loader` の仕事。
 
 ## 破ってはいけない依存の向き
 
 ```text
-routes/ → pages/  → components/{ui,layout}, hooks/, lib/
-        → server/ → @packages/*
+routes/ → screens/ → features/ → components/, hooks/, utils/, lib/
+        → features/           → @packages/db
 ```
 
 - `src/` から `scripts/` を import しない
-- `pages/a` から `pages/b` を import しない
-- `components/` は `server/` と `@packages/db` を import しない
-- `server/` から `pages/`・`components/`・`routes/` を import しない
+- features どうしを import しない（組み合わせるのは `screens/` の仕事）
+- `features/` から `screens/`・`routes/` を import しない
+- `screens/a` から `screens/b` を import しない
+- `screens/` から `routes/` を import しない
+- 共有層（`components/`・`hooks/`・`utils/`・`lib/`）から `features/`・`screens/`・`routes/` を import しない
+- `@packages/db` に触るのは `features/<ドメイン>/api/` だけ
 - `routes/` にロジックを書かない
 
-最後の 1 つ以外は `.oxlintrc.json` の `overrides` + `no-restricted-imports` で `pnpm lint` が落ちる。**判定は import 文の文字列に対するパターンマッチなので、ディレクトリを越える import には必ず `@/` エイリアスを使う。** 相対パスで書くと検出をすり抜ける。
+最後の 1 つ以外は `.oxlintrc.json` の `overrides` + `no-restricted-imports` で `pnpm lint` が落ちる。**`@/` エイリアス形と相対パス形の両方を塞いである**ので、`../../screens/top` のような書き方でも落ちる。
+
+`@packages/auth` の `auth-client` は better-auth のクライアント SDK で、性質は `lib/` に置くものと同じ。ドメインではないので画面から直接使ってよい。
 
 ## 命名
 
-**そのディレクトリが React コンポーネント 1 つ、または画面 1 つを指すなら PascalCase。それ以外は小文字。**
+**パスに現れるものは、ディレクトリもファイルもすべて kebab-case。** PascalCase になるのはコードの中の識別子（コンポーネント名・型名）だけ。
 
-- コンポーネント・画面のディレクトリ → PascalCase（`pages/Top/`, `layout/SiteHeader/`）
-- 分類のディレクトリ → 小文字（`pages/`, `components/`, `ui/`, `layout/`, `server/`, `hooks/`, `lib/`, `scripts/`）
-- コンポーネントは `<Name>/index.tsx` に置き、named export する
-- コンポーネント以外のモジュール → kebab-case（`lib/native-fetch-shim.ts`）
-- URL になるもの（`routes/` の中）→ 小文字とハイフンのみ
+大文字小文字を混ぜないのは、macOS は区別せず CI（Linux）は区別するため。混ぜた時点で「ローカルで通るのにビルドで落ちる」を踏む。
 
-macOS は大文字小文字を区別しないが CI は区別する。**import のパスは `git ls-files` の表記と一字一句合わせる。**
+- ディレクトリ → kebab-case（`screens/user-detail/`, `features/users/`, `components/ui/`）
+- ファイル → kebab-case（`user-card.tsx`, `get-users.ts`）
+- ファイル名と中の識別子は綴りだけ変えて対応させる（`user-card.tsx` が `UserCard` を export）。default export は使わない
+- CSS やテストを添えたくなったら kebab-case のディレクトリを切って `index.tsx` に置く
+- バレルファイル（再 export だけの `index.ts`）は作らない
+
+**import のパスは `git ls-files` の表記と一字一句合わせる。**
