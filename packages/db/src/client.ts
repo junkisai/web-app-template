@@ -1,23 +1,11 @@
-import 'dotenv/config'
-import { drizzle } from 'drizzle-orm/libsql'
 import { createClient } from '@libsql/client'
+import { drizzle } from 'drizzle-orm/libsql'
 
-function getRequiredEnv(name: 'TURSO_DATABASE_URL' | 'TURSO_AUTH_TOKEN') {
-  const value = process.env[name]
-
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`)
-  }
-
-  return value
-}
-
-const databaseUrl = getRequiredEnv('TURSO_DATABASE_URL')
-const authToken = getRequiredEnv('TURSO_AUTH_TOKEN')
+import { env } from '@packages/env'
 
 const turso = createClient({
-  url: databaseUrl,
-  authToken,
+  url: env.TURSO_DATABASE_URL,
+  authToken: env.TURSO_AUTH_TOKEN,
 })
 
 export const db = drizzle(turso)

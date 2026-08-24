@@ -1,0 +1,20 @@
+{
+  "name": "@packages/env",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@t3-oss/env-core": "0.13.11",
+    "dotenv": "17.4.2",
+    "valibot": "1.4.2"
+  },
+  "devDependencies": {
+    "@packages/tsconfig": "workspace:*",
+    "@types/node": "24.13.3",
+    "typescript": "6.0.3"
+  }
+}

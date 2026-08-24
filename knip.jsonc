@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/knip/schema-jsonc.json",
-  // どの tsconfig.json も @tsconfig/strictest を直接 extends していて参照が 0 だが、
-  // 共通設定の置き場として残してある
+  // package.json の main が実体の無い index.js を指している。
+  // tsconfig を配るだけの package で entry が要らないため、workspace ごと外す
   "ignoreWorkspaces": ["packages/tsconfig"],
   "workspaces": {
     "apps/app": {
