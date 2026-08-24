@@ -11,3 +11,14 @@ supportedArchitectures:
     - current
     - x64
     - arm64
+
+saveExact: true
+progress: false
+
+allowBuilds:
+  esbuild: true
+  workerd: true
+  # drizzle-orm / better-auth の optional peer として入るだけで、
+  # このリポジトリは libsql しか使わないためビルドは不要
+  '@prisma/client': false
+  better-sqlite3: false
