@@ -33,7 +33,7 @@
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "concurrently": "10.0.4",
-    "dotenv-cli": "8.0.0",
+    "dotenv-cli": "11.0.0",
     "tailwindcss": "4.3.3",
     "typescript": "6.0.3",
     "wrangler": "4.124.0"
