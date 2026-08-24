@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start'
+
 import { users, db } from '@packages/db'
 
 export const getUsers = createServerFn({ method: 'GET' }).handler(async () => {

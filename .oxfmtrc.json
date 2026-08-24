@@ -5,5 +5,28 @@
   "printWidth": 80,
   "bracketSpacing": true,
   "trailingComma": "all",
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "ignorePatterns": ["**/routeTree.gen.ts"],
+  "sortTailwindcss": true,
+  "sortImports": {
+    "groups": [
+      "react",
+      "value-builtin",
+      "value-external",
+      "value-internal",
+      ["value-parent", "value-sibling", "value-index"],
+      ["type-parent", "type-sibling", "type-index"],
+      "type-internal",
+      "type-import",
+      "unknown"
+    ],
+    "customGroups": [
+      {
+        "groupName": "react",
+        "elementNamePattern": ["react", "react/*", "react-dom", "react-dom/*"]
+      }
+    ],
+    "internalPattern": ["@/", "@packages/"],
+    "newlinesBetween": true
+  }
 }
