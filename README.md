@@ -16,7 +16,7 @@
 |                                  | Better Auth (Authentication) |                                   |                                  |
 |                                  |                              |                                   |                                  |
 | **開発ツール／ユーティリティ**   | pnpm (Package Manager)       | Turborepo (Monorepo Task Runner)  | oxlint (Linter)                  |
-|                                  | oxfmt (Formatter)            | VSCode (Code Editor)              |                                  |
+|                                  | oxfmt (Formatter)            | knip (Unused Code Detector)       | VSCode (Code Editor)             |
 
 ## Workspace
 
