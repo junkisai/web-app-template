@@ -15,6 +15,9 @@ supportedArchitectures:
 saveExact: true
 progress: false
 
+# 単位は分。7 日。Renovate 側の minimumReleaseAge と揃えている
+minimumReleaseAge: 10080
+
 allowBuilds:
   esbuild: true
   workerd: true
