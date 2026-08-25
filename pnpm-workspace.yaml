@@ -21,6 +21,7 @@ minimumReleaseAge: 10080
 allowBuilds:
   esbuild: true
   workerd: true
+  lefthook: true
   # drizzle-orm / better-auth の optional peer として入るだけで、
   # このリポジトリは libsql しか使わないためビルドは不要
   '@prisma/client': false

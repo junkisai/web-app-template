@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/knip/schema-jsonc.json",
+  // package.json の main が実体の無い index.js を指している。
+  // tsconfig を配るだけの package で entry が要らないため、workspace ごと外す
+  "ignoreWorkspaces": ["packages/tsconfig"],
+  "workspaces": {
+    "apps/app": {
+      // vite.config.ts の resolve.alias で node-fetch と差し替わるだけで、import 文からは辿れない
+      "entry": ["src/lib/native-fetch-shim.ts"],
+      // まだ画面が無いので未使用だが、README がテンプレートのアイコンライブラリとして案内している
+      "ignoreDependencies": ["lucide-react"]
+    },
+    "packages/auth": {
+      // better-auth の schema を再生成するときに手で叩く CLI で、script からは呼ばれない
+      "ignoreDependencies": ["@better-auth/cli"]
+    }
+  }
+}

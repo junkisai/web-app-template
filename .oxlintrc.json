@@ -16,6 +16,10 @@
               {
                 "group": ["**/scripts/**"],
                 "message": "scripts/ はビルド・運用時だけ動くコードです。src/ から import しないでください"
+              },
+              {
+                "group": ["@packages/db", "@packages/db/**"],
+                "message": "DB に触るのは features/<ドメイン>/api/ だけです。server function を作って loader から呼んでください"
               }
             ]
           }
@@ -23,7 +27,7 @@
       }
     },
     {
-      "files": ["**/src/pages/**"],
+      "files": ["**/src/screens/**"],
       "rules": {
         "no-restricted-imports": [
           "error",
@@ -34,12 +38,16 @@
                 "message": "scripts/ はビルド・運用時だけ動くコードです。src/ から import しないでください"
               },
               {
-                "group": ["@/pages/**"],
-                "message": "画面から別の画面を import しないでください。共有したいものは src/components/ に上げてください"
+                "group": ["@/screens/**", "**/screens/**"],
+                "message": "画面から別の画面を import しないでください。共有したいものは features/ か共有層に上げてください。自分の画面の中は ./ で書いてください"
               },
               {
-                "group": ["@/routes/**"],
+                "group": ["@/routes", "@/routes/**", "**/routes/**"],
                 "message": "routes は URL の定義だけです。画面から import しないでください"
+              },
+              {
+                "group": ["@packages/db", "@packages/db/**"],
+                "message": "画面から DB を引かないでください。取得は features/<ドメイン>/api/ に置き、loader から渡してください"
               }
             ]
           }
@@ -47,7 +55,7 @@
       }
     },
     {
-      "files": ["**/src/components/**"],
+      "files": ["**/src/features/**"],
       "rules": {
         "no-restricted-imports": [
           "error",
@@ -58,16 +66,18 @@
                 "message": "scripts/ はビルド・運用時だけ動くコードです。src/ から import しないでください"
               },
               {
-                "group": ["@/server/**", "@packages/db", "@packages/db/**"],
-                "message": "共通コンポーネントからデータを引かないでください。取得は src/server/ に置き、loader から渡してください"
+                "group": ["@/features/**", "**/features/**"],
+                "message": "ドメインどうしを import しないでください。組み合わせるのは screens/ の仕事です。自分のドメインの中は ./ で書いてください"
               },
               {
-                "group": ["@/pages/**"],
-                "message": "共通コンポーネントから画面を import しないでください"
-              },
-              {
-                "group": ["@/routes/**"],
-                "message": "routes は URL の定義だけです。コンポーネントから import しないでください"
+                "group": [
+                  "@/screens/**",
+                  "**/screens/**",
+                  "@/routes",
+                  "@/routes/**",
+                  "**/routes/**"
+                ],
+                "message": "ドメインは画面と URL を知りません。依存の向きが逆です"
               }
             ]
           }
@@ -75,7 +85,7 @@
       }
     },
     {
-      "files": ["**/src/server/**"],
+      "files": ["**/src/features/*/*.ts", "**/src/features/*/*.tsx"],
       "rules": {
         "no-restricted-imports": [
           "error",
@@ -86,8 +96,55 @@
                 "message": "scripts/ はビルド・運用時だけ動くコードです。src/ から import しないでください"
               },
               {
-                "group": ["@/pages/**", "@/components/**", "@/routes/**"],
-                "message": "server は画面を知りません。依存の向きが逆です"
+                "group": ["@/features/**", "**/features/**", "../**"],
+                "message": "ドメインどうしを import しないでください。ドメイン直下から ../ で出ると必ず隣のドメインか上の層に届きます。共有層は @/ で参照してください"
+              },
+              {
+                "group": [
+                  "@/screens/**",
+                  "**/screens/**",
+                  "@/routes",
+                  "@/routes/**",
+                  "**/routes/**"
+                ],
+                "message": "ドメインは画面と URL を知りません。依存の向きが逆です"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "**/src/components/**",
+        "**/src/hooks/**",
+        "**/src/utils/**",
+        "**/src/lib/**"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["**/scripts/**"],
+                "message": "scripts/ はビルド・運用時だけ動くコードです。src/ から import しないでください"
+              },
+              {
+                "group": [
+                  "@/features/**",
+                  "**/features/**",
+                  "@/screens/**",
+                  "**/screens/**",
+                  "@/routes",
+                  "@/routes/**",
+                  "**/routes/**"
+                ],
+                "message": "共有層はドメイン・画面・URL を知りません。ドメインの言葉が要るなら features/ に置くものです"
+              },
+              {
+                "group": ["@packages/db", "@packages/db/**"],
+                "message": "共有層からデータを引かないでください。取得は features/<ドメイン>/api/ に置き、loader から渡してください"
               }
             ]
           }

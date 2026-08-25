@@ -16,7 +16,7 @@
 |                                  | Better Auth (Authentication) |                                   |                                  |
 |                                  |                              |                                   |                                  |
 | **開発ツール／ユーティリティ**   | pnpm (Package Manager)       | Turborepo (Monorepo Task Runner)  | oxlint (Linter)                  |
-|                                  | oxfmt (Formatter)            | VSCode (Code Editor)              |                                  |
+|                                  | oxfmt (Formatter)            | knip (Unused Code Detector)       | VSCode (Code Editor)             |
 
 ## Workspace
 
@@ -25,6 +25,7 @@
 ディレクトリ構成と置き場所の規約は [docs/architecture/20260819_directory-structure.md](./docs/architecture/20260819_directory-structure.md) にあります。要約は [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。
 - `packages/db`: DB client、業務 schema、Drizzle migration runner
 - `packages/auth`: Better Auth 設定、auth schema、auth client
+- `packages/env`: 環境変数の schema と検証済みの `env`
 
 ## Setup
 
@@ -34,7 +35,14 @@
 pnpm install
 ```
 
-`pnpm install` 時に `prepare` スクリプトが `core.hooksPath` を `.githooks` に設定します。これにより `git push` 前に pre-push フックで `pnpm lint` が自動実行され、lint エラーがある場合は push が中断されます。
+`pnpm install` 時に `prepare` スクリプトが lefthook の Git フックをインストールします。フックの内容は [lefthook.yml](./lefthook.yml) にあります。
+
+| フック | 実行内容 |
+| --- | --- |
+| pre-commit | ステージ済みの JS/TS に `oxlint --fix` と `oxfmt` をかけ、修正結果を自動でステージし直します |
+| pre-push | `pnpm lint`（`tsc --noEmit`・`oxlint`・`knip`）を実行し、エラーがあれば push を中断します |
+
+フックを一時的に飛ばしたいときは `LEFTHOOK=0 git commit` のように環境変数を付けます。
 
 ### 2. Create `.env`
 
@@ -73,7 +81,7 @@ openssl rand -base64 32
 
 ### 3. Create symbolic links
 
-この repo では各 package が `dotenv/config` で `.env` を読むため、使用する package 配下にも `.env` のシンボリックリンクが必要です。
+`.env` は `packages/env` が `dotenv/config` で読みますが、dotenv はコマンドを実行したディレクトリの `.env` を探します。そのため、コマンドを実行する package 配下にも `.env` のシンボリックリンクが必要です。
 
 以下のディレクトリでそれぞれ実行してください。
 
@@ -113,6 +121,30 @@ pnpm -F db seed
 ENABLE_AUTH=false pnpm -F db generate
 ENABLE_AUTH=false pnpm -F db migrate
 ```
+
+## Environment variables
+
+環境変数は [packages/env/src/index.ts](./packages/env/src/index.ts) の schema で検証します。検証には [T3 Env](https://env.t3.gg/) と [valibot](https://valibot.dev/) を使います。
+
+アプリケーションのコードから `process.env` を直接読まず、検証済みの `env` を import してください。
+
+```ts
+import { env } from '@packages/env'
+
+env.TURSO_DATABASE_URL // string
+env.ENABLE_AUTH // boolean
+```
+
+- 検証は `env` を最初に import した時点で走り、欠けている値と形式が不正な値をまとめて報告します
+- 必須は `TURSO_DATABASE_URL` と `TURSO_AUTH_TOKEN` の 2 つで、それ以外は任意です
+- 空文字は未設定として扱います
+- `ENABLE_AUTH` は `1` / `true` / `yes` / `on` と `0` / `false` / `no` / `off` を受け付けます。未設定なら `true`、それ以外の文字列はエラーです
+
+変数を増やすときは `.env.template` と schema の両方に追加します。schema にないキーは `env` から読めません。
+
+`SKIP_ENV_VALIDATION` を立てると検証を飛ばして生の値を返します。`pnpm lint` の knip がこれを使っていて、`.env` の無い環境でも lint が通ります。アプリの実行時には使いません。
+
+ブラウザに渡す値はこの package には置きません。`packages/env` は drizzle-kit や tsx からも読まれるため `process.env` だけを参照します。`VITE_` プレフィックスの値を使う場合は、`import.meta.env` を `runtimeEnv` にした env を `apps/app` 側に別途定義してください。
 
 ## Better Auth
 
