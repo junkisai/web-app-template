@@ -39,6 +39,22 @@ minimumReleaseAgeExclude:
 | `better-auth@1.6.24 \|\| 1.6.25` | 複数の版 |
 | `@cloudflare/*` | そのスコープ配下すべて（版を問わない） |
 
+## ロックファイル側が新しすぎるとき
+
+pnpm は既定（`trustLockfile: false`）で**ロックファイル全体を毎回再検証する**。
+新規に解決する依存だけでなく、すでに入っている依存も対象になる。
+公開 7 日未満の版がロックファイルに残っていると、それだけで install が止まる。
+
+この場合は例外リストに足すより、**7 日を満たす版まで下げる方がよい。**
+下げておけば、7 日経った時点で Renovate が自動で上げ直す。
+
+```bash
+pnpm --filter <workspace> add <package>@<7 日を満たす版>
+```
+
+`npm view <package> time --json` で各版の公開時刻を確認し、
+`now - 7 days` より前に公開された最新の版を選ぶ。
+
 ## 待機中の更新を確認する
 
 Renovate は待機中の更新を PR にせず、Dependency Dashboard に "Pending Status Checks" として並べる。
