@@ -2,19 +2,17 @@
 
 ## 実装の前に読む
 
-`apps/app` にファイルを追加・移動するときは [docs/architecture/20260819_directory-structure.md](docs/architecture/20260819_directory-structure.md) に従う。判断フロー・各層の責務・依存の方向・命名がそこにある。
+`apps/app` にファイルを追加・移動するときは [docs/architecture/20260819_directory-structure.md](docs/architecture/20260819_directory-structure.md) に従う。判断フロー・各ディレクトリの責務・依存の方向・命名がそこにある。
 
-## なぜこの形か
+## 守ること
 
-分け方には Layer 型（技術で分ける。依存の向きを整理できるが階層が増えて複雑になる）と Feature 型（ドメインで分ける。高凝集で影響範囲が読めるが境界が曖昧になり重複しやすい）がある。弱点が互い違いなので組み合わせる。
+**URL の定義は `src/routes/`、画面の実体は `src/screens/<画面>/`。** 画面はまとまりを並べる場所で、中身のロジックは持たない。
 
-**ドメインの言葉で名前が付くものは `src/features/<ドメイン>/` に入れる。** データ取得も型も表示部品も、そのドメインのものは全部。付かないものだけ Layer（`components/`, `hooks/`, `utils/`, `lib/`）に置く。境界が「ドメインかどうか」の 1 本で決まるので、置き場所で迷わない。
+**ひとまとまりのものは 1 ディレクトリにまとめる。** データ取得も型も表示部品も、そのまとまりのものは全部。名前は企画やデザインの会話に出てくる言葉で付ける。技術で振り分けると、1 つ直すのに何か所も開くことになる。
 
-**URL の定義は `src/routes/`、画面の実体は `src/screens/<画面>/`。** 画面は features を組み合わせて 1 画面にする場所で、ドメインのロジックは持たない。
+**まとまりどうし・画面どうしは参照しない。** 参照した瞬間、片方を触るともう片方が壊れる。組み合わせるのは 1 つ上の `index.tsx` の仕事。
 
-`features/<ドメイン>/components/` や `screens/<画面>/components/` のように入れ子にできる。「Feature の中の Layer」で、この考え方はどの深さでも同じ。
-
-**先に共通化しない。** ドメインを持たないものは、2 つ目の参照元が現れてから Layer に上げる。ただし**ドメインを持つものは参照元が 1 つでも最初から `features/` に置く。** 共通化ではなく、住所を決める話だから。
+**2 つ目の参照元が現れてから外に出す。** 使う画面が 1 つのうちは `screens/<画面>/components/<まとまり>/` に置き、2 つ目の画面が使い始めたら `src/features/<ドメイン>/` へ上げる。出す前と後で中の形は変わらないので、移動だけで済む。
 
 ## 置き場所（要約）
 
@@ -23,18 +21,18 @@
 1. ビルド時・運用時にしか動かない（Node API を使う、Vite plugin、生成スクリプト） → `apps/app/scripts/`
 2. URL を増やす・変える → `apps/app/src/routes/`
 3. 画面そのもの → `apps/app/src/screens/<画面>/index.tsx`
-4. ドメインの言葉で名前が付く → `apps/app/src/features/<ドメイン>/` の `api/`・`components/`・`hooks/`・`types/`・`utils/`
+4. ひとまとまりで名前が付く → 使う画面が 1 つなら `apps/app/src/screens/<画面>/components/<まとまり>/`、2 つ以上なら `apps/app/src/features/<ドメイン>/`
 5. その画面の組み立てにしか意味がない → `apps/app/src/screens/<画面>/` の `components/`・`hooks/`・`types/`・`utils/`
 6. ドメインを知らない表示部品 → `apps/app/src/components/ui/`（単体で完結する部品）か `apps/app/src/components/layout/`（サイト共通の枠）
 7. ドメインを知らない hooks → `apps/app/src/hooks/`
 8. 副作用のない汎用関数 → `apps/app/src/utils/`
 9. 外部ライブラリの設定・ラッパー → `apps/app/src/lib/`
 
-**迷ったら 4。** ドメインの言葉で名前を付けられるなら `features/` に置く。
+**迷ったら 4。** 企画やデザインの会話で名前が出てくるなら、そのまとまりで 1 ディレクトリにする。
 
 `src/components/ui`・`src/components/layout`・`src/hooks`・`src/utils` は空の状態で始まる。必要になったらこのパスに作り、別名のディレクトリを新設しない。`apps/app/scripts/` はフラットに置き、サブディレクトリを作らない。
 
-**`screens/<画面>/api/` は作らない。** 取得は `routes/` の `loader` から `features/<ドメイン>/api/` を呼ぶ。複数ドメインをまたぐ画面も、組み合わせるのは `loader` の仕事。
+**`screens/<画面>/api/` は作らない。** 取得は `routes/` の `loader` からそのまとまりの `api/` を呼ぶ。複数のまとまりをまたぐ画面も、組み合わせるのは `loader` の仕事。
 
 ## 破ってはいけない依存の向き
 
@@ -43,16 +41,18 @@ routes/ → screens/ → features/ → components/, hooks/, utils/, lib/
         → features/           → @packages/db
 ```
 
+`features/` は 2 つ目の画面が同じドメインを使い始めてから作る。
+
 - `src/` から `scripts/` を import しない
-- features どうしを import しない（組み合わせるのは `screens/` の仕事）
-- `features/` から `screens/`・`routes/` を import しない
-- `screens/a` から `screens/b` を import しない
+- まとまりどうしを import しない（組み合わせるのは `screens/<画面>/index.tsx` の仕事）
+- `screens/a` から `screens/b` を import しない。他の画面が欲しがったら、それが `features/` へ上げる合図
 - `screens/` から `routes/` を import しない
+- `features/` から `screens/`・`routes/`・他の `features/` を import しない
 - 共有層（`components/`・`hooks/`・`utils/`・`lib/`）から `features/`・`screens/`・`routes/` を import しない
-- `@packages/db` に触るのは `features/<ドメイン>/api/` だけ
+- `@packages/db` に触るのは、そのまとまりの `api/` だけ
 - `routes/` にロジックを書かない
 
-最後の 1 つ以外は `.oxlintrc.json` の `overrides` + `no-restricted-imports` で `pnpm lint` が落ちる。**`@/` エイリアス形と相対パス形の両方を塞いである**ので、`../../screens/top` のような書き方でも落ちる。
+最後の 1 つと「まとまりどうし」以外は `.oxlintrc.json` の `overrides` + `no-restricted-imports` で `pnpm lint` が落ちる。**`@/` エイリアス形と相対パス形の両方を塞いである**ので、`../../screens/top` のような書き方でも落ちる。画面の中のまとまりどうしの参照は相対パスなので機械的に区別できず、レビューで見る。
 
 `@packages/auth` の `auth-client` は better-auth のクライアント SDK で、性質は `lib/` に置くものと同じ。ドメインではないので画面から直接使ってよい。
 
