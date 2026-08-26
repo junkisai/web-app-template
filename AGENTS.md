@@ -2,6 +2,8 @@
 
 ## 実装の前に読む
 
+**機能を追加・変更するときは、コードを書く前に design doc を書く。** 何を・なぜ・どう作るか、やらないことと捨てた案まで [docs/design-docs/](docs/design-docs/README.md) にまとめ、合意してから実装に入る。書くタイミング・テンプレート・`status` の進め方はそこにある。文言修正・スタイル調整・リファクタリング・バグ修正には要らない。
+
 `apps/app` にファイルを追加・移動するときは [docs/architecture/20260819_directory-structure.md](docs/architecture/20260819_directory-structure.md) に従う。判断フロー・各ディレクトリの責務・依存の方向・命名がそこにある。
 
 ## 守ること
