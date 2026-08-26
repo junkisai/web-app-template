@@ -2,8 +2,8 @@
 title: Tailwind CSS から StyleX へ移行する
 date: 2026-08-26
 status: implemented
-author: jonki.beam@gmail.com
-pr:
+author:
+pr: https://github.com/junkisai/web-app-template/pull/227
 ---
 
 ## 概要
