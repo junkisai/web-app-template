@@ -20,7 +20,7 @@
     "oxfmt": "0.61.0",
     "oxlint": "1.77.0",
     "syncpack": "13.0.4",
-    "turbo": "2.10.7",
+    "turbo": "2.10.11",
     "typescript": "6.0.3"
   }
 }
