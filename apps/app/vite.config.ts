@@ -1,7 +1,7 @@
 import path from 'node:path'
 
 import { cloudflare } from '@cloudflare/vite-plugin'
-import tailwindcss from '@tailwindcss/vite'
+import stylex from '@stylexjs/unplugin'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
@@ -21,6 +21,20 @@ export default defineConfig({
     },
   },
   plugins: [
+    // React plugin より前に置く（Fast Refresh を壊さないため）。
+    // useCSSLayers は既定の false のまま使う。@layer に入れると
+    // globals.css の reset のほうが強くなり、StyleX のスタイルが負ける。
+    stylex.vite({
+      unstable_moduleResolution: {
+        type: 'commonJS',
+        rootDir: import.meta.dirname,
+      },
+      // StyleX は theme ファイル（*.stylex.ts）の実体を自前で解決するため、
+      // tsconfig の paths ではなくここにも @/ を教える必要がある。
+      aliases: {
+        '@/*': [path.join(import.meta.dirname, 'src', '*')],
+      },
+    }),
     cloudflare({
       viteEnvironment: {
         name: 'ssr',
@@ -28,6 +42,5 @@ export default defineConfig({
     }),
     tanstackStart(),
     viteReact(),
-    tailwindcss(),
   ],
 })

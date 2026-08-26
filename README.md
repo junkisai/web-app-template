@@ -4,7 +4,7 @@
 | -------------------------------- | ---------------------------- | --------------------------------- | -------------------------------- |
 | **言語・マークアップ**           | TypeScript (Language)        | HTML (Markup)                     |                                  |
 |                                  |                              |                                   |                                  |
-| **スタイル・デザイン**           | CSS (Style Sheet Language)   | Tailwind CSS (CSS Framework)      |                                  |
+| **スタイル・デザイン**           | CSS (Style Sheet Language)   | StyleX (CSS-in-JS)                |                                  |
 |                                  |                              |                                   |                                  |
 | **UIライブラリ／フレームワーク** | React (UI Library)           | TanStack Start (React Framework)  | TanStack Router (Router)         |
 |                                  | lucide-react (Icon Library)  |                                   |                                  |

@@ -7,7 +7,6 @@
   "trailingComma": "all",
   "arrowParens": "always",
   "ignorePatterns": ["**/routeTree.gen.ts"],
-  "sortTailwindcss": true,
   "sortImports": {
     "groups": [
       "react",

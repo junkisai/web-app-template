@@ -1,7 +1,9 @@
 import { useState, useTransition } from 'react'
 
+import * as stylex from '@stylexjs/stylex'
 import { Link, useNavigate } from '@tanstack/react-router'
 
+import { colors, fonts } from '@/styles/tokens.stylex'
 import { authClient } from '@packages/auth/auth-client'
 
 type AuthMode = 'sign-in' | 'sign-up'
@@ -131,23 +133,19 @@ export function LoginPage() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-10">
-      <div className="grid w-full gap-6 lg:grid-cols-[1.15fr_0.85fr]">
-        <section className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm lg:p-12">
-          <div className="flex h-full flex-col justify-between gap-12">
-            <div className="space-y-6">
-              <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs tracking-[0.28em] text-slate-500 uppercase">
-                Better Auth
-              </div>
+    <main {...stylex.props(styles.main)}>
+      <div {...stylex.props(styles.layout)}>
+        <section {...stylex.props(styles.heroSection)}>
+          <div {...stylex.props(styles.heroInner)}>
+            <div {...stylex.props(styles.heroTop)}>
+              <div {...stylex.props(styles.badge)}>Better Auth</div>
 
-              <div className="space-y-4">
-                <p className="text-sm tracking-[0.3em] text-emerald-600 uppercase">
-                  Access Ledger
-                </p>
-                <h1 className="text-5xl leading-none font-semibold text-slate-900 md:text-6xl">
+              <div {...stylex.props(styles.heroCopy)}>
+                <p {...stylex.props(styles.eyebrow)}>Access Ledger</p>
+                <h1 {...stylex.props(styles.heroTitle)}>
                   Sign in without turning the app into a side quest.
                 </h1>
-                <p className="max-w-xl text-base leading-7 text-slate-600 md:text-lg">
+                <p {...stylex.props(styles.heroLead)}>
                   The auth stack is wired to Better Auth, Turso, and TanStack
                   Start. This screen exists to validate the flow end to end, not
                   to hide it behind a placeholder.
@@ -155,7 +153,7 @@ export function LoginPage() {
               </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div {...stylex.props(styles.valueGrid)}>
               <ValueCard
                 label="Email + Password"
                 value="Active"
@@ -175,55 +173,51 @@ export function LoginPage() {
           </div>
         </section>
 
-        <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between gap-4">
+        <section {...stylex.props(styles.formSection)}>
+          <div {...stylex.props(styles.formInner)}>
+            <div {...stylex.props(styles.formHeader)}>
               <div>
-                <p className="text-sm tracking-[0.24em] text-slate-500 uppercase">
-                  Session Desk
-                </p>
-                <h2 className="text-3xl font-semibold text-slate-900">
+                <p {...stylex.props(styles.sessionLabel)}>Session Desk</p>
+                <h2 {...stylex.props(styles.formTitle)}>
                   {hasSession ? 'You are already in.' : 'Open a session.'}
                 </h2>
               </div>
-              <Link
-                to="/"
-                className="rounded-full border border-slate-300 px-4 py-2 text-sm text-slate-600 hover:border-slate-400 hover:text-slate-900"
-              >
+              <Link to="/" {...stylex.props(styles.homeLink)}>
                 Back home
               </Link>
             </div>
 
             {feedback ? (
               <div
-                className={`rounded-2xl border px-4 py-3 text-sm ${
+                {...stylex.props(
+                  styles.feedback,
                   feedback.tone === 'success'
-                    ? 'border-emerald-200 bg-emerald-50 text-emerald-900'
-                    : 'border-rose-200 bg-rose-50 text-rose-900'
-                }`}
+                    ? styles.feedbackSuccess
+                    : styles.feedbackError,
+                )}
               >
                 {feedback.message}
               </div>
             ) : null}
 
             {hasSession ? (
-              <div className="space-y-4 rounded-[1.5rem] border border-slate-200 bg-slate-50 p-5">
-                <div className="space-y-1">
-                  <p className="text-sm tracking-[0.2em] text-slate-500 uppercase">
+              <div {...stylex.props(styles.sessionCard)}>
+                <div {...stylex.props(styles.sessionCardHead)}>
+                  <p {...stylex.props(styles.sessionCardLabel)}>
                     Active session
                   </p>
-                  <h3 className="text-2xl font-semibold text-slate-900">
+                  <h3 {...stylex.props(styles.sessionUserName)}>
                     {activeSession?.user.name}
                   </h3>
-                  <p className="text-sm text-slate-600">
+                  <p {...stylex.props(styles.sessionUserEmail)}>
                     {activeSession?.user.email}
                   </p>
                 </div>
 
-                <dl className="grid gap-3 text-sm text-slate-600">
-                  <div className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white px-4 py-3">
+                <dl {...stylex.props(styles.detailList)}>
+                  <div {...stylex.props(styles.detailRow)}>
                     <dt>User ID</dt>
-                    <dd className="font-mono text-xs text-slate-900">
+                    <dd {...stylex.props(styles.detailValue)}>
                       {activeSession?.user.id}
                     </dd>
                   </div>
@@ -233,14 +227,14 @@ export function LoginPage() {
                   type="button"
                   onClick={onSignOut}
                   disabled={isBusy}
-                  className="w-full rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+                  {...stylex.props(styles.signOutButton)}
                 >
                   {isSigningOut ? 'Signing out...' : 'Sign out'}
                 </button>
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-2 rounded-full border border-slate-200 bg-slate-50 p-1">
+                <div {...stylex.props(styles.modeSwitch)}>
                   <ModeButton
                     label="Sign in"
                     active={mode === 'sign-in'}
@@ -253,10 +247,10 @@ export function LoginPage() {
                   />
                 </div>
 
-                <form className="space-y-4" onSubmit={onSubmit}>
+                <form {...stylex.props(styles.form)} onSubmit={onSubmit}>
                   {mode === 'sign-up' ? (
-                    <label className="block space-y-2">
-                      <span className="text-sm font-medium text-slate-900">
+                    <label {...stylex.props(styles.field)}>
+                      <span {...stylex.props(styles.fieldLabel)}>
                         Display name
                       </span>
                       <input
@@ -265,16 +259,14 @@ export function LoginPage() {
                         onChange={(event) =>
                           updateField('name', event.currentTarget.value)
                         }
-                        className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-emerald-500"
                         placeholder="A name for the session ledger"
+                        {...stylex.props(styles.input)}
                       />
                     </label>
                   ) : null}
 
-                  <label className="block space-y-2">
-                    <span className="text-sm font-medium text-slate-900">
-                      Email
-                    </span>
+                  <label {...stylex.props(styles.field)}>
+                    <span {...stylex.props(styles.fieldLabel)}>Email</span>
                     <input
                       required
                       type="email"
@@ -282,15 +274,13 @@ export function LoginPage() {
                       onChange={(event) =>
                         updateField('email', event.currentTarget.value)
                       }
-                      className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-emerald-500"
                       placeholder="pilot@example.com"
+                      {...stylex.props(styles.input)}
                     />
                   </label>
 
-                  <label className="block space-y-2">
-                    <span className="text-sm font-medium text-slate-900">
-                      Password
-                    </span>
+                  <label {...stylex.props(styles.field)}>
+                    <span {...stylex.props(styles.fieldLabel)}>Password</span>
                     <input
                       required
                       type="password"
@@ -299,19 +289,19 @@ export function LoginPage() {
                       onChange={(event) =>
                         updateField('password', event.currentTarget.value)
                       }
-                      className="w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-emerald-500"
                       placeholder="At least 8 characters"
+                      {...stylex.props(styles.input)}
                     />
                   </label>
 
-                  <label className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+                  <label {...stylex.props(styles.rememberMe)}>
                     <input
                       type="checkbox"
                       checked={form.rememberMe}
                       onChange={(event) =>
                         updateField('rememberMe', event.currentTarget.checked)
                       }
-                      className="h-4 w-4 accent-emerald-600"
+                      {...stylex.props(styles.checkbox)}
                     />
                     Keep the session alive on this browser
                   </label>
@@ -319,7 +309,7 @@ export function LoginPage() {
                   <button
                     type="submit"
                     disabled={isBusy}
-                    className="w-full rounded-full bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
+                    {...stylex.props(styles.submitButton)}
                   >
                     {isSubmitting
                       ? 'Working...'
@@ -346,11 +336,10 @@ function ModeButton(props: {
     <button
       type="button"
       onClick={props.onClick}
-      className={`rounded-full px-4 py-2 text-sm font-medium ${
-        props.active
-          ? 'bg-slate-900 text-white'
-          : 'text-slate-500 hover:text-slate-900'
-      }`}
+      {...stylex.props(
+        styles.modeButton,
+        props.active ? styles.modeButtonActive : styles.modeButtonInactive,
+      )}
     >
       {props.label}
     </button>
@@ -359,14 +348,10 @@ function ModeButton(props: {
 
 function ValueCard(props: { label: string; value: string; detail: string }) {
   return (
-    <div className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
-      <p className="text-xs tracking-[0.22em] text-slate-500 uppercase">
-        {props.label}
-      </p>
-      <p className="mt-3 text-3xl font-semibold text-slate-900">
-        {props.value}
-      </p>
-      <p className="mt-2 text-sm leading-6 text-slate-600">{props.detail}</p>
+    <div {...stylex.props(styles.valueCard)}>
+      <p {...stylex.props(styles.valueCardLabel)}>{props.label}</p>
+      <p {...stylex.props(styles.valueCardValue)}>{props.value}</p>
+      <p {...stylex.props(styles.valueCardDetail)}>{props.detail}</p>
     </div>
   )
 }
@@ -386,3 +371,377 @@ function getErrorMessage(error: unknown) {
 
   return 'Authentication failed. Check the credentials and try again.'
 }
+
+const CARD_SHADOW =
+  '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)'
+
+const styles = stylex.create({
+  main: {
+    display: 'flex',
+    alignItems: 'center',
+    marginInline: 'auto',
+    minHeight: '100vh',
+    width: '100%',
+    maxWidth: '72rem',
+    paddingInline: '1.5rem',
+    paddingBlock: '2.5rem',
+  },
+  layout: {
+    display: 'grid',
+    gridTemplateColumns: {
+      default: null,
+      '@media (min-width: 64rem)': '1.15fr 0.85fr',
+    },
+    gap: '1.5rem',
+    width: '100%',
+  },
+  heroSection: {
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: colors.border,
+    borderRadius: '2rem',
+    backgroundColor: colors.surface,
+    padding: {
+      default: '2rem',
+      '@media (min-width: 64rem)': '3rem',
+    },
+    boxShadow: CARD_SHADOW,
+  },
+  heroInner: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: '3rem',
+    height: '100%',
+  },
+  heroTop: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.5rem',
+  },
+  badge: {
+    display: 'inline-flex',
+    alignSelf: 'flex-start',
+    alignItems: 'center',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: colors.border,
+    borderRadius: '9999px',
+    backgroundColor: colors.surfaceMuted,
+    paddingInline: '0.75rem',
+    paddingBlock: '0.25rem',
+    fontSize: '0.75rem',
+    lineHeight: '1rem',
+    letterSpacing: '0.28em',
+    textTransform: 'uppercase',
+    color: colors.textSubtle,
+  },
+  heroCopy: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+  },
+  eyebrow: {
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    letterSpacing: '0.3em',
+    textTransform: 'uppercase',
+    color: colors.accent,
+  },
+  heroTitle: {
+    fontSize: {
+      default: '3rem',
+      '@media (min-width: 48rem)': '3.75rem',
+    },
+    lineHeight: 1,
+    fontWeight: 600,
+    color: colors.text,
+  },
+  heroLead: {
+    maxWidth: '36rem',
+    fontSize: {
+      default: '1rem',
+      '@media (min-width: 48rem)': '1.125rem',
+    },
+    lineHeight: '1.75rem',
+    color: colors.textMuted,
+  },
+  valueGrid: {
+    display: 'grid',
+    gridTemplateColumns: {
+      default: null,
+      '@media (min-width: 48rem)': 'repeat(3, minmax(0, 1fr))',
+    },
+    gap: '1rem',
+  },
+  valueCard: {
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: colors.border,
+    borderRadius: '1.5rem',
+    backgroundColor: colors.surfaceMuted,
+    padding: '1rem',
+  },
+  valueCardLabel: {
+    fontSize: '0.75rem',
+    lineHeight: '1rem',
+    letterSpacing: '0.22em',
+    textTransform: 'uppercase',
+    color: colors.textSubtle,
+  },
+  valueCardValue: {
+    marginTop: '0.75rem',
+    fontSize: '1.875rem',
+    lineHeight: '2.25rem',
+    fontWeight: 600,
+    color: colors.text,
+  },
+  valueCardDetail: {
+    marginTop: '0.5rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.5rem',
+    color: colors.textMuted,
+  },
+  formSection: {
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: colors.border,
+    borderRadius: '2rem',
+    backgroundColor: colors.surface,
+    padding: {
+      default: '1.5rem',
+      '@media (min-width: 48rem)': '2rem',
+    },
+    boxShadow: CARD_SHADOW,
+  },
+  formInner: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.5rem',
+  },
+  formHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '1rem',
+  },
+  sessionLabel: {
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    letterSpacing: '0.24em',
+    textTransform: 'uppercase',
+    color: colors.textSubtle,
+  },
+  formTitle: {
+    fontSize: '1.875rem',
+    lineHeight: '2.25rem',
+    fontWeight: 600,
+    color: colors.text,
+  },
+  homeLink: {
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: {
+      default: colors.borderStrong,
+      ':hover': colors.borderHover,
+    },
+    borderRadius: '9999px',
+    paddingInline: '1rem',
+    paddingBlock: '0.5rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    color: {
+      default: colors.textMuted,
+      ':hover': colors.text,
+    },
+  },
+  feedback: {
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderRadius: '1rem',
+    paddingInline: '1rem',
+    paddingBlock: '0.75rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+  },
+  feedbackSuccess: {
+    borderColor: colors.successBorder,
+    backgroundColor: colors.successSurface,
+    color: colors.successText,
+  },
+  feedbackError: {
+    borderColor: colors.dangerBorder,
+    backgroundColor: colors.dangerSurface,
+    color: colors.dangerText,
+  },
+  sessionCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: colors.border,
+    borderRadius: '1.5rem',
+    backgroundColor: colors.surfaceMuted,
+    padding: '1.25rem',
+  },
+  sessionCardHead: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.25rem',
+  },
+  sessionCardLabel: {
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    letterSpacing: '0.2em',
+    textTransform: 'uppercase',
+    color: colors.textSubtle,
+  },
+  sessionUserName: {
+    fontSize: '1.5rem',
+    lineHeight: '2rem',
+    fontWeight: 600,
+    color: colors.text,
+  },
+  sessionUserEmail: {
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    color: colors.textMuted,
+  },
+  detailList: {
+    display: 'grid',
+    gap: '0.75rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    color: colors.textMuted,
+  },
+  detailRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '1rem',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: colors.border,
+    borderRadius: '1rem',
+    backgroundColor: colors.surface,
+    paddingInline: '1rem',
+    paddingBlock: '0.75rem',
+  },
+  detailValue: {
+    fontFamily: fonts.mono,
+    fontSize: '0.75rem',
+    lineHeight: '1rem',
+    color: colors.text,
+  },
+  signOutButton: {
+    width: '100%',
+    borderRadius: '9999px',
+    backgroundColor: {
+      default: colors.surfaceInverse,
+      ':hover': colors.surfaceInverseHover,
+    },
+    paddingInline: '1.25rem',
+    paddingBlock: '0.75rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    fontWeight: 500,
+    color: colors.textInverse,
+    cursor: { default: null, ':disabled': 'not-allowed' },
+    opacity: { default: null, ':disabled': 0.6 },
+  },
+  modeSwitch: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: colors.border,
+    borderRadius: '9999px',
+    backgroundColor: colors.surfaceMuted,
+    padding: '0.25rem',
+  },
+  modeButton: {
+    borderRadius: '9999px',
+    paddingInline: '1rem',
+    paddingBlock: '0.5rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    fontWeight: 500,
+  },
+  modeButtonActive: {
+    backgroundColor: colors.surfaceInverse,
+    color: colors.textInverse,
+  },
+  modeButtonInactive: {
+    color: {
+      default: colors.textSubtle,
+      ':hover': colors.text,
+    },
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+  },
+  // ここだけ flex + gap にしないのは、ラベルの span が inline のまま
+  // 1 行分の行送りに収まる形（移行前と同じ高さ）を保つため
+  field: {
+    display: 'block',
+  },
+  fieldLabel: {
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    fontWeight: 500,
+    color: colors.text,
+  },
+  input: {
+    width: '100%',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: {
+      default: colors.borderStrong,
+      ':focus': colors.accentText,
+    },
+    borderRadius: '1rem',
+    backgroundColor: colors.surface,
+    paddingInline: '1rem',
+    paddingBlock: '0.75rem',
+    outlineStyle: 'none',
+  },
+  rememberMe: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.75rem',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: colors.border,
+    borderRadius: '1rem',
+    backgroundColor: colors.surfaceMuted,
+    paddingInline: '1rem',
+    paddingBlock: '0.75rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    color: colors.textMuted,
+  },
+  checkbox: {
+    height: '1rem',
+    width: '1rem',
+    accentColor: colors.accent,
+  },
+  submitButton: {
+    width: '100%',
+    borderRadius: '9999px',
+    backgroundColor: {
+      default: colors.accent,
+      ':hover': colors.accentHover,
+    },
+    paddingInline: '1.25rem',
+    paddingBlock: '0.75rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    fontWeight: 600,
+    color: colors.textInverse,
+    cursor: { default: null, ':disabled': 'not-allowed' },
+    opacity: { default: null, ':disabled': 0.6 },
+  },
+})

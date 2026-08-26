@@ -5,6 +5,7 @@ import {
   createRootRoute,
 } from '@tanstack/react-router'
 
+import { stylexDevLinks, stylexDevScripts } from '@/lib/stylex-dev-head'
 import appCss from '@/styles/globals.css?url'
 
 export const Route = createRootRoute({
@@ -28,7 +29,9 @@ export const Route = createRootRoute({
         rel: 'stylesheet',
         href: appCss,
       },
+      ...stylexDevLinks,
     ],
+    scripts: stylexDevScripts,
   }),
   component: RootComponent,
 })
