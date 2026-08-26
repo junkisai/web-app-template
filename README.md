@@ -22,7 +22,7 @@
 
 - `apps/app`: TanStack Start アプリケーション
 
-ディレクトリ構成と置き場所の規約は [docs/architecture/20260819_directory-structure.md](./docs/architecture/20260819_directory-structure.md) にあります。要約は [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。
+ディレクトリ構成と置き場所の規約は [docs/architecture/20260819_directory-structure.md](./docs/architecture/20260819_directory-structure.md) にあります。要約は [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。機能を追加・変更するときは、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書きます。
 - `packages/db`: DB client、業務 schema、Drizzle migration runner
 - `packages/auth`: Better Auth 設定、auth schema、auth client
 - `packages/env`: 環境変数の schema と検証済みの `env`

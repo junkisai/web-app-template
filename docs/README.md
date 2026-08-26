@@ -7,7 +7,7 @@
 | ディレクトリ | 答える問い | 更新タイミング |
 | --- | --- | --- |
 | [architecture/](architecture/) | 全体はどうなってる? | 構成が変わったとき（常に最新を維持） |
-| [specs/](specs/) | 何を作ればいい? | 機能の企画〜実装中 |
+| [design-docs/](design-docs/README.md) | 何を・なぜ・どう作る? | 実装前に書く（実装後は凍結） |
 | [runbooks/](runbooks/) | どう操作する? | 手順が変わったとき（常に最新を維持） |
 | [references/](references/) | 何を参考にした? | デザイン・構成を検討したとき |
 | [transcripts/](transcripts/) | 誰が何を話した? | 録音・文字起こししたとき |
@@ -31,9 +31,9 @@
 
 - [20260819_directory-structure.md](architecture/20260819_directory-structure.md) — `apps/app` の置き場所の規約（判断フロー・各層の責務・依存の方向・命名）
 
-### specs
+### design-docs
 
-- 
+- [design-docs/](design-docs/README.md) — 実装前に「何を・なぜ・どう作るか」をまとめる場所（書くタイミング・テンプレート・status の進め方）
 
 ### runbooks
 
