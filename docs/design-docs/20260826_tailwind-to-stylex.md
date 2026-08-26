@@ -12,13 +12,40 @@ pr: https://github.com/junkisai/web-app-template/pull/227
 
 ## 背景
 
-Tailwind はクラス名の文字列なので、**型が付かず、どこにも定義がない。** 綴りを間違えても壊れるまで気づかず、`text-slate-600` が何色かはエディタでは分からない。テンプレートとして配る以上、最初に入っているスタイリング手段が「文字列を覚えて書く」ものだと、使う人ごとに書き方がばらける。
+動機は 2 つある。
 
-このリポジトリは他のすべて（ディレクトリ構成、依存の向き、命名）を仕組みで縛っている。スタイルだけが縛られていない。
+### 1. AI エージェントが書くコードベースで、一貫性と正しさを仕組みで担保したい
 
-StyleX は `stylex.create` に渡すオブジェクトが TypeScript の型で検査され、値は定義元へジャンプできる。ビルド時に atomic CSS へ潰れるので、出力の性質（重複しない・使った分だけ）は Tailwind と変わらない。
+**人間が手で CSS を書くなら Tailwind が理想。** 覚えたクラス名を並べるだけで、速いし、書く人の頭の中で一貫している。
 
-いま移行する理由は、**画面が 2 つしかないうちだから。** 画面が増えてから同じことをやると、書き換える対象が線形に増える。
+**ただしこのリポジトリのコードを書くのは主にエージェントで、前提が変わる。** エージェントはクラス名の文字列を「それらしく」生成できてしまう。存在しないクラス、意味の重なる別表記、同じ見た目に対する複数の書き方が、どれも lint も型検査も通り抜ける。コードベースが大きくなるほど、そのばらつきはレビューでしか止まらない。
+
+StyleX は `stylex.create` に渡すオブジェクトが TypeScript の型で検査される。プロパティ名も値も、間違っていればビルドが落ちる。**書ける形が最初から狭いので、誰が（何が）書いても同じ形に寄る。** このリポジトリは他のすべて（ディレクトリ構成、依存の向き、命名）を仕組みで縛っているのに、スタイルだけが縛られていなかった。
+
+### 2. CSS の出力を小さくしたい
+
+移行前後で実測した（`pnpm build` が出す client 側の CSS 1 枚）。
+
+| | raw | gzip |
+| --- | --- | --- |
+| Tailwind CSS v4 | 14,202 B | 3,603 B |
+| StyleX | 10,164 B | 2,975 B |
+| 差 | **−4,038 B（−28%）** | **−628 B（−17%）** |
+
+**ただし、この差の出どころは正直に書いておく。** 中身を分けて測ると次のようになる。
+
+| | Tailwind (raw / gzip) | StyleX (raw / gzip) |
+| --- | --- | --- |
+| 固定費（reset・トークン・scaffolding） | 6,351 B / 2,131 B | 3,037 B / 1,481 B |
+| 画面のスタイルそのもの | 7,851 B / 1,626 B | 7,127 B / 1,615 B |
+
+**画面のスタイル本体はほぼ同じ**（gzip 後は 1,626 B と 1,615 B で 1% も違わない）。Tailwind の utility も使った分しか出ないので、atomic CSS どうしの比較になれば当然そうなる。**減ったのは固定費のほうで、その正体は Preflight と `@layer properties` の `@supports` scaffolding（`@property` 19 個を含む）を、この app が実際に使う分だけの reset に置き換えたこと。**
+
+つまり **サイズの改善は「StyleX にしたから」ではなく「Preflight を捨てたから」** が主で、画面が増えても縮み続けるわけではない。ここは期待値として押さえておく。それでも 28% は消えるし、上の 1 の理由と方向は一致しているので進める。
+
+### いま移行する理由
+
+**画面が 2 つしかないうちだから。** 画面が増えてから同じことをやると、書き換える対象が線形に増える。
 
 ## ゴール
 
@@ -27,6 +54,7 @@ StyleX は `stylex.create` に渡すオブジェクトが TypeScript の型で�
 - [x] `pnpm build`（Cloudflare Workers 向け）が通り、生成された CSS に StyleX の atomic rule が入っている
 - [x] `pnpm dev` で SSR された HTML に StyleX の CSS が当たり、編集が HMR で反映される
 - [x] `pnpm lint`（tsc・oxlint・knip）が通る
+- [x] 出力される CSS が移行前より小さい（14,202 B → 10,164 B、gzip 3,603 B → 2,975 B）
 
 ## やらないこと
 
@@ -35,6 +63,7 @@ StyleX は `stylex.create` に渡すオブジェクトが TypeScript の型で�
 - **共通 UI コンポーネントの切り出し。** `components/ui/` は空のまま。ボタンやカードは 2 画面それぞれの `stylex.create` に置く。2 つ目の参照元が現れてから外に出す、の原則どおり。
 - **spacing / font-size のトークン化。** 色とフォントだけ CSS 変数にする。余白や文字サイズは各 `stylex.create` に直接書く（StyleX では値がそのまま型検査されるので、変数にしても得るものが少ない）。
 - **`@stylexjs/eslint-plugin` の導入。** このリポジトリの linter は oxlint で、ESLint plugin を読み込めない。この先も入れない。
+- **browserslist を現行ブラウザに寄せること。** 既定の browserslist だと lightningcss がトークンの `oklch()` を hex + `lab()` の 2 重出力に落とすため、そのぶん CSS が膨らむ。`last 2 versions` 相当まで上げると 9,535 B / gzip 2,628 B（さらに −6% / −12%）になることまで実測してあるが、**対応ブラウザを狭める判断は移行とは別の話**なので今回はやらない。
 
 ## 設計
 
@@ -86,12 +115,12 @@ StyleX は `defineVars` を書いたファイル（`tokens.stylex.ts`）の実�
 
 | 案 | 採らなかった理由 |
 | --- | --- |
-| Tailwind のまま残す | 型が付かないという元の問題が残る。画面が増えるほど移行コストが上がる |
+| Tailwind のまま残す | エージェントが書いた className を検査する手立てがレビューしかない、という元の問題が残る。画面が増えるほど移行コストも上がる |
 | `@stylexjs/postcss-plugin` + Babel を `@vitejs/plugin-react` に挿す | dev/prod ともに Vite の CSS パイプラインに乗るので `__root.tsx` に dev 用の分岐が要らない利点はある。ただし Babel 設定が `vite.config.ts` と `postcss.config.js` の 2 か所に分かれ、片方だけずれるとクラス名が合わなくなる。加えて全 `.tsx` が Babel を通るのでビルドが遅くなる。公式が推す unplugin 1 個で済む形を採った |
 | `@stylexswc/*`（Rust 実装のコンパイラ） | Babel より速いが facebook/stylex 本体とはリリースが別で、追随のずれを踏む。テンプレートの土台に置くものではない |
-| CSS Modules | 型は `.d.ts` 生成に頼ることになり、値そのものは型検査されない。atomic CSS でもないので出力が画面数に比例して増える |
+| CSS Modules | 型は `.d.ts` 生成に頼ることになり、値そのものは型検査されない。atomic CSS でもないので出力が画面数に比例して増える（サイズの動機と逆行する） |
 | `useCSSLayers: true` で出力する | `@layer` の中の StyleX は、layer に入っていない `globals.css` の reset に負ける。reset 側も layer に入れて順序を宣言すれば解決するが、StyleX が作る layer 数（`priority1..N`）に依存する並びになる。既定の `:not(#\#)` なら「StyleX が常に reset に勝つ」で終わる |
-| Tailwind の Preflight の代わりに reset を入れない | Preflight が消えると `<h1>` の余白、`<ul>` の行頭記号、`<button>` の既定スタイル、`body` の 8px margin が復活して見た目が崩れる。Preflight から実際に効いている分だけを `globals.css` に写した |
+| Preflight の代わりの reset を入れない | Preflight が消えると `<h1>` の余白、`<ul>` の行頭記号、`<button>` の既定スタイル、`body` の 8px margin が復活して見た目が崩れる。Preflight から実際に効いている分だけを `globals.css` に写した |
 
 ## 影響範囲
 
