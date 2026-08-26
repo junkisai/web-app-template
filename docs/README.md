@@ -9,7 +9,7 @@
 | [architecture/](architecture/) | 全体はどうなってる? | 構成が変わったとき（常に最新を維持） |
 | [design-docs/](design-docs/README.md) | 何を・なぜ・どう作る? | 実装前に書く（実装後は凍結） |
 | [runbooks/](runbooks/) | どう操作する? | 手順が変わったとき（常に最新を維持） |
-| [references/](references/) | 何を参考にした? | デザイン・構成を検討したとき |
+| [references/](references/README.md) | 何を参考にした? | デザイン・構成を検討したとき |
 | [transcripts/](transcripts/) | 誰が何を話した? | 録音・文字起こししたとき |
 
 ## ファイル命名ルール
@@ -41,7 +41,7 @@
 
 ### references
 
-- 
+- [references/](references/README.md) — デザイン・構成を決めるときに参考にしたものの置き場所（何を置くか・書き方）
 
 ### transcripts
 
