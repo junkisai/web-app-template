@@ -5,7 +5,6 @@
   "license": "UNLICENSED",
   "packageManager": "pnpm@11.23.0",
   "scripts": {
-    "prepare": "lefthook install --reset-hooks-path",
     "gen": "turbo run gen",
     "dev": "turbo run dev",
     "lint": "turbo run lint && pnpm lint:knip",

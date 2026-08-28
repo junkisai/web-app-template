@@ -35,7 +35,7 @@
 pnpm install
 ```
 
-`pnpm install` 時に `prepare` スクリプトが lefthook の Git フックをインストールします。フックの内容は [lefthook.yml](./lefthook.yml) にあります。
+`pnpm install` すると lefthook 自身の `postinstall` が Git フックをインストールします。フックの内容は [lefthook.yml](./lefthook.yml) にあります。`pnpm-workspace.yaml` の `allowBuilds` に `lefthook: true` があるのはこのためで、外すとフックが有効になりません。
 
 | フック | 実行内容 |
 | --- | --- |
