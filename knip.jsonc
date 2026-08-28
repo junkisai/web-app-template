@@ -10,6 +10,12 @@
       // まだ画面が無いので未使用だが、README がテンプレートのアイコンライブラリとして案内している
       "ignoreDependencies": ["lucide-react"]
     },
+    "apps/admin": {
+      // apps/app と同じ。vite.config.ts の resolve.alias で node-fetch と差し替わるだけで、import 文からは辿れない
+      "entry": ["src/lib/native-fetch-shim.ts"],
+      // コンポーネントの API を引くための CLI で、script からは呼ばれない
+      "ignoreDependencies": ["@astryxdesign/cli"]
+    },
     "packages/auth": {
       // better-auth の schema を再生成するときに手で叩く CLI で、script からは呼ばれない
       "ignoreDependencies": ["@better-auth/cli"]

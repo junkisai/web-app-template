@@ -4,7 +4,7 @@
 | -------------------------------- | ---------------------------- | --------------------------------- | -------------------------------- |
 | **言語・マークアップ**           | TypeScript (Language)        | HTML (Markup)                     |                                  |
 |                                  |                              |                                   |                                  |
-| **スタイル・デザイン**           | CSS (Style Sheet Language)   | StyleX (CSS-in-JS)                |                                  |
+| **スタイル・デザイン**           | CSS (Style Sheet Language)   | StyleX (CSS-in-JS)                | Astryx (Design System)           |
 |                                  |                              |                                   |                                  |
 | **UIライブラリ／フレームワーク** | React (UI Library)           | TanStack Start (React Framework)  | TanStack Router (Router)         |
 |                                  | lucide-react (Icon Library)  |                                   |                                  |
@@ -21,6 +21,7 @@
 ## Workspace
 
 - `apps/app`: TanStack Start アプリケーション
+- `apps/admin`: 管理画面。同じく TanStack Start で、UI は [Astryx](https://astryx.atmeta.com/docs/getting-started) のコンポーネントで組みます（[apps/admin/README.md](./apps/admin/README.md)）
 
 ディレクトリ構成と置き場所の規約は [docs/architecture/20260819_directory-structure.md](./docs/architecture/20260819_directory-structure.md) にあります。要約は [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。機能を追加・変更するときは、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書きます。
 - `packages/db`: DB client、業務 schema、Drizzle migration runner
@@ -86,6 +87,7 @@ openssl rand -base64 32
 以下のディレクトリでそれぞれ実行してください。
 
 - `apps/app`
+- `apps/admin`
 - `packages/db`
 - `packages/auth`
 
@@ -241,7 +243,7 @@ R2 バケットを作成し、`.env` に設定してください。CORS には�
 
 ### Wrangler
 
-[apps/app/wrangler.jsonc](./apps/app/wrangler.jsonc) の以下は作成するアプリケーションに合わせて調整してください。
+[apps/app/wrangler.jsonc](./apps/app/wrangler.jsonc) と [apps/admin/wrangler.jsonc](./apps/admin/wrangler.jsonc) の以下は作成するアプリケーションに合わせて調整してください。2 つの app は別々の Worker としてデプロイするため、`name` は重複させないでください。
 
 - `name`
 - `services.service`
@@ -253,10 +255,13 @@ R2 バケットを作成し、`.env` に設定してください。CORS には�
 pnpm dev
 ```
 
+`pnpm dev` は 2 つの app を同時に起動します。`apps/app` が 3000、`apps/admin` が 3001 を使います。
+
 アプリ単体で起動する場合:
 
 ```sh
-pnpm -F app dev
+pnpm -F app dev       # http://localhost:3000
+pnpm -F admin dev     # http://localhost:3001
 ```
 
 ## Agent config sync
