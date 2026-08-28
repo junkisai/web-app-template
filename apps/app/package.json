@@ -8,10 +8,10 @@
     "build": "vite build && tsc --noEmit",
     "preview": "vite preview",
     "cf:set-env": "bash scripts/set-secrets.sh .env.production",
-    "lint": "concurrently \"pnpm:lint:*\"",
+    "lint": "pnpm run \"/^lint:/\"",
     "lint:tsc": "tsc --noEmit",
     "lint:oxlint": "oxlint .",
-    "fmt": "concurrently \"pnpm:fmt:*\"",
+    "fmt": "pnpm run \"/^fmt:/\"",
     "fmt:oxfmt": "oxfmt --write ."
   },
   "dependencies": {
@@ -33,7 +33,6 @@
     "@types/node": "24.13.3",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
-    "concurrently": "10.0.4",
     "typescript": "7.0.2",
     "wrangler": "4.124.0"
   }
