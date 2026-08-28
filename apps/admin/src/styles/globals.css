@@ -1,0 +1,22 @@
+/*
+ * Astryx が配る CSS を 3 枚読むだけのファイル。ここに独自の指定は書かない。
+ *
+ * 順番に意味がある。3 枚はそれぞれ別の @layer に入っていて、後ろほど強い。
+ *
+ *   reset.css   → @layer reset        要素の既定値をならす
+ *   astryx.css  → @layer astryx-base  コンポーネントの見た目
+ *   theme.css   → @layer astryx-theme テーマのトークンと上書き
+ *
+ * 入れ替えるとテーマがコンポーネントに負ける。
+ *
+ * apps/app の globals.css（Tailwind Preflight を写した自前の reset）は
+ * 持ち込まない。Astryx の reset.css が同じ役割を、Astryx のコンポーネント
+ * 前提で果たす。
+ *
+ * theme.css の中身は @scope ([data-astryx-theme="neutral"]) で閉じている。
+ * その属性を付けるのは src/lib/astryx-provider.tsx の Theme。
+ */
+
+@import '@astryxdesign/core/reset.css';
+@import '@astryxdesign/core/astryx.css';
+@import '@astryxdesign/theme-neutral/theme.css';

@@ -82,4 +82,5 @@ frontmatter の `status` で状態を持つ。
 
 <!-- 新しいものを上に追記する -->
 
+- [20260828_admin-app-astryx.md](20260828_admin-app-astryx.md) — 管理画面用の apps/admin を作り、UI を Astryx で組む
 - [20260826_tailwind-to-stylex.md](20260826_tailwind-to-stylex.md) — Tailwind CSS から StyleX へ移行する

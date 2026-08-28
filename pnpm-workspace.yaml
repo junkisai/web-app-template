@@ -27,3 +27,7 @@ allowBuilds:
   # このリポジトリは libsql しか使わないためビルドは不要
   '@prisma/client': false
   better-sqlite3: false
+  # どちらも postinstall は `astryx init` を促す 1 行を出すだけで、
+  # ビルド成果物を作らない。走らせても得るものが無いので止める
+  '@astryxdesign/core': false
+  '@astryxdesign/cli': false
