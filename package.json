@@ -21,6 +21,6 @@
     "oxlint": "1.77.0",
     "syncpack": "15.3.3",
     "turbo": "2.10.11",
-    "typescript": "6.0.3"
+    "typescript": "7.0.2"
   }
 }
