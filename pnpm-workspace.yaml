@@ -21,6 +21,7 @@ minimumReleaseAge: 10080
 allowBuilds:
   esbuild: true
   workerd: true
+  # postinstall が Git フックを .git/hooks へ入れる。止めるとフックが有効にならない
   lefthook: true
   # drizzle-orm / better-auth の optional peer として入るだけで、
   # このリポジトリは libsql しか使わないためビルドは不要
