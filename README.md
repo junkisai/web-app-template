@@ -1,22 +1,22 @@
 # web-app-template
 
-| Kind                             |                              |                                   |                                  |
-| -------------------------------- | ---------------------------- | --------------------------------- | -------------------------------- |
-| **言語・マークアップ**           | TypeScript (Language)        | HTML (Markup)                     |                                  |
-|                                  |                              |                                   |                                  |
-| **スタイル・デザイン**           | CSS (Style Sheet Language)   | StyleX (CSS-in-JS)                | Astryx (Design System)           |
-|                                  |                              |                                   |                                  |
-| **UIライブラリ／フレームワーク** | React (UI Library)           | TanStack Start (React Framework)  | TanStack Router (Router)         |
-|                                  | lucide-react (Icon Library)  |                                   |                                  |
-|                                  |                              |                                   |                                  |
-| **ビルド・実行環境**             | Vite (Build Tool)            | Cloudflare Workers (Runtime)      | Wrangler (Deployment CLI)        |
-|                                  |                              |                                   |                                  |
-| **データベース**                 | Turso (libSQL Database)      | @libsql/client (DB Client)        | Drizzle ORM (ORM)                |
-|                                  | drizzle-kit (Migration Tool) | drizzle-seed (Seed Tool)          | Cloudflare R2 (Object Storage)   |
-|                                  | Better Auth (Authentication) |                                   |                                  |
-|                                  |                              |                                   |                                  |
-| **開発ツール／ユーティリティ**   | pnpm (Package Manager)       | Turborepo (Monorepo Task Runner)  | oxlint (Linter)                  |
-|                                  | oxfmt (Formatter)            | knip (Unused Code Detector)       | VSCode (Code Editor)             |
+| Kind                             |                                    |                                   |                                  |
+| -------------------------------- | ---------------------------------- | --------------------------------- | -------------------------------- |
+| **言語・マークアップ**           | TypeScript (Language)              | HTML (Markup)                     |                                  |
+|                                  |                                    |                                   |                                  |
+| **スタイル・デザイン**           | CSS (Style Sheet Language)         | StyleX (CSS-in-JS)                | Astryx (Design System)           |
+|                                  |                                    |                                   |                                  |
+| **UIライブラリ／フレームワーク** | React (UI Library)                 | TanStack Start (React Framework)  | TanStack Router (Router)         |
+|                                  | @tabler/icons-react (Icon Library) |                                   |                                  |
+|                                  |                                    |                                   |                                  |
+| **ビルド・実行環境**             | Vite (Build Tool)                  | Cloudflare Workers (Runtime)      | Wrangler (Deployment CLI)        |
+|                                  |                                    |                                   |                                  |
+| **データベース**                 | Turso (libSQL Database)            | @libsql/client (DB Client)        | Drizzle ORM (ORM)                |
+|                                  | drizzle-kit (Migration Tool)       | drizzle-seed (Seed Tool)          | Cloudflare R2 (Object Storage)   |
+|                                  | Better Auth (Authentication)       |                                   |                                  |
+|                                  |                                    |                                   |                                  |
+| **開発ツール／ユーティリティ**   | pnpm (Package Manager)             | Turborepo (Monorepo Task Runner)  | oxlint (Linter)                  |
+|                                  | oxfmt (Formatter)                  | knip (Unused Code Detector)       | VSCode (Code Editor)             |
 
 ## Workspace
 
