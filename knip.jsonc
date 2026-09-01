@@ -8,7 +8,7 @@
       // vite.config.ts の resolve.alias で node-fetch と差し替わるだけで、import 文からは辿れない
       "entry": ["src/lib/native-fetch-shim.ts"],
       // まだ画面が無いので未使用だが、README がテンプレートのアイコンライブラリとして案内している
-      "ignoreDependencies": ["lucide-react"]
+      "ignoreDependencies": ["@tabler/icons-react"]
     },
     "apps/admin": {
       // apps/app と同じ。vite.config.ts の resolve.alias で node-fetch と差し替わるだけで、import 文からは辿れない
