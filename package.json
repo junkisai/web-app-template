@@ -14,7 +14,7 @@
     "sync:agents": "bash scripts/sync-agent-config.sh"
   },
   "devDependencies": {
-    "knip": "6.32.2",
+    "knip": "6.32.3",
     "lefthook": "2.1.10",
     "oxfmt": "0.64.0",
     "oxlint": "1.79.0",
