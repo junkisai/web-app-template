@@ -1,1 +1,0 @@
-../../.claude/commands/design-doc.md
