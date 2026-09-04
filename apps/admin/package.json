@@ -35,6 +35,6 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",
     "typescript": "7.0.2",
-    "wrangler": "4.124.0"
+    "wrangler": "4.127.0"
   }
 }
