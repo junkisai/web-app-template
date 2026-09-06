@@ -154,6 +154,8 @@ src/screens/user-list/
 
 `@packages/db` はデータそのものなので、ドメインの中に閉じる。**画面や共有層から DB を引かない。**
 
+`@packages/db` は workerd 専用でもある。DB client は `cloudflare:workers` の `env.DB`（Cloudflare D1 の binding）から作るため、Node で動く script からは import できない。
+
 `@packages/auth` の `auth-client` は better-auth が用意するクライアント SDK で、性質としては `lib/` に置くものと同じ。ドメインではないので、画面から直接使ってよい（bulletproof-react も認証クライアントを `lib/` に置いている）。サーバー側の `auth` は `routes/api/auth/` が使う。
 
 **DB スキーマの型を画面まで通さない。** `@packages/db` の型が要るときは、そのドメインの `types/` で受けてから渡す（`users/types/user.ts`）。ここを挟んでおくと、テーブル定義を変えても画面側の import が動かない。
@@ -276,6 +278,7 @@ flowchart LR
 - **`screens/` から `routes/` を import しない。** 画面が URL を知ると、URL を変えたときに画面が壊れる
 - **共有層（`components/` `hooks/` `utils/` `lib/`）は `features/`・`screens/`・`routes/` を import しない。** ドメインを知らない部品にしておく
 - **`@packages/db` に触るのは、そのまとまりの `api/` だけ。** 画面・共有層・`routes/` から DB を引かない
+- **`@packages/db` を Node で動く script から import しない。** DB client は `cloudflare:workers` の binding から作るので、workerd の外では動かない。`scripts/` や `*.config.ts` から要るのは schema だけのはずで、そのときは `packages/db/src/schema.ts` を直接指す
 - **`routes/` にロジックを書かない。** `loader` の中で組み立てたくなったら、ドメインのディレクトリへ出す
 
 `routeTree.gen.ts` はこの向きの対象外。TanStack Router が全ルートを集める生成物なので、手で編集しない。

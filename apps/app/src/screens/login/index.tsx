@@ -146,9 +146,9 @@ export function LoginPage() {
                   Sign in without turning the app into a side quest.
                 </h1>
                 <p {...stylex.props(styles.heroLead)}>
-                  The auth stack is wired to Better Auth, Turso, and TanStack
-                  Start. This screen exists to validate the flow end to end, not
-                  to hide it behind a placeholder.
+                  The auth stack is wired to Better Auth, Cloudflare D1, and
+                  TanStack Start. This screen exists to validate the flow end to
+                  end, not to hide it behind a placeholder.
                 </p>
               </div>
             </div>
@@ -166,7 +166,7 @@ export function LoginPage() {
               />
               <ValueCard
                 label="Database"
-                value="Turso"
+                value="Cloudflare D1"
                 detail="User, session, account, and verification tables are migrated."
               />
             </div>

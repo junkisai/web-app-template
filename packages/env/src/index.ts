@@ -37,9 +37,11 @@ const booleanFlag = (fallback: boolean) =>
   )
 
 type SocialProviderCredentials = {
-  [Prefix in SocialProviderEnvPrefix as
-    | `${Prefix}_CLIENT_ID`
-    | `${Prefix}_CLIENT_SECRET`]: typeof optionalString
+  [
+    Prefix in SocialProviderEnvPrefix as
+      | `${Prefix}_CLIENT_ID`
+      | `${Prefix}_CLIENT_SECRET`
+  ]: typeof optionalString
 }
 
 const socialProviderCredentials = Object.fromEntries(
@@ -56,9 +58,6 @@ export const env = createEnv({
     BETTER_AUTH_URL: optionalUrl,
     BETTER_AUTH_SECRET: optionalString,
 
-    TURSO_DATABASE_URL: v.pipe(v.string(), v.url()),
-    TURSO_AUTH_TOKEN: v.pipe(v.string(), v.nonEmpty()),
-
     // R2 の 5 つはコードから読まれておらず、.env.template も XXXX のまま配っている。
     // ここで形式を課すと R2 を使わない構成が起動しなくなるので、存在の宣言だけに留める。
     R2_BUCKET_NAME: optionalString,
@@ -73,10 +72,6 @@ export const env = createEnv({
   // ローカル（dotenv）と本番（Workers）を同じ参照元で扱える。
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
-  // knip は drizzle.config.ts を読み込んで解析するため、この module も評価される。
-  // 秘密情報を持たない環境で lint を通せるようにするための逃がし口で、
-  // 立てるとスキーマを通さない生の値が返るのでアプリの実行時には使わない。
-  skipValidation: !!process.env['SKIP_ENV_VALIDATION'],
   onValidationError: (issues) => {
     const lines = issues.map(
       (issue) => `  - ${formatIssuePath(issue.path)}: ${issue.message}`,
