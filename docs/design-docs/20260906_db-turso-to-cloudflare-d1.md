@@ -35,7 +35,7 @@ pr:
 
 - **Turso 上のデータの移行。** テンプレートに入っているのは seed の `Alice` 1 行だけなので、D1 に migration を当て直して seed し直す。dump と流し込みの手順も書かない
 - **スキーマそのものの変更。** `packages/db/src/schema.ts` と `packages/auth/src/schema.ts` の列は 1 つも変えない。今回変わるのは driver と、migration / seed の入口だけ
-- **Cloudflare 上への D1 の作成と `database_id` の記入。** `wrangler.jsonc` には `apps/app` の `name` と同じく TODO のプレースホルダを置く。実際の作成は使う人がやる
+- **テンプレートを使う人のための D1 の作成。** `wrangler.jsonc` には `apps/app` の `name` と同じく、このリポジトリ自身の値を入れて TODO コメントで案内する。**このリポジトリは Workers Builds でデプロイされているので、プレースホルダのままだと deploy が落ちる。** 使う人が自分の D1 に差し替える作業まではやらない
 
 **この先もやらないこと。**
 
@@ -111,7 +111,7 @@ routes/ の loader
 
 **変わるのは `packages/db/src/client.ts` の中だけ。** `createClient` で Turso に HTTP を張る代わりに、`import { env } from 'cloudflare:workers'` で binding を取り、`drizzle-orm/d1` に渡す。`apps/app` と `apps/admin` の `api/`、`@packages/auth` の `drizzleAdapter(db, ...)` はどれも `import { db } from '@packages/db'` のままでよい。
 
-binding 名は **`DB` で固定**する。`packages/db` が binding を名前で引く以上、両アプリの `wrangler.jsonc` で同じ名前にする必要がある。`database_name` と `database_id` は `apps/app` の `name` と同じく TODO のプレースホルダで配り、使う人が `wrangler d1 create` の結果で埋める。この `DB` という名前は、後述の `cloudflare.d.ts` の宣言にもそのまま現れる。
+binding 名は **`DB` で固定**する。`packages/db` が binding を名前で引く以上、両アプリの `wrangler.jsonc` で同じ名前にする必要がある。`database_name` と `database_id` は、`apps/app` の `name` と同じ配り方にする。**このリポジトリ自身の値を入れ、TODO コメントで「自分のものに変えてください」と案内する。** 空のプレースホルダを置くと、このリポジトリを Workers Builds でデプロイしたときに存在しない D1 を指して落ちる。この `DB` という名前は、後述の `cloudflare.d.ts` の宣言にもそのまま現れる。
 
 migration と seed はアプリ側から当てる。
 
@@ -187,7 +187,7 @@ declare module 'cloudflare:workers' {
 - **`.env` を持たなくても `pnpm -F app dev` が起動するようになる。** DB の接続情報が env から消えるため。README のセットアップ手順から Turso の節が消え、`wrangler d1 create` の節に入れ替わる
 - **`apps/admin` から secrets の仕組みが消える。** `secrets.required` が空になるので、`scripts/set-secrets.sh` と `cf:set-env` script ごと消す。`apps/app` 側は auth 系の 4 本が残るのでそのまま
 - **`knip.jsonc` の shim 例外 2 つが消える。** 新しい依存は 1 つも増えず、`packages/db` からは `@libsql/client` と `drizzle-seed` の 2 つが消える
-- **Cloudflare 上に D1 を作る作業が要る。** `wrangler d1 create` と、両アプリの `wrangler.jsonc` への `database_id` の記入。既存の Turso データベースは自動では消えないので、乗り換えが済んだら使う人が消す
+- **Cloudflare 上に D1 を作り、リモートに migration を当てる作業が要る。** `wrangler d1 create` で作って `database_id` を両アプリの `wrangler.jsonc` に書き、`pnpm -F app db:migrate --remote` と `pnpm -F app db:seed --remote` を当てる。**デプロイが通っても、リモートの D1 が空のままだと画面がユーザーを引けずに落ちる。** 既存の Turso データベースは自動では消えないので、乗り換えが済んだら使う人が消す
 - **README の書き換え。** 冒頭の技術構成の表（Turso・@libsql/client・drizzle-seed の 3 つ）、セットアップ手順の Turso の節、env の説明の必須 2 本
 
 ## 未決事項
