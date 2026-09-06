@@ -17,7 +17,7 @@
   "stylelint.configBasedir": ".",
   "stylelint.validate": ["css", "scss"],
   "cSpell.enabled": true,
-  "cSpell.words": ["oxfmt", "oxlint", "TURSO"],
+  "cSpell.words": ["oxfmt", "oxlint"],
   "cSpell.allowCompoundWords": true,
   "cSpell.ignorePaths": ["**/node_modules/**", "**/vscode-extension/**"],
   "typescript.tsdk": "node_modules/typescript/lib"

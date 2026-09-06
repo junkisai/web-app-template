@@ -11,9 +11,8 @@
 |                                  |                                    |                                   |                                  |
 | **ビルド・実行環境**             | Vite (Build Tool)                  | Cloudflare Workers (Runtime)      | Wrangler (Deployment CLI)        |
 |                                  |                                    |                                   |                                  |
-| **データベース**                 | Turso (libSQL Database)            | @libsql/client (DB Client)        | Drizzle ORM (ORM)                |
-|                                  | drizzle-kit (Migration Tool)       | drizzle-seed (Seed Tool)          | Cloudflare R2 (Object Storage)   |
-|                                  | Better Auth (Authentication)       |                                   |                                  |
+| **データベース**                 | Cloudflare D1 (SQLite Database)    | Drizzle ORM (ORM)                 | drizzle-kit (Migration Tool)     |
+|                                  | Cloudflare R2 (Object Storage)     | Better Auth (Authentication)      |                                  |
 |                                  |                                    |                                   |                                  |
 | **開発ツール／ユーティリティ**   | pnpm (Package Manager)             | Turborepo (Monorepo Task Runner)  | oxlint (Linter)                  |
 |                                  | oxfmt (Formatter)                  | knip (Unused Code Detector)       | VSCode (Code Editor)             |
@@ -24,7 +23,7 @@
 - `apps/admin`: 管理画面。同じく TanStack Start で、UI は [Astryx](https://astryx.atmeta.com/docs/getting-started) のコンポーネントで組みます（[apps/admin/README.md](./apps/admin/README.md)）
 
 ディレクトリ構成と置き場所の規約は [docs/architecture/20260819_directory-structure.md](./docs/architecture/20260819_directory-structure.md) にあります。要約は [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。機能を追加・変更するときは、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書きます。
-- `packages/db`: DB client、業務 schema、Drizzle migration runner
+- `packages/db`: D1 binding から作る DB client、業務 schema、migration と seed の定義
 - `packages/auth`: Better Auth 設定、auth schema、auth client
 - `packages/env`: 環境変数の schema と検証済みの `env`
 
@@ -62,10 +61,6 @@ APP_BASE_URL="http://localhost:3000"
 BETTER_AUTH_URL="http://localhost:3000"
 BETTER_AUTH_SECRET="<32文字以上のランダム文字列>"
 
-# Turso
-TURSO_DATABASE_URL="libsql://<your-database>.turso.io"
-TURSO_AUTH_TOKEN="<your-auth-token>"
-
 # Cloudflare R2
 R2_BUCKET_NAME="<bucket-name>"
 R2_BUCKET_URL="<public-bucket-url>"
@@ -95,24 +90,40 @@ openssl rand -base64 32
 ln -s ../../.env ./.env
 ```
 
-### 4. Turso
+### 4. Cloudflare D1
 
-Turso でデータベースを作成し、接続情報を `.env` に設定してください。
+データベースは Cloudflare D1 です。接続情報は env ではなく Worker の binding で渡すため、`.env` には何も足しません。
 
-```env
-TURSO_DATABASE_URL="libsql://<your-database>.turso.io"
-TURSO_AUTH_TOKEN="<your-auth-token>"
+Cloudflare 上にデータベースを作ります。
+
+```sh
+pnpm -F app exec wrangler d1 create <your-database>
 ```
 
-初期テーブル作成と seed は以下です。
+出力された `database_name` と `database_id` を、`apps/app/wrangler.jsonc` と `apps/admin/wrangler.jsonc` の `d1_databases` に書きます。**両アプリで同じ値を指してください。** `binding` の `DB` は `packages/db` が名前で引くので変更しません。
+
+migration の SQL を作り、ローカルのデータベースに当てて seed します。
 
 ```sh
 pnpm -F db generate
-pnpm -F db migrate
-pnpm -F db seed
+pnpm -F app db:migrate
+pnpm -F app db:seed
 ```
 
-`ENABLE_AUTH` の値によって migration 対象が変わります。
+`db:migrate` と `db:seed` は wrangler のローカル D1（`apps/app/.wrangler/state`）に当たります。Cloudflare 上のデータベースに当てるときは `--remote` を足します。
+
+```sh
+pnpm -F app db:migrate --remote
+```
+
+ローカルの状態はアプリごとに分かれています。`apps/admin` を動かすときは、そちらでも当ててください。
+
+```sh
+pnpm -F admin db:migrate
+pnpm -F admin db:seed
+```
+
+`ENABLE_AUTH` の値によって `pnpm -F db generate` の対象が変わります。
 
 - `ENABLE_AUTH="true"`: `packages/db/src/schema.ts` と `packages/auth/src/schema.ts` の両方を対象にします
 - `ENABLE_AUTH="false"`: `packages/db/src/schema.ts` だけを対象にします
@@ -121,8 +132,9 @@ pnpm -F db seed
 
 ```sh
 ENABLE_AUTH=false pnpm -F db generate
-ENABLE_AUTH=false pnpm -F db migrate
 ```
+
+**D1 は明示的な `BEGIN` / `COMMIT` を受け付けないため、`db.transaction()` は使えません。** 複数の文をまとめたいときは `db.batch()` を使います。
 
 ## Environment variables
 
@@ -133,20 +145,18 @@ ENABLE_AUTH=false pnpm -F db migrate
 ```ts
 import { env } from '@packages/env'
 
-env.TURSO_DATABASE_URL // string
 env.ENABLE_AUTH // boolean
+env.APP_BASE_URL // string | undefined
 ```
 
 - 検証は `env` を最初に import した時点で走り、欠けている値と形式が不正な値をまとめて報告します
-- 必須は `TURSO_DATABASE_URL` と `TURSO_AUTH_TOKEN` の 2 つで、それ以外は任意です
+- 必須の値はありません。`ENABLE_AUTH` は未設定なら `true` になり、それ以外はすべて任意です
 - 空文字は未設定として扱います
 - `ENABLE_AUTH` は `1` / `true` / `yes` / `on` と `0` / `false` / `no` / `off` を受け付けます。未設定なら `true`、それ以外の文字列はエラーです
 
 変数を増やすときは `.env.template` と schema の両方に追加します。schema にないキーは `env` から読めません。
 
-`SKIP_ENV_VALIDATION` を立てると検証を飛ばして生の値を返します。`pnpm lint` の knip がこれを使っていて、`.env` の無い環境でも lint が通ります。アプリの実行時には使いません。
-
-ブラウザに渡す値はこの package には置きません。`packages/env` は drizzle-kit や tsx からも読まれるため `process.env` だけを参照します。`VITE_` プレフィックスの値を使う場合は、`import.meta.env` を `runtimeEnv` にした env を `apps/app` 側に別途定義してください。
+ブラウザに渡す値はこの package には置きません。`packages/env` は drizzle-kit からも読まれるため `process.env` だけを参照します。`VITE_` プレフィックスの値を使う場合は、`import.meta.env` を `runtimeEnv` にした env を `apps/app` 側に別途定義してください。
 
 ## Better Auth
 
@@ -163,7 +173,7 @@ Better Auth のサーバー設定は [packages/auth/src/lib/auth.ts](./packages/
 
 現在の設定:
 
-- Drizzle adapter で Turso を使用
+- Drizzle adapter で Cloudflare D1 を使用
 - `emailAndPassword` を有効化
 - `BETTER_AUTH_URL` を `baseURL` に使用
 - `better-auth/tanstack-start` の cookie plugin を使用

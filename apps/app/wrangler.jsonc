@@ -9,10 +9,18 @@
   "observability": {
     "enabled": true,
   },
+  "d1_databases": [
+    {
+      // @packages/db が binding を名前で引くため、DB は変更しない
+      "binding": "DB",
+      // TODO: wrangler d1 create で作成したデータベースの名前と ID に変更してください
+      "database_name": "web-app-template",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "../../packages/db/migrations",
+    },
+  ],
   "secrets": {
     "required": [
-      "TURSO_DATABASE_URL",
-      "TURSO_AUTH_TOKEN",
       "ENABLE_AUTH",
       "APP_BASE_URL",
       "BETTER_AUTH_URL",

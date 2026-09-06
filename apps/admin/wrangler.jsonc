@@ -9,7 +9,14 @@
   "observability": {
     "enabled": true,
   },
-  "secrets": {
-    "required": ["TURSO_DATABASE_URL", "TURSO_AUTH_TOKEN"],
-  },
+  "d1_databases": [
+    {
+      // @packages/db が binding を名前で引くため、DB は変更しない
+      "binding": "DB",
+      // TODO: apps/app と同じデータベースの名前と ID に変更してください
+      "database_name": "web-app-template",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "../../packages/db/migrations",
+    },
+  ],
 }
