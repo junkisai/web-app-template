@@ -1,6 +1,13 @@
 {
   "extends": "@tsconfig/strictest/tsconfig.json",
-  "include": ["**/*.ts", "**/*.tsx", "../../env.d.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "../../env.d.ts",
+    // @packages/db の client.ts が import する cloudflare:workers の宣言。
+    // ここで拾わないと、このアプリの tsc が packages/db を読むときに解決できない
+    "../../packages/db/src/cloudflare.d.ts"
+  ],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],

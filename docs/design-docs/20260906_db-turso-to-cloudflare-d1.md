@@ -67,12 +67,14 @@ packages/db/
 
 apps/app/
 ├─ package.json                  db:migrate と db:seed を足す
+├─ tsconfig.json                 include に packages/db/src/cloudflare.d.ts を足す
 ├─ wrangler.jsonc                d1_databases を足し、secrets.required から TURSO_* を消す
 ├─ vite.config.ts                node-fetch の alias を消す
 └─ src/lib/native-fetch-shim.ts  削除
 
 apps/admin/
 ├─ package.json                  db:migrate と db:seed を足し、cf:set-env を消す
+├─ tsconfig.json                 include に packages/db/src/cloudflare.d.ts を足す
 ├─ wrangler.jsonc                d1_databases を足し、secrets ごと消す
 ├─ scripts/set-secrets.sh        削除
 ├─ vite.config.ts                node-fetch の alias を消す
@@ -128,7 +130,7 @@ seed も同じで、`wrangler d1 execute DB --file ../../packages/db/seed.sql` �
 
 ### binding の型
 
-**`@cloudflare/workers-types` は入れない。** 型は `packages/db` の中で完結させ、両アプリの `tsconfig.json` は触らない。
+**`@cloudflare/workers-types` は入れない。** 型の宣言は `packages/db` に置き、両アプリの `tsconfig.json` はその 1 ファイルを拾うだけにする。
 
 前提が 2 つある。
 
@@ -147,7 +149,18 @@ declare module 'cloudflare:workers' {
 
 `AnyD1Database` は `drizzle-orm/d1` が export している、`drizzle()` が受け取れる型。**このリポジトリで `DB` binding に触るのは drizzle だけなので、D1 の API 全体の型は要らない。** `Cloudflare.Env` の拡張も要らなくなる。
 
-このファイルはアンビエント宣言なので、アプリ側の `include` からは拾われない。`client.ts` の先頭に `/// <reference path="./cloudflare.d.ts" />` を書いて取り込む。**triple-slash の path 参照は、そのファイルを含むどのプログラムにも効く**ので、両アプリの `tsc --noEmit` でも解決される。新しいアプリが `@packages/db` を使い始めても、その tsconfig に足すものは無い。
+アンビエントモジュール宣言なので、`client.ts` の中には書けない。**module の中の `declare module` は augmentation として扱われ、実体の無い `cloudflare:workers` に対しては `TS2664` になる。** 独立した `.d.ts` に置き、`@packages/db` を使うアプリの `tsconfig.json` の `include` に足して拾わせる。すでに `../../env.d.ts` を同じやり方で渡しているので、並びも揃う。
+
+```jsonc
+"include": [
+  "**/*.ts",
+  "**/*.tsx",
+  "../../env.d.ts",
+  "../../packages/db/src/cloudflare.d.ts"
+],
+```
+
+`client.ts` から `/// <reference path="./cloudflare.d.ts" />` で取り込む形にはしない。**`.oxlintrc.json` が `typescript(triple-slash-reference)` を禁止しており、`pnpm lint` が落ちる。**
 
 ## 検討した他の案
 
@@ -161,7 +174,7 @@ declare module 'cloudflare:workers' {
 | 既存の migration 3 本をそのまま持ち込む | 履歴は連続するが、いまの schema に存在しない `foo` テーブルの作成と削除を、clone した人が最初に読むことになる |
 | `@cloudflare/workers-types` を入れて `D1Database` を取る | モジュールとして import できず、`/// <reference types="..." />` でグローバルに入れるしかない。中身の `declare class Headers` などが両アプリの `lib: ["DOM"]` と衝突し、React の SSR である以上 DOM は外せない |
 | `wrangler types` の生成物をコミットし、`packages/db` の tsconfig から読む | binding 名の間違いまで型で拾えるが、`packages/db` が `apps/app` の生成物を参照することになり、依存の向きが逆になる。生成物には Workers のグローバル型が丸ごと入るので、DOM との衝突も同じように起きる |
-| `cloudflare.d.ts` を両アプリの tsconfig の `include` に足す | `../../env.d.ts` と同じやり方で揃うが、`@packages/db` を使うアプリが増えるたびに、そのアプリの tsconfig にも足す必要がある。triple-slash なら `packages/db` の中で完結する |
+| `client.ts` の `/// <reference path="./cloudflare.d.ts" />` で取り込む | `packages/db` の中で完結し、`@packages/db` を使うアプリが増えても tsconfig に足すものが無い。しかし `.oxlintrc.json` が `typescript(triple-slash-reference)` を禁止しているので `pnpm lint` が落ちる |
 | 開発時もリモートの D1 を直接見る | ローカルの state が 1 つで済むが、開発中の操作が本物のデータに当たる。オフラインでも動かなくなる |
 | ローカル D1 を両アプリで 1 つに共有する（`persist_to` を揃える） | ローカルでもデータが 1 つになるが、設定が 1 段増える。`apps/admin` はまだ読み取りだけなので、いまは分かれていて困らない |
 
