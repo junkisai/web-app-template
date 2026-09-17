@@ -67,8 +67,8 @@ importers:
         version: 8.2.2(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.16.9)(tsx@4.23.12)(yaml@2.9.0)
     devDependencies:
       '@astryxdesign/cli':
-        specifier: 0.5.0
-        version: 0.5.0(@astryxdesign/core@0.5.0(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.5.0(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8))(gpt-tokenizer@3.4.0)(supports-color@10.2.2)
+        specifier: 0.6.0
+        version: 0.6.0(@astryxdesign/core@0.5.0(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.5.0(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8))(gpt-tokenizer@3.4.0)(supports-color@10.2.2)
       '@stylexjs/unplugin':
         specifier: 0.19.0
         version: 0.19.0(supports-color@10.2.2)(unplugin@2.3.11)
@@ -229,8 +229,8 @@ importers:
 
 packages:
 
-  '@astryxdesign/cli@0.5.0':
-    resolution: {integrity: sha512-RiRhSSMu4V07ZcbxS49r64Of04AuEnEWfoKovK7r11+3PxHalsQzP3elqothOTs49JaGVHGSHtBoLwh5o7RF9A==}
+  '@astryxdesign/cli@0.6.0':
+    resolution: {integrity: sha512-jOhCmFmyhla66+ho6s2R2MALnGhTx1D2Fh7M8tV1xzyEjzfPA7pJ8XKuUzqMEUCGF/QFdY8KF7IfGn9mxLx9Zg==}
     engines: {node: '>=22.13.0'}
     hasBin: true
     peerDependencies:
@@ -2742,6 +2742,11 @@ packages:
   css-mediaquery@0.1.2:
     resolution: {integrity: sha512-COtn4EROW5dBGlE/4PiKnh6rZpAPxDeFLaEEwt4i10jpDMFt2EhQGS79QmmrO+iKCHv0PU/HrOWEhijFd1x99Q==}
 
+  cssesc@3.0.0:
+    resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
+    engines: {node: '>=4'}
+    hasBin: true
+
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
@@ -3543,6 +3548,10 @@ packages:
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
 
+  postcss-selector-parser@7.1.6:
+    resolution: {integrity: sha512-7qASPzhKF2l2KLboRZux8CCTRMdGiV08vWmyKzPz22qZ7ZjQBOeY7rNzNoCLSUiftJ7HUq0GERHmxw/t0dCdMw==}
+    engines: {node: '>=4'}
+
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
 
@@ -4057,12 +4066,14 @@ packages:
 
 snapshots:
 
-  '@astryxdesign/cli@0.5.0(@astryxdesign/core@0.5.0(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.5.0(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8))(gpt-tokenizer@3.4.0)(supports-color@10.2.2)':
+  '@astryxdesign/cli@0.6.0(@astryxdesign/core@0.5.0(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.5.0(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8))(gpt-tokenizer@3.4.0)(supports-color@10.2.2)':
     dependencies:
       commander: 12.1.0
       gpt-tokenizer: 3.4.0
       jiti: 2.7.0
       jscodeshift: 17.4.0(supports-color@10.2.2)
+      postcss: 8.5.26
+      postcss-selector-parser: 7.1.6
       zod: 4.4.3
     optionalDependencies:
       '@astryxdesign/core': 0.5.0(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -4126,7 +4137,7 @@ snapshots:
 
   '@babel/generator@7.29.1':
     dependencies:
-      '@babel/parser': 7.29.2
+      '@babel/parser': 7.29.8
       '@babel/types': 7.29.0
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
@@ -4163,7 +4174,7 @@ snapshots:
       '@babel/helper-member-expression-to-functions': 7.28.5(supports-color@10.2.2)
       '@babel/helper-optimise-call-expression': 7.27.1
       '@babel/helper-replace-supers': 7.28.6(@babel/core@7.29.0(supports-color@10.2.2))(supports-color@10.2.2)
-      '@babel/helper-skip-transparent-expression-wrappers': 7.27.1(supports-color@10.2.2)
+      '@babel/helper-skip-transparent-expression-wrappers': 7.29.7(supports-color@10.2.2)
       '@babel/traverse': 7.29.0(supports-color@10.2.2)
       semver: 6.3.1
     transitivePeerDependencies:
@@ -4188,7 +4199,7 @@ snapshots:
 
   '@babel/helper-member-expression-to-functions@7.28.5(supports-color@10.2.2)':
     dependencies:
-      '@babel/traverse': 7.29.0(supports-color@10.2.2)
+      '@babel/traverse': 7.29.8(supports-color@10.2.2)
       '@babel/types': 7.29.8
     transitivePeerDependencies:
       - supports-color
@@ -4231,9 +4242,9 @@ snapshots:
   '@babel/helper-replace-supers@7.28.6(@babel/core@7.29.0(supports-color@10.2.2))(supports-color@10.2.2)':
     dependencies:
       '@babel/core': 7.29.0(supports-color@10.2.2)
-      '@babel/helper-member-expression-to-functions': 7.28.5(supports-color@10.2.2)
-      '@babel/helper-optimise-call-expression': 7.27.1
-      '@babel/traverse': 7.29.0(supports-color@10.2.2)
+      '@babel/helper-member-expression-to-functions': 7.29.7(supports-color@10.2.2)
+      '@babel/helper-optimise-call-expression': 7.29.7
+      '@babel/traverse': 7.29.8(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -4426,7 +4437,7 @@ snapshots:
     dependencies:
       '@babel/code-frame': 7.29.0
       '@babel/parser': 7.29.8
-      '@babel/types': 7.29.0
+      '@babel/types': 7.29.8
 
   '@babel/template@7.29.7':
     dependencies:
@@ -5899,7 +5910,7 @@ snapshots:
   babel-dead-code-elimination@1.0.12(supports-color@10.2.2):
     dependencies:
       '@babel/core': 7.29.0(supports-color@10.2.2)
-      '@babel/parser': 7.29.2
+      '@babel/parser': 7.29.8
       '@babel/traverse': 7.29.0(supports-color@10.2.2)
       '@babel/types': 7.29.0
     transitivePeerDependencies:
@@ -6083,6 +6094,8 @@ snapshots:
   cookie@1.1.1: {}
 
   css-mediaquery@0.1.2: {}
+
+  cssesc@3.0.0: {}
 
   csstype@3.2.3: {}
 
@@ -6787,6 +6800,11 @@ snapshots:
       confbox: 0.2.4
       exsolve: 1.0.8
       pathe: 2.0.3
+
+  postcss-selector-parser@7.1.6:
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
 
   postcss-value-parser@4.2.0: {}
 
