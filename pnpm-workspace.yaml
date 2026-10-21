@@ -34,3 +34,5 @@ allowBuilds:
 minimumReleaseAgeExclude:
   # Renovate security update: vite@8.2.4
   - vite@8.2.4
+  # Renovate security update: @tanstack/react-start@1.168.60
+  - "@tanstack/react-start@1.168.60"
