@@ -31,3 +31,6 @@ allowBuilds:
   # ビルド成果物を作らない。走らせても得るものが無いので止める
   '@astryxdesign/core': false
   '@astryxdesign/cli': false
+minimumReleaseAgeExclude:
+  # Renovate security update: vite@8.2.4
+  - vite@8.2.4
