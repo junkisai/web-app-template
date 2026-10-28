@@ -10,8 +10,7 @@
     "lint": "turbo run lint && pnpm lint:knip",
     "lint:knip": "knip",
     "lint:packageVersion": "syncpack list-mismatches",
-    "fmt": "turbo run fmt",
-    "sync:agents": "bash scripts/sync-agent-config.sh"
+    "fmt": "turbo run fmt"
   },
   "devDependencies": {
     "knip": "6.32.3",
