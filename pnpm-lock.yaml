@@ -34,10 +34,10 @@ importers:
     dependencies:
       '@astryxdesign/core':
         specifier: 0.7.1
-        version: 0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        version: 0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@astryxdesign/theme-neutral':
         specifier: 0.5.0
-        version: 0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
+        version: 0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       '@cloudflare/vite-plugin':
         specifier: 1.64.0
         version: 1.64.0(@types/node@24.13.3)(vite@8.2.4(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.16.9)(tsx@4.23.12)(yaml@2.9.0))(wrangler@4.151.1(@types/node@24.13.3))
@@ -45,8 +45,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/db
       '@stylexjs/stylex':
-        specifier: 0.19.0
-        version: 0.19.0
+        specifier: 0.19.1
+        version: 0.19.1
       '@tanstack/react-router':
         specifier: 1.170.45
         version: 1.170.45(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -68,7 +68,7 @@ importers:
     devDependencies:
       '@astryxdesign/cli':
         specifier: 0.7.0
-        version: 0.7.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8))(supports-color@10.2.2)
+        version: 0.7.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8))(supports-color@10.2.2)
       '@stylexjs/unplugin':
         specifier: 0.19.0
         version: 0.19.0(supports-color@10.2.2)(unplugin@2.3.11)
@@ -103,8 +103,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/db
       '@stylexjs/stylex':
-        specifier: 0.19.0
-        version: 0.19.0
+        specifier: 0.19.1
+        version: 0.19.1
       '@tabler/icons-react':
         specifier: 3.46.0
         version: 3.46.0(react@19.2.8)
@@ -2083,6 +2083,9 @@ packages:
   '@stylexjs/stylex@0.19.0':
     resolution: {integrity: sha512-CnUFp7YMaDLDeemsWOfJgoC/gKM5P/yBNMcpJaE6ChJmXr7s0DJwSeGTTlHJcqqwN9OW1qGtmARWLFhGZN1pTA==}
 
+  '@stylexjs/stylex@0.19.1':
+    resolution: {integrity: sha512-JwNFm0MOYPqi+M4Ax5Un4ZxfZp4HEAX2sAWetZ88KALFcv1eEiHNJs75oO3V3U7RVWnzfkiM8i9eBowC3hqgUw==}
+
   '@stylexjs/unplugin@0.19.0':
     resolution: {integrity: sha512-2QwNYovSwarC/M8DLD78857F6MEi4eQ3UYzgdmyg/K7562M/rV1KWptiATxcKgujlUT6ToNy778SOXf4bGK+Bw==}
     peerDependencies:
@@ -4032,7 +4035,7 @@ packages:
 
 snapshots:
 
-  '@astryxdesign/cli@0.7.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8))(supports-color@10.2.2)':
+  '@astryxdesign/cli@0.7.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8))(supports-color@10.2.2)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@10.2.2)
       '@babel/parser': 7.29.8
@@ -4049,22 +4052,22 @@ snapshots:
       recast: 0.23.21
       zod: 4.4.3
     optionalDependencies:
-      '@astryxdesign/core': 0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@astryxdesign/theme-neutral': 0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
+      '@astryxdesign/core': 0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@astryxdesign/theme-neutral': 0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
     transitivePeerDependencies:
       - '@babel/preset-env'
       - supports-color
 
-  '@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
-      '@stylexjs/stylex': 0.19.0
+      '@stylexjs/stylex': 0.19.1
       intl-messageformat: 11.2.14
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
-  '@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
+  '@astryxdesign/theme-neutral@0.5.0(@astryxdesign/core@0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
     dependencies:
-      '@astryxdesign/core': 0.7.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@astryxdesign/core': 0.7.1(@stylexjs/stylex@0.19.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       lucide-react: 1.33.0(react@19.2.8)
       react: 19.2.8
 
@@ -5509,6 +5512,12 @@ snapshots:
   '@stylexjs/shared@0.19.0': {}
 
   '@stylexjs/stylex@0.19.0':
+    dependencies:
+      css-mediaquery: 0.1.2
+      invariant: 2.2.4
+      styleq: 0.2.1
+
+  '@stylexjs/stylex@0.19.1':
     dependencies:
       css-mediaquery: 0.1.2
       invariant: 2.2.4
