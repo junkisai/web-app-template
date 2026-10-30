@@ -36,3 +36,5 @@ minimumReleaseAgeExclude:
   - vite@8.2.4
   # Renovate security update: @tanstack/react-start@1.168.60
   - "@tanstack/react-start@1.168.60"
+  # Renovate security update: better-auth@1.7.7
+  - better-auth@1.7.7
