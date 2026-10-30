@@ -17,7 +17,7 @@
   "devDependencies": {
     "@tsconfig/strictest": "2.0.8",
     "@types/node": "24.13.3",
-    "drizzle-kit": "0.31.10",
+    "drizzle-kit": "0.31.11",
     "typescript": "7.0.2"
   }
 }
