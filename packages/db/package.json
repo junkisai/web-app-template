@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@packages/env": "workspace:*",
-    "drizzle-orm": "0.45.2"
+    "drizzle-orm": "0.45.4"
   },
   "devDependencies": {
     "@tsconfig/strictest": "2.0.8",
