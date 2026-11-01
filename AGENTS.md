@@ -6,6 +6,8 @@
 
 `apps/app` にファイルを追加・移動するときは [docs/architecture/20260819_directory-structure.md](docs/architecture/20260819_directory-structure.md) に従う。判断フロー・各ディレクトリの責務・依存の方向・命名がそこにある。
 
+**新しい D1 は、デプロイの前に `--location apac` を付けて作る。** 手順と理由は [docs/runbooks/20261101_create-d1.md](docs/runbooks/20261101_create-d1.md) にある。
+
 ## 守ること
 
 **URL の定義は `src/routes/`、画面の実体は `src/screens/<画面>/`。** 画面はまとまりを並べる場所で、中身のロジックは持たない。
@@ -17,8 +19,6 @@
 **2 つ目の参照元が現れてから外に出す。** 使う画面が 1 つのうちは `screens/<画面>/components/<まとまり>/` に置き、2 つ目の画面が使い始めたら `src/features/<ドメイン>/` へ上げる。出す前と後で中の形は変わらないので、移動だけで済む。
 
 **静的ファイルはまとまりで決めない。** ソースから参照するなら使う場所の隣に置いて import、参照しない・ファイル名を保つ必要があるなら `public/`。
-
-**新しい D1 は、デプロイの前に日本向けに作る。** `pnpm -F app exec wrangler d1 create <名前> --location apac` で作り、`pnpm -F app exec wrangler d1 info <名前>` の `running_in_region` が APAC であることを確かめてから、`database_id` を `wrangler.jsonc` に書く。`database_id` を省いてデプロイに作らせると場所を選べず、米国に置かれることがある。後から場所を変える手順も無く、使う人から遠いと読み書きの往復のたびに待たされる。
 
 ## 置き場所（要約）
 
