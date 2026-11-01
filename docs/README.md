@@ -38,6 +38,7 @@
 ### runbooks
 
 - [20260825_minimum-release-age.md](runbooks/20260825_minimum-release-age.md) — 公開から 7 日未満のバージョンを入れる手順（pnpm / Renovate の設定と例外の書き方）
+- [20261101_create-d1.md](runbooks/20261101_create-d1.md) — 新しい D1 を場所を選んで作る手順（`--location apac` と確かめ方）
 
 ### references
 

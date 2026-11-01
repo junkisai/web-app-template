@@ -94,10 +94,10 @@ ln -s ../../.env ./.env
 
 データベースは Cloudflare D1 です。接続情報は env ではなく Worker の binding で渡すため、`.env` には何も足しません。
 
-Cloudflare 上にデータベースを作ります。
+Cloudflare 上にデータベースを作ります。**場所を選べるのは作るときだけ**なので、`--location apac` を付けます（[手順と理由](docs/runbooks/20261101_create-d1.md)）。
 
 ```sh
-pnpm -F app exec wrangler d1 create <your-database>
+pnpm -F app exec wrangler d1 create <your-database> --location apac
 ```
 
 出力された `database_name` と `database_id` を、`apps/app/wrangler.jsonc` と `apps/admin/wrangler.jsonc` の `d1_databases` に書きます。**両アプリで同じ値を指してください。** `binding` の `DB` は `packages/db` が名前で引くので変更しません。

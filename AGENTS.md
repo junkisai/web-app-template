@@ -6,6 +6,8 @@
 
 `apps/app` にファイルを追加・移動するときは [docs/architecture/20260819_directory-structure.md](docs/architecture/20260819_directory-structure.md) に従う。判断フロー・各ディレクトリの責務・依存の方向・命名がそこにある。
 
+**新しい D1 は、デプロイの前に `--location apac` を付けて作る。** 手順と理由は [docs/runbooks/20261101_create-d1.md](docs/runbooks/20261101_create-d1.md) にある。
+
 ## 守ること
 
 **URL の定義は `src/routes/`、画面の実体は `src/screens/<画面>/`。** 画面はまとまりを並べる場所で、中身のロジックは持たない。
