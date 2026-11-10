@@ -5,8 +5,8 @@
   "ignoreWorkspaces": ["packages/tsconfig"],
   "workspaces": {
     "apps/app": {
-      // まだ画面が無いので未使用だが、README がテンプレートのアイコンライブラリとして案内している
-      "ignoreDependencies": ["@tabler/icons-react"]
+      // アイコンを描くときに必ず通すラッパー。まだ使う画面が無いが、テンプレートとして先に置いている
+      "entry": ["src/lib/icon.tsx"]
     },
     "apps/admin": {
       // コンポーネントの API を引くための CLI で、script からは呼ばれない
