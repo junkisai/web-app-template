@@ -7,7 +7,7 @@
 | **スタイル・デザイン**           | CSS (Style Sheet Language)         | StyleX (CSS-in-JS)                | Astryx (Design System)           |
 |                                  |                                    |                                   |                                  |
 | **UIライブラリ／フレームワーク** | React (UI Library)                 | TanStack Start (React Framework)  | TanStack Router (Router)         |
-|                                  | @tabler/icons-react (Icon Library) |                                   |                                  |
+|                                  | reicon-react (Icon Library)        |                                   |                                  |
 |                                  |                                    |                                   |                                  |
 | **ビルド・実行環境**             | Vite (Build Tool)                  | Cloudflare Workers (Runtime)      | Wrangler (Deployment CLI)        |
 |                                  |                                    |                                   |                                  |
