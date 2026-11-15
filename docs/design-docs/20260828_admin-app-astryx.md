@@ -1,10 +1,25 @@
 ---
 title: 管理画面用の apps/admin を作り、UI を Astryx で組む
 date: 2026-08-28
-status: approved
+status: implemented
 author:
-pr:
+pr: https://github.com/junkisai/web-app-template/pull/234
 ---
+
+> **この文書は 2026-08-28 時点の設計判断の記録で、実装（[#234](https://github.com/junkisai/web-app-template/pull/234)）のあとは凍結している。** 今の仕様は [specs/admin-console.md](../specs/admin-console.md) と [specs/users.md](../specs/users.md)、今の構成は [architecture/overview.md](../architecture/overview.md) と [architecture/directory-structure.md](../architecture/directory-structure.md)、Astryx の使い方は [apps/admin/README.md](../../apps/admin/README.md) を見る。ここに書かれた判断は、仕様や構成を変えてはいけない理由にならない。
+>
+> **2026-11-15 のドキュメント体系の移行で変えたこと。** 本文の判断は書き換えていない。
+>
+> - `status` を `approved` から `implemented` にし、`pr` に [#234](https://github.com/junkisai/web-app-template/pull/234)（2026-08-28 にマージ済み）を書いた。ゴールのチェックは当時のまま
+> - 改名したファイルへのリンクを直した。`docs/architecture/20260819_directory-structure.md` は `docs/architecture/directory-structure.md` に、`docs/runbooks/20260825_minimum-release-age.md` は `docs/runbooks/minimum-release-age.md` になった
+>
+> **書いた時点からの食い違い。** 「置き場所」はユーザーのまとまりを `features/users/` に置くと書いているが、「データ」と「処理の流れ」は `screens/user-list/components/users/` を指している。実装は `features/users/` のほう。
+>
+> **後から変わったこと（2026-11-15 時点）。**
+>
+> - `@astryxdesign/*` は `0.4.5` 固定ではなくなった。今は `core` が `0.7.1`、`theme-neutral` が `0.5.0`、`cli` が `0.7.0` で、「3 つの version は必ず揃える」を満たしていない（[architecture/overview.md の既知の食い違い](../architecture/overview.md#既知の食い違い)）
+> - `src/lib/native-fetch-shim.ts`・`scripts/set-secrets.sh`・`knip.jsonc` の shim の例外は、D1 への移行（[20260906_db-turso-to-cloudflare-d1.md](20260906_db-turso-to-cloudflare-d1.md)、[#257](https://github.com/junkisai/web-app-template/pull/257)）で消えた
+> - この文書が範囲外にした「構成の規約の本文と lint のどちらを正とするか」は、まだ決まっていない（[architecture/directory-structure.md の未決事項](../architecture/directory-structure.md#未決-db-を引くまとまりの置き場所)）
 
 ## 概要
 
@@ -28,7 +43,7 @@ Astryx を選ぶ理由は 3 つある。
 - [x] Astryx のコンポーネントだけで管理画面の 1 枚目（ユーザー一覧）が描けている
 - [x] `routes/` の `loader` → まとまりの `api/` → `@packages/db` という既存の流れを、`apps/admin` でも同じ形でなぞれている
 - [x] `pnpm lint`（tsc・oxlint・knip）と `pnpm -F admin build` が通る
-- [x] `docs/architecture/20260819_directory-structure.md` の置き場所・依存の向き・命名に違反しない
+- [x] [`docs/architecture/directory-structure.md`](../architecture/directory-structure.md) の置き場所・依存の向き・命名に違反しない
 
 ## やらないこと
 
@@ -87,7 +102,7 @@ apps/admin/
 
 **ユーザーのまとまりは、画面が 1 つでも `features/users/` に置く。** 「2 つ目の参照元が現れてから外に出す」に従えば `screens/user-list/components/users/` になるはずだが、**そこには置けない。** `.oxlintrc.json` が `**/src/screens/**` からの `@packages/db` を禁止していて、`screens/` の下に `api/` を掘ると `pnpm lint` が落ちる。lint のメッセージ自体が「取得は features/<ドメイン>/api/ に置き、loader から渡してください」と言っている。`apps/app` も同じ理由で `features/users/` に置いている。
 
-**構成の規約（`docs/architecture/20260819_directory-structure.md`）の本文と lint はここで食い違っている。** 本文は「使うのが 1 画面のうちは `screens/<画面>/components/<まとまり>/api/`」と書いているが、lint はそれを通さない。今回は動くほう（lint）に合わせた。**どちらが正なのかを決めて片方を直すのは、この design doc の範囲外にする。**
+**構成の規約（[`docs/architecture/directory-structure.md`](../architecture/directory-structure.md)）の本文と lint はここで食い違っている。** 本文は「使うのが 1 画面のうちは `screens/<画面>/components/<まとまり>/api/`」と書いているが、lint はそれを通さない。今回は動くほう（lint）に合わせた。**どちらが正なのかを決めて片方を直すのは、この design doc の範囲外にする。**
 
 **`screens/<入口>/<画面>/` の形にはしない。** 構成の規約には「管理画面のような 2 つ目の入口ができたら `screens/<入口>/` を 1 段挟む」とあるが、それは**同じ app の中に入口が 2 つできたとき**の話になる。今回は app ごと分けるので、`apps/admin/src/screens/` はフラットに始める。
 
@@ -139,7 +154,7 @@ routes/index.tsx (loader)
 
 **`@astryxdesign/*` は `0.4.5` に固定する。** 最新は `0.5.0` だが公開から 4 日しか経っておらず、`pnpm-workspace.yaml` の `minimumReleaseAge: 10080`（7 日）に掛かって `pnpm install` が `ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION` で落ちる。
 
-[20260825_minimum-release-age.md](../runbooks/20260825_minimum-release-age.md) の指示どおり、`minimumReleaseAgeExclude` に例外を足すのではなく **7 日を満たす最新版まで下げる。** 下げておけば 7 日経った時点で Renovate が上げ直す。`0.4.5` と `0.5.0` の間に、ここで使う `Theme` / `LinkProvider` / CSS の export の差分は無い。
+[minimum-release-age.md](../runbooks/minimum-release-age.md) の指示どおり、`minimumReleaseAgeExclude` に例外を足すのではなく **7 日を満たす最新版まで下げる。** 下げておけば 7 日経った時点で Renovate が上げ直す。`0.4.5` と `0.5.0` の間に、ここで使う `Theme` / `LinkProvider` / CSS の export の差分は無い。
 
 `@astryxdesign/theme-neutral` は `@astryxdesign/core` を `0.4.5` 固定で peer に取るので、**3 つの version は必ず揃える。**
 
