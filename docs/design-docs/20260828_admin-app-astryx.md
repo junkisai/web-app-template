@@ -6,12 +6,14 @@ author:
 pr: https://github.com/junkisai/web-app-template/pull/234
 ---
 
-> **この文書は 2026-08-28 時点の設計判断の記録で、実装（[#234](https://github.com/junkisai/web-app-template/pull/234)）のあとは凍結している。** 今の仕様は [specs/admin-console.md](../specs/admin-console.md) と [specs/users.md](../specs/users.md)、今の構成は [architecture/overview.md](../architecture/overview.md) と [architecture/directory-structure.md](../architecture/directory-structure.md)、Astryx の使い方は [apps/admin/README.md](../../apps/admin/README.md) を見る。ここに書かれた判断は、仕様や構成を変えてはいけない理由にならない。
+> **この文書は 2026-08-28 時点の設計判断の記録で、実装（[#234](https://github.com/junkisai/web-app-template/pull/234)）のあとは凍結している。** 今の要件と振る舞いは [prds/admin-console.md](../prds/admin-console.md) と [prds/users.md](../prds/users.md)、今の構成は [architecture/overview.md](../architecture/overview.md) と [architecture/directory-structure.md](../architecture/directory-structure.md)、Astryx の使い方は [apps/admin/README.md](../../apps/admin/README.md) を見る。ここに書かれた判断は、仕様や構成を変えてはいけない理由にならない。
 >
 > **2026-11-15 のドキュメント体系の移行で変えたこと。** 本文の判断は書き換えていない。
 >
 > - `status` を `approved` から `implemented` にし、`pr` に [#234](https://github.com/junkisai/web-app-template/pull/234)（2026-08-28 にマージ済み）を書いた。ゴールのチェックは当時のまま
 > - 改名したファイルへのリンクを直した。`docs/architecture/20260819_directory-structure.md` は `docs/architecture/directory-structure.md` に、`docs/runbooks/20260825_minimum-release-age.md` は `docs/runbooks/minimum-release-age.md` になった
+>
+> **2026-11-15 に `docs/specs/` を `docs/prds/` へ移した。** 上の注記の `specs/admin-console.md` と `specs/users.md` へのリンクを、移した先の PRD に直した。本文は書き換えていない。
 >
 > **書いた時点からの食い違い。** 「置き場所」はユーザーのまとまりを `features/users/` に置くと書いているが、「データ」と「処理の流れ」は `screens/user-list/components/users/` を指している。実装は `features/users/` のほう。
 >

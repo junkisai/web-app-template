@@ -2,15 +2,24 @@
 
 **機能の追加・仕様の変更・技術の変更を、どう実現するかを検討し、その判断を記録する場所。** 設計上の判断が要る変更（下の「いつ書くか」）はコードを書く前に書き、ユーザーの承認を得てから実装に入る。
 
-## 仕様の正本ではない
+## 要件の正本でも、構成の正本でもない
 
-design doc が答えるのは「そのとき、何を・なぜ・どう作ると決めたか」。**今その機能がどう振る舞うべきかは [specs/](../specs/README.md)、今どう組まれているかは [architecture/](../architecture/) が答える。**
+design doc が答えるのは「そのとき、何を・なぜ・どう作ると決めたか」。**今その機能が何のためにあり、どう振る舞うべきかは [prds/](../prds/README.md)、今どう組まれているかは [architecture/](../architecture/overview.md)、プロダクト全体が何のためにあるかは [product.md](../product.md) が答える。**
 
-実装後の design doc は凍結する。ただし**凍結するのは文書であって、対象の機能や実装ではない。** 凍結した design doc に書かれていることは、仕様や構成を変えてはいけない理由にならない。
+| | 答える問い |
+| --- | --- |
+| [product.md](../product.md) | プロダクト全体の Why |
+| [prds/](../prds/README.md) | 機能ごとの Why と What（今有効なもの） |
+| **design-docs/** | **そのときの How と、その方法を選んだ理由** |
+| [architecture/](../architecture/overview.md) | 今の How |
 
-## なぜ specs と分けるのか
+**design doc と architecture は別物。** design doc に書いた構成は、書いた日の案であって、今の構成ではない。今使っている技術・構成・技術的な制約は、design doc にしか書かれていない状態にしない。実装が入ったら architecture に移す。
 
-spec は決まったことの一覧で、**決める過程が残らない。** 後から読んだ人（次の自分、他のメンバー、AI エージェント）は「なぜこの形なのか」を再現できず、同じ議論をもう一度やる。
+実装後の design doc は凍結する。ただし**凍結するのは文書であって、対象の機能や実装ではない。** 凍結した design doc に書かれていることは、要件や構成を変えてはいけない理由にならない。
+
+## なぜ PRD・architecture と分けるのか
+
+PRD は今有効な要件の一覧で、architecture は今の構成の説明。どちらも**決める過程が残らない。** 後から読んだ人（次の自分、他のメンバー、AI エージェント）は「なぜこの形なのか」を再現できず、同じ議論をもう一度やる。
 
 design doc は過程ごと残す。**やらないことと、検討して捨てた案が本文に入る。** これがあると、
 
@@ -18,9 +27,9 @@ design doc は過程ごと残す。**やらないことと、検討して捨て�
 - 「やっぱりこっちの作りでは」と思ったとき、すでに捨てた案かどうかが「検討した他の案」でわかる
 - AI エージェントに実装させるとき、判断の前提ごと渡せる。仕様だけ渡すと、書いていない部分を勝手に埋められる
 
-一方で、design doc だけでは**どれが今も有効な決定なのかがわからない。** 書いた日の要件がそのまま残るので、後から読むと過去の決定を今の仕様だと取り違える。そこで今の姿は spec に、そこに至った過程は design doc に、と分けて持つ。
+一方で、design doc だけでは**どれが今も有効な決定なのかがわからない。** 書いた日の要件と構成がそのまま残るので、後から読むと過去の決定を今の要件や構成だと取り違える。そこで今の要件は PRD に、今の構成は architecture に、そこに至った過程は design doc に、と分けて持つ。
 
-書くのは実装者。**合意を取るための文書であって、報告書ではない。** 完成した機能の説明を後から書くのは design doc ではない（それは spec の仕事）。
+書くのは実装者。**合意を取るための文書であって、報告書ではない。** 完成した機能の説明を後から書くのは design doc ではない（要件は PRD、構成は architecture の仕事）。**今の技術構成を記録するためだけに design doc を書かない。**
 
 ## いつ書くか
 
@@ -44,18 +53,18 @@ design doc を必須にしない変更。
 
 **例外として、セキュリティやデータの整合性に影響する変更は、「必須にしない」側に見えても design doc を書く。**
 
-**design doc を省略しても、仕様が変わるなら同じ PR で specs を更新する。**
+**design doc を省略しても、要件や振る舞いが変わるなら同じ PR で PRD を更新する。**
 
 **迷ったら書く。** 書き始めて 10 分で書くことがないなら、それは書かなくていい変更だった、という判断でよい。
 
 ## 仕様変更と過去の design doc
 
-ユーザーから仕様の変更を求められたら、**その要求を新しい検討の起点にする。**
+ユーザーから要件や構成の変更を求められたら、**その要求を新しい検討の起点にする。**
 
-- 過去の design doc に違うことが書いてあっても、それを理由に変更を断らない。過去の判断は「当時はこう考えた」という材料として読む
-- 今の [specs/](../specs/README.md) と [architecture/](../architecture/) との差分を洗い出し、必要な変更と影響範囲をはっきりさせる
+- 過去の design doc に違うことが書いてあっても、それを理由に変更を断らない。過去の判断は「当時はこう考えた」という材料として読む。今の PRD や architecture の既定の方針も、新しい要求で見直せる
+- 今の [prds/](../prds/README.md) と [architecture/](../architecture/overview.md) との差分を洗い出し、必要な変更と影響範囲をはっきりさせる。プロダクト全体の目的や価値に関わるなら [product.md](../product.md) も読む
 - 既存の制約（安全性、技術的な制約、他の機能への影響）と衝突するなら、影響・リスク・変更案を説明して判断を仰ぐ。制約を無視してよいという意味ではない
-- 「いつ書くか」で design doc が要る変更なら新しい design doc を書き、承認を得てから実装する。要らない変更なら、実装と同じ PR で spec を直す。どちらの場合も、過去の design doc は書き換えない
+- 「いつ書くか」で design doc が要る変更なら新しい design doc を書き、承認を得てから実装する。要らない変更なら、実装と同じ PR で PRD と architecture を直す。どちらの場合も、過去の design doc は書き換えない
 
 ## ファイル名
 
@@ -75,19 +84,19 @@ design doc を必須にしない変更。
 | --- | --- |
 | 概要 | ここだけ読んで他の人に説明できる状態にする |
 | 背景 | なぜ今これが要るのか。書けないものは、まだ作るときではない |
-| 対象の仕様 | 変える・足す spec へのリンクと、今の spec からの差分 |
+| 対象の PRD | 変える・足す PRD へのリンクと、変更前の要件・変更後の要件案 |
 | ゴール | 達成したかを判定できる形にする |
 | やらないこと | 実装中のスコープの広がりを止める |
-| 設計 | 画面・URL・置き場所・データ・処理の流れ |
+| 設計 | 実現方法。画面・URL・置き場所・データ・処理の流れ |
 | 検討した他の案 | 捨てた案を残す。後から一番効く |
 | トレードオフ | 採った案で何を諦めたか、何を引き受けたか |
 | 影響範囲 | 壊れうるものを先に挙げる |
-| 仕様・構成への反映 | 実装が入ったときに書き換える spec・architecture・runbook |
+| PRD・構成への反映 | 実装が入ったときに書き換える product.md・PRD・architecture・runbook |
 | 未決事項 | 決まっていないことを隠さない |
 
 **設計の「置き場所」は [architecture/directory-structure.md](../architecture/directory-structure.md) の判断フローで決める。** ここでディレクトリまで決めておくと、実装時に迷わない。
 
-**「対象の仕様」に書くのは、これから変える案。** 実装が入るまで spec 本体は書き換えない。未実装の案を、実装済みの仕様として spec に書かない。
+**「対象の PRD」に書くのは、これから変える案。** 実装が入るまで PRD 本体は書き換えない。未実装の案を、実装済みの要件として PRD に書かない。新しい機能で PRD がまだ無いなら、「変更前の要件」は「なし」と書き、PRD は実装の PR で作る。
 
 該当しない節は「なし」と書いて中身を消す。**節ごと消さない。** 空でないことより、考えた上で空だとわかることのほうが役に立つ。
 
@@ -113,7 +122,7 @@ frontmatter の `status` で状態を持つ。
 ## 実装が入ったら
 
 1. `status` を `implemented` にし、`pr` に実装 PR を書く
-2. **「仕様・構成への反映」に挙げた spec・architecture・runbook を、同じ PR で書き換える。** design doc に書いた要件は spec に、恒常的な規約になったもの（構成、依存の向き、命名）は architecture に、手で叩く手順は runbook に移す
+2. **「PRD・構成への反映」に挙げた文書を、同じ PR で書き換える。** design doc に書いた要件と目的は PRD に、採った技術と恒常的な規約になったもの（構成、依存の向き、命名、技術的な制約）は architecture に、手で叩く手順は runbook に、プロダクト全体の目的・価値・成功条件が変わったなら product.md に移す
 3. 一覧の status を更新する
 
 ## 実装後は凍結する
@@ -126,7 +135,7 @@ frontmatter の `status` で状態を持つ。
 - ファイルの移動・改名に伴うリンクの修正
 - 「後から変わったこと」を示す注記。本文の判断は書き換えず、日付付きで注記として足す
 
-方針が変わっても、古い design doc は書き換えない。「いつ書くか」に当てはまる変更なら新しい design doc を書く。新しいものが古いものを丸ごと置き換えるなら、古いほうを `superseded` にする。一部だけを変えるなら、古いほうは `implemented` のままにし、新しいほうから古いほうへリンクする。どちらの場合も、今の姿は spec と architecture に反映する。
+方針が変わっても、古い design doc は書き換えない。「いつ書くか」に当てはまる変更なら新しい design doc を書く。新しいものが古いものを丸ごと置き換えるなら、古いほうを `superseded` にする。一部だけを変えるなら、古いほうは `implemented` のままにし、新しいほうから古いほうへリンクする。どちらの場合も、今の姿は PRD と architecture に反映する。
 
 ## 一覧
 
@@ -135,5 +144,5 @@ frontmatter の `status` で状態を持つ。
 | design doc | status | 実装 PR | 今の正本 |
 | --- | --- | --- | --- |
 | [20260906_db-turso-to-cloudflare-d1.md](20260906_db-turso-to-cloudflare-d1.md) — packages/db を Turso から Cloudflare D1 へ移す | `implemented` | [#257](https://github.com/junkisai/web-app-template/pull/257) | [architecture/overview.md](../architecture/overview.md#データベース)、[runbooks/d1-migrations.md](../runbooks/d1-migrations.md) |
-| [20260828_admin-app-astryx.md](20260828_admin-app-astryx.md) — 管理画面用の apps/admin を作り、UI を Astryx で組む | `implemented` | [#234](https://github.com/junkisai/web-app-template/pull/234) | [specs/admin-console.md](../specs/admin-console.md)、[specs/users.md](../specs/users.md)、[apps/admin/README.md](../../apps/admin/README.md) |
+| [20260828_admin-app-astryx.md](20260828_admin-app-astryx.md) — 管理画面用の apps/admin を作り、UI を Astryx で組む | `implemented` | [#234](https://github.com/junkisai/web-app-template/pull/234) | [prds/admin-console.md](../prds/admin-console.md)、[prds/users.md](../prds/users.md)、[architecture/overview.md](../architecture/overview.md)、[apps/admin/README.md](../../apps/admin/README.md) |
 | [20260826_tailwind-to-stylex.md](20260826_tailwind-to-stylex.md) — Tailwind CSS から StyleX へ移行する | `implemented` | [#227](https://github.com/junkisai/web-app-template/pull/227) | [architecture/overview.md](../architecture/overview.md#スタイリング) |
