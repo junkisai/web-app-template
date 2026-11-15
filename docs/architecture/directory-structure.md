@@ -1,6 +1,8 @@
 # ディレクトリ構成
 
-`apps/app` の置き場所の規約。**新しいファイルを作る前にここを読み、[置き場所の判断フロー](#置き場所の判断フロー)で置き場所を決める。**
+`apps/app` と `apps/admin` の置き場所の規約。**新しいファイルを作る前にここを読み、[置き場所の判断フロー](#置き場所の判断フロー)で置き場所を決める。**
+
+今有効な規約の正本で、規約が変わったらその変更を入れる PR でここを書き換える。アプリ・パッケージどうしの関係は [overview.md](overview.md) にある。例は `apps/app` で書いているが、`apps/admin` にも同じ規約が効く（`.oxlintrc.json` の glob はアプリ名を含まない）。`apps/admin` だけの違いは [`apps/admin` での違い](#appsadmin-での違い)にある。
 
 ## 考え方
 
@@ -64,6 +66,8 @@ screens/user-list/components/users/
 
 **ドメインを持つものも例外にしない。** ユーザーを扱うのが 1 画面だけなら `screens/user-list/components/users/` に置く。2 つ目の画面が使い始めたら `features/users/` へ上げる。
 
+> **`@packages/db` を引く `api/` を持つまとまりだけは、今この規約どおりに置けない。** lint が `screens/` の下からの `@packages/db` を止めるため、両アプリとも画面 1 つでしか使わない `users` を `features/users/` に置いている。どちらに寄せるかは決まっていない（[未決: DB を引くまとまりの置き場所](#未決-db-を引くまとまりの置き場所)）。
+
 ## 全体像
 
 ```text
@@ -86,7 +90,7 @@ apps/app/
    ├─ hooks/               ドメインを知らない共有 hooks
    ├─ utils/               ドメインを知らない純粋関数
    ├─ lib/                 外部ライブラリをこのアプリ用に設定したもの
-   ├─ styles/              グローバル CSS
+   ├─ styles/              グローバル CSS とスタイルのトークン（tokens.stylex.ts）
    ├─ router.tsx           ルーター定義
    └─ routeTree.gen.ts     TanStack Router が生成。手で触らない
 ```
@@ -108,7 +112,9 @@ src/screens/user-list/
 
 `empty-state.tsx` が `components/` 直下にあるのは、**複数のまとまりから使うから**。`users/` は 1 まとまりでしか使わないので、そのディレクトリに閉じている。
 
-**`features/` はここにない。** 2 つ目の画面が同じドメインを使い始めたときに作る（[2 つ目の参照元が現れてから外に出す](#2-つ目の参照元が現れてから外に出す)）。作るときの形は次のとおり。
+> この例の `users/api/get-users.ts` は `@packages/db` を引くので、**今の lint では通らない。** 実際のコードは `features/users/api/get-users.ts` に置いている（[未決: DB を引くまとまりの置き場所](#未決-db-を引くまとまりの置き場所)）。
+
+**`features/` は上の全体像に入れていない。** 規約の上では、2 つ目の画面が同じドメインを使い始めたときに作る（[2 つ目の参照元が現れてから外に出す](#2-つ目の参照元が現れてから外に出す)）。ただし今は、上の未決事項のために両アプリとも `features/users/` がある。作るときの形は次のとおり。
 
 ```text
    ├─ features/            2 つ以上の画面から使うドメイン
@@ -126,7 +132,7 @@ src/screens/user-list/
 
 `scripts/` はサブディレクトリを作らずフラットに置き、ファイル名で役割を表す。
 
-**`screens/<画面>/api/` は作らない。** データ取得は `routes/` の `loader` から呼ぶ。呼ぶ先は、そのまとまりを使うのが 1 画面のうちは `screens/<画面>/components/<まとまり>/api/`、`features/` へ上げたあとは `features/<ドメイン>/api/`。複数のまとまりをまたぐ画面も、組み合わせるのは `loader` の仕事。
+**`screens/<画面>/api/` は作らない。** データ取得は `routes/` の `loader` から呼ぶ。呼ぶ先は、そのまとまりを使うのが 1 画面のうちは `screens/<画面>/components/<まとまり>/api/`、`features/` へ上げたあとは `features/<ドメイン>/api/`。複数のまとまりをまたぐ画面も、組み合わせるのは `loader` の仕事。`@packages/db` を引く `api/` は、今は前者に置けない（[未決: DB を引くまとまりの置き場所](#未決-db-を引くまとまりの置き場所)）。
 
 ### まとまりと共有層の違い
 
@@ -159,6 +165,25 @@ src/screens/user-list/
 `@packages/auth` の `auth-client` は better-auth が用意するクライアント SDK で、性質としては `lib/` に置くものと同じ。ドメインではないので、画面から直接使ってよい（bulletproof-react も認証クライアントを `lib/` に置いている）。サーバー側の `auth` は `routes/api/auth/` が使う。
 
 **DB スキーマの型を画面まで通さない。** `@packages/db` の型が要るときは、そのドメインの `types/` で受けてから渡す（`users/types/user.ts`）。ここを挟んでおくと、テーブル定義を変えても画面側の import が動かない。
+
+### 未決: DB を引くまとまりの置き場所
+
+**規約の本文と lint が食い違っていて、どちらを正とするかが決まっていない。**
+
+| | 何と言っているか |
+| --- | --- |
+| 規約の本文（このファイル） | 使う画面が 1 つのうちは `screens/<画面>/components/<まとまり>/` に置き、`@packages/db` はそのまとまりの `api/` から引く |
+| lint（`.oxlintrc.json`） | `**/src/screens/**` からの `@packages/db` を禁止する。メッセージは「取得は features/<ドメイン>/api/ に置き、loader から渡してください」 |
+| 今のコード | 両アプリとも、画面 1 つでしか使わない `users` を `features/users/` に置いている（lint に合わせている） |
+
+`apps/admin` を作ったときにこの食い違いが見つかり、そのときは lint に合わせて、どちらを直すかは決めなかった（[20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md)）。
+
+決まるまでは、**`@packages/db` を引く `api/` を含むまとまりは `features/<ドメイン>/` に置く**（lint が通る形）。DB を引かないまとまりは、本文の規約どおり `screens/<画面>/components/<まとまり>/` に置ける。
+
+直すときの候補は 2 つある。どちらにするかは design doc で決める。
+
+- 本文を lint に合わせる。「DB を引くまとまりは画面が 1 つでも `features/` に置く」を規約にする
+- lint を本文に合わせる。`screens/**/components/*/api/**` からの `@packages/db` だけを許す
 
 ### 画面のディレクトリは URL の入れ子を写さない
 
@@ -285,7 +310,9 @@ flowchart LR
 
 ### lint で強制している
 
-最後の 1 つ（`routes/` にロジックを書かない）以外は `.oxlintrc.json` の `overrides` + `no-restricted-imports` で `pnpm lint` が落ちる。違反すると、どこに置くべきかを書いたメッセージが出る。
+次の表の import は `.oxlintrc.json` の `overrides` + `no-restricted-imports` で `pnpm lint` が落ちる。違反すると、どこに置くべきかを書いたメッセージが出る。
+
+上のルールのうち、**lint で止まらないものが 4 つある。** `routes/` にロジックを書かないこと、まとまりどうしの参照、`@packages/db` を Node で動く script から import すること（`scripts/` と `*.config.ts` には lint のブロックが無い）、`features/` の中で `api/` 以外から `@packages/db` を引くこと。どれもレビューで見る（詳しくは下）。
 
 | ここから | これを import できない |
 | --- | --- |
@@ -301,9 +328,11 @@ flowchart LR
 
 ドメイン直下のファイル（`features/<ドメイン>/*.ts`）は `../` が必ずドメインの外に出るので、そこだけ `../**` も禁止している。**ドメインの中で 2 階層以上さかのぼって隣のドメインへ行く形だけは、正当な `../../types/...` と文字列で区別できないため lint に入れていない。** ここはレビューで見る。
 
-`src/features/**` のルールは、`features/` がまだ無い状態でも消さない。**作った瞬間から効かせるため。**
+`src/features/**` のルールは、`features/` を持たないアプリがあっても消さない。**作った瞬間から効かせるため。**
 
 **画面の中のまとまりどうしの参照も、lint で止まらない。** `screens/user-list/components/users/` から `screens/user-list/components/orders/` を import しても通る。同じ画面の中は相対パスで書くので、機械的に区別できないからだ。ここもレビューで見る。
+
+**`features/<ドメイン>/` の中で、`api/` 以外から `@packages/db` を引くのも lint で止まらない。** `features/**` のブロックは `@packages/db` を禁止していないので、`features/users/components/` から import しても通る。「`@packages/db` に触るのは `api/` だけ」のうち lint が守っているのは、`routes/`・`screens/`・共有層から引けないところまで。`features/` の中はレビューで見る。
 
 ## 命名
 
@@ -353,15 +382,29 @@ flowchart LR
 
 **この形にするのは、実際に 2 つ目の入口ができてから。** 先に器を作ると、1 つしかない入口の名前が全パスに乗るだけになる。
 
+これは**同じアプリの中に入口が 2 つできたとき**の形。配布先や権限が違う入口は、アプリごと分ける。管理画面はこちらで、`apps/app` の中に `screens/admin/` を作らず、別の `apps/admin` にしている（[20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md)）。そのため `apps/admin/src/screens/` もフラットに並べる。
+
+**アプリどうしは参照しない。** `apps/app` と `apps/admin` の両方が欲しがるものが出たら `packages/` へ出す。
+
 ## 全体像にないディレクトリ
 
 次の 4 つは条件を満たすまで作らない。
 
 | ディレクトリ | 作る条件 |
 | --- | --- |
-| `features/` | 2 つ目の画面が同じドメインを使い始めたとき |
+| `features/` | 2 つ目の画面が同じドメインを使い始めたとき（今は両アプリに `features/users/` がある。[未決: DB を引くまとまりの置き場所](#未決-db-を引くまとまりの置き場所)） |
 | `apps/app/public/`（`src/` の外） | ソースから参照しない静的ファイルが要るようになったとき（[静的ファイルの置き場所](#静的ファイルの置き場所)） |
 | `stores/` | 複数のドメインをまたぐクライアント状態が出てきたとき |
 | `types/` | 複数のまとまりで共有する型が出てきたとき。まとまりの型はそのディレクトリの中 |
 
 **どれも「実際にそうなってから」作る。** 器を先に置いても、中身が 1 つのうちは読みやすくならない。
+
+## `apps/admin` での違い
+
+置き場所・依存の向き・命名は `apps/app` と同じ。違うのは次の 3 つ。
+
+- **`components/ui/` を作らない。** ドメインを知らない表示部品は Astryx が持っている。自前の `Button` や `Table` を置くと、同じものが 2 系統になる
+- **`src/styles/globals.css` は Astryx の CSS を読むだけ。** 独自の指定は書かない
+- **`src/lib/astryx-provider.tsx` が Astryx をこのアプリ用に設定する。** 置き場所の 9 番（外部ライブラリの設定・ラッパー）に当たる
+
+Astryx の使い方は [apps/admin/README.md](../../apps/admin/README.md) にある。

@@ -25,3 +25,7 @@ pnpm -F app exec wrangler d1 info <名前>
 **`--location` は希望の指定で、保証はされない。** `apac` はアジア太平洋を指す値で、日本だけを指定する値は無い。別のアプリでは、大阪に置かれたものとソウルに置かれたものがあった。
 
 出力された `database_name` と `database_id` を、`apps/app/wrangler.jsonc` と `apps/admin/wrangler.jsonc` の `d1_databases` に書く。両アプリで同じ値を指す。
+
+## 次にやること
+
+作ったばかりの D1 は空なので、デプロイの前に migration を当てる（[d1-migrations.md](d1-migrations.md) の「Cloudflare 上の D1 に当てる」）。

@@ -21,11 +21,23 @@
 
 - `apps/app`: TanStack Start アプリケーション
 - `apps/admin`: 管理画面。同じく TanStack Start で、UI は [Astryx](https://astryx.atmeta.com/docs/getting-started) のコンポーネントで組みます（[apps/admin/README.md](./apps/admin/README.md)）
-
-ディレクトリ構成と置き場所の規約は [docs/architecture/20260819_directory-structure.md](./docs/architecture/20260819_directory-structure.md) にあります。要約は [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。機能を追加・変更するときは、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書きます。
 - `packages/db`: D1 binding から作る DB client、業務 schema、migration と seed の定義
 - `packages/auth`: Better Auth 設定、auth schema、auth client
 - `packages/env`: 環境変数の schema と検証済みの `env`
+
+## Docs
+
+ドキュメントの地図は [docs/README.md](./docs/README.md) にあります。
+
+| 知りたいこと | 場所 |
+| --- | --- |
+| 機能が今どう振る舞うべきか | [docs/specs/](./docs/specs/README.md) |
+| アプリ・パッケージの関係と構成 | [docs/architecture/overview.md](./docs/architecture/overview.md) |
+| ディレクトリ構成と置き場所の規約 | [docs/architecture/directory-structure.md](./docs/architecture/directory-structure.md) |
+| 過去の設計判断とその理由 | [docs/design-docs/](./docs/design-docs/README.md) |
+| 操作・運用の手順 | [docs/runbooks/](./docs/runbooks/) |
+
+規約の要約とエージェント向けの運用ルールは [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。機能を追加・変更するときは、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書き、実装が入ったら specs と architecture を更新します。
 
 ## Setup
 
@@ -94,7 +106,7 @@ ln -s ../../.env ./.env
 
 データベースは Cloudflare D1 です。接続情報は env ではなく Worker の binding で渡すため、`.env` には何も足しません。
 
-Cloudflare 上にデータベースを作ります。**場所を選べるのは作るときだけ**なので、`--location apac` を付けます（[手順と理由](docs/runbooks/20261101_create-d1.md)）。
+Cloudflare 上にデータベースを作ります。**場所を選べるのは作るときだけ**なので、`--location apac` を付けます（[手順と理由](docs/runbooks/create-d1.md)）。
 
 ```sh
 pnpm -F app exec wrangler d1 create <your-database> --location apac
@@ -102,121 +114,37 @@ pnpm -F app exec wrangler d1 create <your-database> --location apac
 
 出力された `database_name` と `database_id` を、`apps/app/wrangler.jsonc` と `apps/admin/wrangler.jsonc` の `d1_databases` に書きます。**両アプリで同じ値を指してください。** `binding` の `DB` は `packages/db` が名前で引くので変更しません。
 
-migration の SQL を作り、ローカルのデータベースに当てて seed します。
+migration の SQL を作り、ローカルのデータベースに当てて seed します。ローカルの状態はアプリごとに分かれているので、`apps/admin` を動かすときはそちらでも当ててください。
 
 ```sh
 pnpm -F db generate
 pnpm -F app db:migrate
 pnpm -F app db:seed
-```
-
-`db:migrate` と `db:seed` は wrangler のローカル D1（`apps/app/.wrangler/state`）に当たります。Cloudflare 上のデータベースに当てるときは `--remote` を足します。
-
-```sh
-pnpm -F app db:migrate --remote
-```
-
-ローカルの状態はアプリごとに分かれています。`apps/admin` を動かすときは、そちらでも当ててください。
-
-```sh
 pnpm -F admin db:migrate
 pnpm -F admin db:seed
 ```
 
-`ENABLE_AUTH` の値によって `pnpm -F db generate` の対象が変わります。
+Cloudflare 上のデータベースに当てる方法、`ENABLE_AUTH` で生成の対象が変わること、seed を流すときの注意は [docs/runbooks/d1-migrations.md](docs/runbooks/d1-migrations.md) にあります。
 
-- `ENABLE_AUTH="true"`: `packages/db/src/schema.ts` と `packages/auth/src/schema.ts` の両方を対象にします
-- `ENABLE_AUTH="false"`: `packages/db/src/schema.ts` だけを対象にします
-
-`.env` を書き換えずに一時的に切り替えたい場合は、環境変数を前置して実行できます。
-
-```sh
-ENABLE_AUTH=false pnpm -F db generate
-```
-
-**D1 は明示的な `BEGIN` / `COMMIT` を受け付けないため、`db.transaction()` は使えません。** 複数の文をまとめたいときは `db.batch()` を使います。
+**D1 では `db.transaction()` が使えません。** 複数の文をまとめたいときは `db.batch()` を使います（[docs/architecture/overview.md](docs/architecture/overview.md#使えないもの)）。
 
 ## Environment variables
 
-環境変数は [packages/env/src/index.ts](./packages/env/src/index.ts) の schema で検証します。検証には [T3 Env](https://env.t3.gg/) と [valibot](https://valibot.dev/) を使います。
-
-アプリケーションのコードから `process.env` を直接読まず、検証済みの `env` を import してください。
+環境変数は [packages/env/src/index.ts](./packages/env/src/index.ts) の schema で検証します。アプリケーションのコードから `process.env` を直接読まず、検証済みの `env` を import してください。
 
 ```ts
 import { env } from '@packages/env'
-
-env.ENABLE_AUTH // boolean
-env.APP_BASE_URL // string | undefined
 ```
 
-- 検証は `env` を最初に import した時点で走り、欠けている値と形式が不正な値をまとめて報告します
-- 必須の値はありません。`ENABLE_AUTH` は未設定なら `true` になり、それ以外はすべて任意です
-- 空文字は未設定として扱います
-- `ENABLE_AUTH` は `1` / `true` / `yes` / `on` と `0` / `false` / `no` / `off` を受け付けます。未設定なら `true`、それ以外の文字列はエラーです
-
-変数を増やすときは `.env.template` と schema の両方に追加します。schema にないキーは `env` から読めません。
-
-ブラウザに渡す値はこの package には置きません。`packages/env` は drizzle-kit からも読まれるため `process.env` だけを参照します。`VITE_` プレフィックスの値を使う場合は、`import.meta.env` を `runtimeEnv` にした env を `apps/app` 側に別途定義してください。
+検証の規則（必須の値・既定値・受け付ける値）、変数の増やし方、ブラウザに渡す値の扱いは [docs/architecture/overview.md の環境変数](./docs/architecture/overview.md#環境変数)にあります。
 
 ## Better Auth
 
-### Runtime toggle
+認証の振る舞い（`ENABLE_AUTH` による切り替え、メールとパスワード、対応している OAuth provider）は [docs/specs/auth.md](./docs/specs/auth.md) に、設定ファイルの場所と import の仕方は [docs/architecture/overview.md の認証](./docs/architecture/overview.md#認証)にあります。
 
-`ENABLE_AUTH` は migration だけでなく runtime にも効きます。
+### OAuth provider を有効にする
 
-- `ENABLE_AUTH="true"`: `/api/auth/*` が有効
-- `ENABLE_AUTH="false"`: `/api/auth/*` は `404` と `AUTH_DISABLED` を返す
-
-### Server configuration
-
-Better Auth のサーバー設定は [packages/auth/src/lib/auth.ts](./packages/auth/src/lib/auth.ts) にあります。
-
-現在の設定:
-
-- Drizzle adapter で Cloudflare D1 を使用
-- `emailAndPassword` を有効化
-- `BETTER_AUTH_URL` を `baseURL` に使用
-- `better-auth/tanstack-start` の cookie plugin を使用
-- OAuth 資格情報が env に存在する provider だけ自動で有効化
-
-server 側では次を import します。
-
-```ts
-import { auth } from '@packages/auth/auth'
-```
-
-### Client configuration
-
-Better Auth のクライアント設定は [packages/auth/src/lib/auth-client.ts](./packages/auth/src/lib/auth-client.ts) にあります。
-
-React 側では次を import します。
-
-```ts
-import { authClient } from '@packages/auth/auth-client'
-```
-
-### Route handler
-
-API route は [apps/app/src/routes/api/auth/$.ts](./apps/app/src/routes/api/auth/$.ts) にあります。TanStack Start では `/api/auth/*` をこの route で処理します。
-
-### Supported OAuth providers
-
-以下の provider は `*_CLIENT_ID` と `*_CLIENT_SECRET` が両方ある場合のみ有効になります。
-
-- Apple
-- Discord
-- Facebook
-- GitHub
-- GitLab
-- Google
-- LinkedIn
-- Microsoft
-- Slack
-- Spotify
-- Twitch
-- X
-
-たとえば GitHub を有効にする場合:
+provider ごとに `*_CLIENT_ID` と `*_CLIENT_SECRET` の両方を `.env` に書くと、その provider が有効になります。たとえば GitHub を有効にする場合:
 
 ```env
 GITHUB_CLIENT_ID="<github-client-id>"
@@ -276,10 +204,12 @@ pnpm -F admin dev     # http://localhost:3001
 
 ## Deploy
 
-デプロイは `main` へのマージをトリガーに自動で実行されます。事前に `.env` を用意したうえで、Cloudflare の secret を次回デプロイ向けに登録してください。
+デプロイは `main` へのマージをトリガーに自動で実行されます。事前に、Cloudflare の secret を次回デプロイ向けに登録してください。
 
 ```sh
 pnpm -F app cf:set-env
 ```
 
-このコマンドは `wrangler versions secret put` を使うため、その場では本番反映されず、`main` マージ後の自動デプロイで反映されます。
+このコマンドは `apps/app/wrangler.jsonc` の `secrets.required` に並ぶキーだけを、`apps/app` から見た `.env.production` から読んで登録します（`apps/app/package.json` の script が引数で渡しています）。`wrangler versions secret put` を使うため、その場では本番反映されず、`main` マージ後の自動デプロイで反映されます。
+
+D1 を新しく作ったときは、デプロイの前にリモートの D1 へ migration を当ててください（[docs/runbooks/d1-migrations.md](docs/runbooks/d1-migrations.md)）。

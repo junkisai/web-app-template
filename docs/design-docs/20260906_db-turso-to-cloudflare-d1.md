@@ -1,10 +1,20 @@
 ---
 title: packages/db を Turso から Cloudflare D1 へ移す
 date: 2026-09-06
-status: approved
+status: implemented
 author: Junki Saito
-pr:
+pr: https://github.com/junkisai/web-app-template/pull/257
 ---
+
+> **この文書は 2026-09-06 時点の設計判断の記録で、実装（[#257](https://github.com/junkisai/web-app-template/pull/257)）のあとは凍結している。** 今のデータベースの構成は [architecture/overview.md のデータベース](../architecture/overview.md#データベース)、migration と seed の当て方は [runbooks/d1-migrations.md](../runbooks/d1-migrations.md)、D1 の作り方は [runbooks/create-d1.md](../runbooks/create-d1.md) を見る。ここに書かれた判断は、構成を変えてはいけない理由にならない。
+>
+> **2026-11-15 のドキュメント体系の移行で変えたこと。** 本文の判断は書き換えていない。
+>
+> - `status` を `approved` から `implemented` にし、`pr` に [#257](https://github.com/junkisai/web-app-template/pull/257)（2026-09-06 にマージ済み）を書いた。ゴールのチェックボックスは当時のまま付けていない。#257 の「確認したこと」では、`pnpm lint`、両アプリの build、両アプリのローカル D1 への `db:migrate` / `db:seed`、`pnpm -F app dev` の `/` が D1 から描画されることを確かめている
+> - 同じ PR で置かれていた要件の文書（`20260906_db-turso-to-cloudflare-d1-requirements.md`）を、末尾の[付録: 依頼時の要件](#付録-依頼時の要件)に統合した
+> - `docs/architecture/20260819_directory-structure.md` は `docs/architecture/directory-structure.md` に改名した。リンクは直したが、「置き場所」のツリーは当時のファイル名のまま残している
+>
+> **後から変わったこと（2026-11-15 時点）。** 新しい D1 は、デプロイの前に `--location apac` を付けて手で作るようになった（[#275](https://github.com/junkisai/web-app-template/pull/275)、[runbooks/create-d1.md](../runbooks/create-d1.md)）。
 
 ## 概要
 
@@ -181,7 +191,7 @@ declare module 'cloudflare:workers' {
 ## 影響範囲
 
 - **`db.transaction()` が使えなくなる。** D1 は明示的な `BEGIN` / `COMMIT` を受け付けず、drizzle の D1 driver はこれを素の SQL として投げるため実行時に落ちる。複数文をまとめたいときは `db.batch()` を使う。**いまのコードでは 1 か所も使っていない。** `@packages/auth` が使う better-auth の drizzle adapter も `transaction` が既定 `false` なので影響しない。README の DB の節に 1 行残す
-- **`@packages/db` が Node から import できなくなる。** `cloudflare:workers` は workerd の中にしかない。これが `seed.ts` を `seed.sql` に置き換える理由で、恒常的な制約として `docs/architecture/20260819_directory-structure.md` の依存の向きにも足す
+- **`@packages/db` が Node から import できなくなる。** `cloudflare:workers` は workerd の中にしかない。これが `seed.ts` を `seed.sql` に置き換える理由で、恒常的な制約として [`docs/architecture/directory-structure.md`](../architecture/directory-structure.md) の依存の向きにも足す
 - **ローカルのデータが `apps/app` と `apps/admin` で 2 つに分かれる。** `.wrangler/state` はアプリごとなので、`apps/admin` で入れたデータは `apps/app` から見えない。それぞれで `db:migrate` と `db:seed` を当てる
 - **`packages/env` の必須 env が 0 本になる。** 残るのは既定値を持つ `ENABLE_AUTH` と、任意の auth 系・R2 系だけ。`skipValidation` の逃がし口と `lint:knip` の `SKIP_ENV_VALIDATION=1` は、必須が無くなることで要らなくなるので一緒に消す
 - **`.env` を持たなくても `pnpm -F app dev` が起動するようになる。** DB の接続情報が env から消えるため。README のセットアップ手順から Turso の節が消え、`wrangler d1 create` の節に入れ替わる
@@ -193,3 +203,100 @@ declare module 'cloudflare:workers' {
 ## 未決事項
 
 なし。
+
+## 付録: 依頼時の要件
+
+この design doc の元になった要件。2026-09-06 に `20260906_db-turso-to-cloudflare-d1-requirements.md` として、この design doc と同じ PR（[#257](https://github.com/junkisai/web-app-template/pull/257)）で置かれていた。**移行案件の依頼時の要件で、今の仕様ではない。** 2026-11-15 のドキュメント体系の移行でこの付録に統合し、元のファイルは消した。元の版は `git show fe1c0c5:docs/design-docs/20260906_db-turso-to-cloudflare-d1-requirements.md` で読める。
+
+本文は元のまま写し、見出しを 1 段下げ、改名したファイルへのリンクだけを直した。
+
+### 目的
+
+`packages/db` の接続先を Turso (libSQL) から Cloudflare D1 に変える。Drizzle ORM は引き続き使う。
+
+アプリ（`apps/app`・`apps/admin`）はすでに Cloudflare Workers 上で動いており、データベースだけが Cloudflare の外にある。この差を埋めることで、`@libsql/client` のために抱えている回避策と、接続情報を配るための secrets をなくす。
+
+### 決まっている仕様・受け入れ条件
+
+#### driver と `@packages/db` の公開形
+
+- `packages/db/src/client.ts` で `import { env } from 'cloudflare:workers'` を使って D1 binding を取り、`drizzle-orm/d1` に渡す
+- いまと同じ module 直下の `export const db` を保つ。`apps/app`・`apps/admin` の `api/` と `@packages/auth` の呼び出し（`import { db } from '@packages/db'`）は変更しない
+- binding 名は `DB` で固定する。両アプリの `wrangler.jsonc` で同じ名前にする
+- `database_name` / `database_id` は TODO のプレースホルダで配る。実際の D1 の作成と記入は、このテンプレートを使う人が行う
+- binding の型は `packages/db` の中で完結させ、両アプリの `tsconfig.json` は触らない。新しい依存は増やさない
+
+#### Turso の削除
+
+- Turso 関連を完全に消す。両対応にはしない
+- 対象: `@libsql/client` 依存、`packages/env` の `TURSO_DATABASE_URL` / `TURSO_AUTH_TOKEN`、両アプリの `src/lib/native-fetch-shim.ts` と `vite.config.ts` の `node-fetch` alias、`knip.jsonc` の shim の `entry` 例外、`.env.template` の Turso の 2 行
+- 必須 env が 0 本になるため、`packages/env` の `skipValidation` の逃がし口と、root `package.json` の `lint:knip` に付いている `SKIP_ENV_VALIDATION=1` も一緒に消す
+- `apps/admin` は `secrets.required` が空になるため、`scripts/set-secrets.sh` と `cf:set-env` script ごと消す。`apps/app` 側は auth 系の secrets が残るので維持する
+
+#### ローカル開発
+
+- wrangler のローカル D1（`@cloudflare/vite-plugin` が `.wrangler/state` に作る SQLite）を使う
+- state は `apps/app` と `apps/admin` で別々のままとする。ローカルでデータが 2 つに分かれることは許容する
+- `.env` に DB の接続情報を書かなくても `pnpm -F app dev` が起動すること
+
+#### migration
+
+- SQL の生成は `drizzle-kit generate` のまま。適用は `wrangler d1 migrations apply` に移す
+- migration の定義は `packages/db/migrations/` に 1 か所だけ置く
+- 適用の入口は `apps/app` と `apps/admin` それぞれの `db:migrate` script に置き、各アプリの `wrangler.jsonc` から走らせる。`migrations_dir` は `packages/db/migrations` を指す
+- 既存の migration 0000〜0002 は畳み直し、いまの schema から `0000` を 1 本だけ生成し直す
+- `ENABLE_AUTH` による生成対象の切り替え（`true` なら `packages/db` と `packages/auth` の両方、`false` なら `packages/db` だけ）は維持する
+
+#### seed
+
+- `packages/db/seed.sql` を置き、`wrangler d1 execute --file` で流す
+- `packages/db/seed.ts` と `drizzle-seed` 依存は消す
+
+#### データ
+
+- テーブル定義（`packages/db/src/schema.ts` の `users`、`packages/auth/src/schema.ts` の `user` / `session` / `account` / `verification`）は変更しない
+- Turso 上の既存データは移行しない。D1 に migration を当て直して seed し直す。移行手順も書かない
+
+#### ドキュメント
+
+- README の技術構成の表、セットアップ手順の Turso の節、env の説明を D1 の内容に書き換える
+- D1 では drizzle の `db.transaction()` が使えないこと（代わりに `db.batch()`）を design doc の影響範囲と README に 1 行残す。lint での機械的な禁止はしない
+- 「`@packages/db` は workerd 専用で、Node で動く script から import しない」という制約を、今回の実装 PR で [`docs/architecture/directory-structure.md`](../architecture/directory-structure.md) の「破ってはいけない依存の向き」にも足す
+
+#### 完了の判定
+
+- `apps/app` と `apps/admin` のユーザー一覧が、Turso なしで D1 から表示できる
+- `pnpm lint`（tsc・oxlint・knip）と `pnpm -F app build` / `pnpm -F admin build` が通る
+- README の手順どおりに新規セットアップが通る
+
+### 制約
+
+- 技術構成は変えない。TanStack Start + Vite + Cloudflare Workers、Drizzle ORM、SQLite スキーマはそのまま
+- スキーマそのものの変更はスコープ外
+- Cloudflare 上への D1 の作成と `database_id` の記入はスコープ外
+- リポジトリの規約（[AGENTS.md](../../AGENTS.md)、[docs/architecture/directory-structure.md](../architecture/directory-structure.md)）に従う。ディレクトリ・ファイル名は kebab-case、バレルファイルを作らない、依存の向きを守る
+- design doc の書き方は [docs/design-docs/README.md](README.md) と [_template.md](_template.md) に従う。節を消さず、該当しないものは「なし」と書く
+
+### 参照リンク
+
+- リポジトリの規約: [AGENTS.md](../../AGENTS.md)
+- ディレクトリ構成の判断フロー: [docs/architecture/directory-structure.md](../architecture/directory-structure.md)
+- design doc の書き方: [docs/design-docs/README.md](README.md) / [docs/design-docs/_template.md](_template.md)
+- 現行の実装: `packages/db/`、`packages/env/src/index.ts`、`packages/auth/src/lib/auth.ts`、`apps/app/wrangler.jsonc`、`apps/admin/wrangler.jsonc`、`apps/app/vite.config.ts`
+- Cloudflare D1（Workers binding・ローカル開発）: https://developers.cloudflare.com/d1/
+- Cloudflare D1 の migration コマンド: https://developers.cloudflare.com/d1/reference/migrations/
+- Drizzle ORM の Cloudflare D1 対応: https://orm.drizzle.team/docs/connect-cloudflare-d1
+- `cloudflare:workers` の `env`: https://developers.cloudflare.com/workers/runtime-apis/bindings/#importable-env
+
+### 未決事項
+
+なし。
+
+### 要件と設計で違えたところ
+
+2026-11-15 の移行時の注記。要件のうち次の 2 つは、設計の段階で変えて実装した。理由は本文にある。
+
+| 要件 | 設計・実装 | 本文の該当箇所 |
+| --- | --- | --- |
+| `database_name` / `database_id` は TODO のプレースホルダで配る | このリポジトリ自身の値を入れ、TODO コメントで差し替えを案内する。プレースホルダのままだと、Workers Builds でのデプロイが存在しない D1 を指して落ちるため | 「やらないこと」「処理の流れ」 |
+| binding の型は `packages/db` の中で完結させ、両アプリの `tsconfig.json` は触らない | 両アプリの `tsconfig.json` の `include` に `packages/db/src/cloudflare.d.ts` を足した。アンビエントモジュール宣言を `client.ts` に書けず、`/// <reference path>` は lint が禁止しているため | 「binding の型」 |

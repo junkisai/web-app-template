@@ -6,6 +6,10 @@ author:
 pr: https://github.com/junkisai/web-app-template/pull/227
 ---
 
+> **この文書は 2026-08-26 時点の設計判断の記録で、実装（[#227](https://github.com/junkisai/web-app-template/pull/227)）のあとは凍結している。** 今のスタイリングの構成は [architecture/overview.md のスタイリング](../architecture/overview.md#スタイリング)を見る。ここに書かれた判断は、構成を変えてはいけない理由にならない。
+>
+> 2026-11-15 のドキュメント体系の移行で、この注記を足した。本文は書き換えていない。
+
 ## 概要
 
 `apps/app` のスタイリングを Tailwind CSS v4 から [StyleX](https://stylexjs.com/docs/learn) に置き換える。className の羅列をやめ、スタイルは各ファイルの `stylex.create` に型付きで持つ。色は `src/styles/tokens.stylex.ts` の CSS 変数にまとめる。
