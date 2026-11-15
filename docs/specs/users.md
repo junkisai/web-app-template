@@ -19,7 +19,7 @@ design_docs:
 
 ## 振る舞い
 
-- **両アプリの `/` は、`users` テーブルのユーザーを一覧で出す。** 両アプリは同じデータを見るので、同じユーザーが出る（データの置き場所は [architecture/overview.md のデータベース](../architecture/overview.md#データベース)）
+- **両アプリの `/` は、接続先の `users` テーブルのユーザーを一覧で出す。** Cloudflare 上では両アプリが同じ D1 を共有するので、同じユーザーが出る。ローカルではアプリごとにデータが分かれるので、出るユーザーが食い違うことがある（[architecture/overview.md のデータベース](../architecture/overview.md#データベース)）
 - **`apps/admin` の一覧は表で出す。** 管理画面の 1 枚目として置いた画面
 
 ### ユーザーの持つ情報
