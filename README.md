@@ -31,13 +31,14 @@
 
 | 知りたいこと | 場所 |
 | --- | --- |
-| 機能が今どう振る舞うべきか | [docs/specs/](./docs/specs/README.md) |
-| アプリ・パッケージの関係と構成 | [docs/architecture/overview.md](./docs/architecture/overview.md) |
+| このテンプレートの目的・対象・提供価値 | [docs/product.md](./docs/product.md) |
+| 機能ごとの目的・要件・今の振る舞い | [docs/prds/](./docs/prds/README.md) |
+| アプリ・パッケージの関係と技術構成 | [docs/architecture/overview.md](./docs/architecture/overview.md) |
 | ディレクトリ構成と置き場所の規約 | [docs/architecture/directory-structure.md](./docs/architecture/directory-structure.md) |
 | 過去の設計判断とその理由 | [docs/design-docs/](./docs/design-docs/README.md) |
 | 操作・運用の手順 | [docs/runbooks/](./docs/runbooks/) |
 
-規約の要約とエージェント向けの運用ルールは [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。技術選定・構成・DB スキーマ・認証や権限の変更のように、設計上の判断が要る変更では、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書きます（[基準](./docs/design-docs/README.md#いつ書くか)）。実装が入ったら、同じ PR で specs と architecture を更新します。
+規約の要約とエージェント向けの運用ルールは [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。技術選定・構成・DB スキーマ・認証や権限の変更のように、設計上の判断が要る変更では、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書きます（[基準](./docs/design-docs/README.md#いつ書くか)）。実装が入ったら、同じ PR で PRD と architecture（手順が変われば runbooks、プロダクト全体の目的が変われば product.md も）を更新します。
 
 ## Setup
 
@@ -140,7 +141,7 @@ import { env } from '@packages/env'
 
 ## Better Auth
 
-認証の振る舞い（`ENABLE_AUTH` による切り替え、メールとパスワード、対応している OAuth provider）は [docs/specs/auth.md](./docs/specs/auth.md) に、設定ファイルの場所と import の仕方は [docs/architecture/overview.md の認証](./docs/architecture/overview.md#認証)にあります。
+認証の要件と振る舞い（認証の有効・無効、メールとパスワード、対応している OAuth provider）は [docs/prds/auth.md](./docs/prds/auth.md) に、設定ファイルの場所・import の仕方・OAuth の環境変数の名前は [docs/architecture/overview.md の認証](./docs/architecture/overview.md#認証)にあります。
 
 ### OAuth provider を有効にする
 

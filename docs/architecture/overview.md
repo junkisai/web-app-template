@@ -3,8 +3,10 @@
 このリポジトリが**今**どう組まれているかの正本。構成が変わったら、その変更を入れる PR でここを書き換える。
 
 - `apps/*` の中の置き場所・依存の向き・命名は [directory-structure.md](directory-structure.md) にある
-- 機能の振る舞いは [specs/](../specs/README.md) にある
+- プロダクト全体の目的は [product.md](../product.md)、機能ごとの目的・要件・振る舞いは [prds/](../prds/README.md) にある。ここには、それをどう実現しているかを書く
 - なぜこの構成になったかは [design-docs/](../design-docs/README.md) にある。ここには経緯を書かず、リンクだけ置く
+
+**design doc はこの文書の代わりにならない。** design doc は書いた日の判断の記録で、実装後は凍結する。今使っている技術・構成・技術的な制約は、design doc にあっても、必ずここに書く。
 
 ## 全体像
 
@@ -43,7 +45,7 @@ flowchart LR
 
 **アプリどうしは参照しない。** `apps/app` と `apps/admin` の両方が欲しがるものが出たら `packages/` へ出す。
 
-**管理画面は、`apps/app` の中に入口を足すのではなく、別のアプリ・別の Worker にしている。** 管理画面のコードをプロダクト側の利用者に配らないため（[specs/admin-console.md](../specs/admin-console.md) の制約）と、片方のデプロイでもう片方が落ちないようにするため。経緯は [20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) にある。
+**管理画面は、`apps/app` の中に入口を足すのではなく、別のアプリ・別の Worker にしている。** 管理画面のコードをプロダクト側の利用者に配らないため（[prds/admin-console.md](../prds/admin-console.md) の業務ルール）と、片方のデプロイでもう片方が落ちないようにするため。経緯は [20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) にある。
 
 ## 実行環境
 
@@ -82,10 +84,10 @@ Cloudflare D1 を Drizzle ORM（`drizzle-orm/d1`）で使う。経緯は [202609
 
 | 定義 | テーブル | 用途 |
 | --- | --- | --- |
-| `packages/db/src/schema.ts` | `users` | 業務のデータ（[specs/users.md](../specs/users.md)） |
+| `packages/db/src/schema.ts` | `users` | 業務のデータ（[prds/users.md](../prds/users.md)） |
 | `packages/auth/src/schema.ts` | `user`・`session`・`account`・`verification` | Better Auth が使う |
 
-`users` と `user` は別のテーブル。両者の関係は決まっていない（[specs/users.md の未確認事項](../specs/users.md#未確認事項)）。
+`users` と `user` は別のテーブル。`/login` で作ったアカウントは `user` に入り、ユーザー一覧が読む `users` には入らない。両者の関係は決まっていない（[prds/users.md の未確認事項](../prds/users.md#未確認事項)）。
 
 ### migration と seed
 
@@ -103,7 +105,7 @@ Cloudflare D1 を Drizzle ORM（`drizzle-orm/d1`）で使う。経緯は [202609
 
 ## 認証
 
-Better Auth を `packages/auth` にまとめ、今は `apps/app` だけが使う。振る舞いは [specs/auth.md](../specs/auth.md)。
+Better Auth を `packages/auth` にまとめ、今は `apps/app` だけが使う。`apps/admin` は `@packages/auth` に依存していない。要件と振る舞いは [prds/auth.md](../prds/auth.md)。
 
 | 何を | どこに | import |
 | --- | --- | --- |
@@ -114,9 +116,33 @@ Better Auth を `packages/auth` にまとめ、今は `apps/app` だけが使う
 
 - データは drizzle adapter（`provider: 'sqlite'`）で D1 に置く
 - `better-auth/tanstack-start` の cookie plugin を使う
-- OAuth の provider は、資格情報が env にそろったものだけを設定に入れる
-- `ENABLE_AUTH` が `false` のときは、`auth` が `404` を返すだけの handler に置き換わる
 - `authClient` はクライアント SDK なので、画面から直接使ってよい（[directory-structure.md](directory-structure.md#packages-の扱い)）
+
+### 有効・無効の切り替え
+
+- `ENABLE_AUTH` が `true`（未設定も含む）なら `betterAuth()` を組み立てる。`false` なら、`auth` は `{ message: 'Authentication is disabled.', code: 'AUTH_DISABLED' }` を `404` で返すだけの `handler` を持つオブジェクトに置き換わる。この応答はクライアントから見える契約で、正本は [prds/auth.md の振る舞い](../prds/auth.md#振る舞い)
+- 値の読み方は[環境変数](#環境変数)にある。migration の生成対象も `ENABLE_AUTH` で変わる（[migration と seed](#migration-と-seed)）
+
+### base URL
+
+`BETTER_AUTH_URL`、無ければ `APP_BASE_URL`、それも無ければ `http://localhost:3000` を使う（`auth.ts` の `getBaseUrl()`）。
+
+### メールアドレスとパスワード
+
+- `emailAndPassword.enabled: true`。ハッシュと照合は、better-auth の既定ではなく `password.ts` の scrypt（`node:crypto`）に差し替えている。保存する形は `<salt>:<hash>` の hex
+- **パスワードの長さは指定していない。** better-auth の既定（`minPasswordLength` 8、`maxPasswordLength` 128）がサーバー側で効く。ログイン画面の入力欄も別に `minLength={8}` を持つ
+- メールアドレスの確認（`requireEmailVerification`・`emailVerification`）は設定しておらず、`autoSignIn` も既定のまま。そこから出てくる振る舞い（作成の直後にログイン状態になる、登録済みのメールアドレスは `422` になる）は [prds/auth.md](../prds/auth.md#例外境界条件) にある
+
+### OAuth
+
+- 資格情報は provider ごとに `<PREFIX>_CLIENT_ID` と `<PREFIX>_CLIENT_SECRET`。`<PREFIX>` は provider の id を大文字にしたもの（`github` → `GITHUB`、`x` → `X`）
+- 対応する provider と接頭辞の一覧の正本は、[packages/env/src/index.ts](../../packages/env/src/index.ts) の `SOCIAL_PROVIDER_ENV_PREFIXES`。env の schema もこの一覧から作る
+- 2 つがそろった provider だけを `socialProviders` に入れる。1 つもそろわなければ `socialProviders` 自体を渡さない
+
+### `/api/auth/*` の route
+
+- `GET` と `POST` を `auth.handler` にそのまま渡す
+- **失敗を記録する。** 応答が `ok` でないときは、メソッド・パス・ステータス・`cf-ray`・応答本文（JSON なら解析したもの）を `console.error` に出す。処理が例外で落ちたときは、メソッド・パス・`cf-ray`・例外（名前・メッセージ・stack）を出して、例外を投げ直す
 
 ## 環境変数
 
@@ -173,6 +199,7 @@ env.APP_BASE_URL // string | undefined
 
 - `@astryxdesign/core` のコンポーネントと `@astryxdesign/theme-neutral` のテーマを使う。Vite のプラグインは要らない
 - `src/styles/globals.css` が Astryx の CSS を 3 枚、順番どおりに import する。`src/lib/astryx-provider.tsx` の `Theme` で包まないとトークンが効かない
+- `Theme` の `mode` は既定の `system` のまま使う。配色は OS の設定に従って light / dark が切り替わる
 - `LinkProvider` は使っていない。TanStack Router の `Link` と props が合わないため、リンクはフルリロードになる
 - 画面固有の調整に備えて `@stylexjs/unplugin` を `apps/app` と同じ設定で入れている
 - `components/ui/` は作らない。ドメインを知らない表示部品は Astryx が持っている
@@ -199,6 +226,7 @@ env.APP_BASE_URL // string | undefined
 ## デプロイ
 
 - **`main` へのマージで自動でデプロイされる**（Workers Builds）
+- **今 Cloudflare にあるのは `apps/app` の Worker（`web-app-template`）だけ。** 2026-11-15 に確かめたところ、`apps/admin` の Worker（`web-app-template-admin`）は無かった。`apps/admin/wrangler.jsonc` も `preview_urls: true` を持つので、デプロイすれば認証の無いまま外から届く（[prds/admin-console.md](../prds/admin-console.md)）
 - secrets は事前に `pnpm -F app cf:set-env` で次のデプロイ向けに登録しておく。`wrangler versions secret put` なので、その場では本番に反映されない
 - 新しい D1 はデプロイの前に `--location apac` を付けて手で作る（[runbooks/create-d1.md](../runbooks/create-d1.md)）。リモートの D1 に migration を当てていないと、デプロイが通っても画面がユーザーを引けずに落ちる（[runbooks/d1-migrations.md](../runbooks/d1-migrations.md)）
 

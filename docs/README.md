@@ -2,44 +2,62 @@
 
 このリポジトリのドキュメント置き場。**今どうなっているか**と、**過去に何をなぜ決めたか**を、人間も AI エージェントも取り違えずに読める状態を目指す。
 
-## 5 つの種類
+## 6 つの種類
 
 | 種類 | 答える問い | 何の正本か | ライフサイクル |
 | --- | --- | --- | --- |
-| [specs/](specs/README.md) | 何を満たすべきか | 現在有効な仕様・振る舞い・制約・受け入れ条件 | Living Document。仕様が変わったら更新する |
-| [architecture/](architecture/) | 今どう組まれているか | 現在のシステム構成と開発規約 | Living Document。構成・規約が変わったら更新する |
-| [design-docs/](design-docs/README.md) | どう作ると決めたか、なぜか | 設計の過程・採った案と捨てた案・トレードオフ | 実装前に書き、実装後は原則凍結する |
-| [runbooks/](runbooks/) | どう操作するか | 現在有効な開発・運用の手順 | Living Document。手順が変わったら更新する |
+| [product.md](product.md) | このプロダクトは何のためにあるか | プロダクト全体の目的・対象・課題・提供価値・成功条件 | Living Document。目的・価値・成功条件が変わったら更新する |
+| [prds/](prds/README.md) | この機能はなぜ要り、何を満たすべきか | 機能ごとの目的・要件・今有効な振る舞い・受け入れ条件 | Living Document。要件・振る舞いが変わったら更新する |
+| [design-docs/](design-docs/README.md) | そのとき、どう作ると決めたか、なぜか | 設計の過程・採った案と捨てた案・トレードオフ | 実装前に書き、実装後は原則凍結する |
+| [architecture/](architecture/overview.md) | 今どう組まれているか | 今の技術構成・開発規約・技術的な制約 | Living Document。構成・規約が変わったら更新する |
+| [runbooks/](runbooks/) | どう操作するか | 今有効な開発・運用の手順 | Living Document。手順が変わったら更新する |
 | [transcripts/](transcripts/README.md) | 誰が何を話したか | 会話・ヒアリング・録音の原記録 | 原則不変 |
 
-ADR・RFC・PRD・Blueprint の専用ディレクトリは作らない。技術判断の背景と代替案は design doc に書く。
+ひとことで分けると次のとおり。
+
+- **product.md** — プロダクト全体の Why
+- **PRD** — 機能ごとの Why と What
+- **design doc** — そのときの How と、その方法を選んだ理由
+- **architecture** — 今の How
+
+**design doc と architecture は別物。** design doc は書いた日の判断の記録で、architecture は今の構成。今使っている技術や構成を、過去の design doc にしか書いていない状態にしない。
+
+ADR・RFC・Blueprint の専用ディレクトリは作らない。技術判断の背景と代替案は design doc に書く。
 
 ## どれを読むか
 
 | 知りたいこと | 読む場所 |
 | --- | --- |
-| その機能が今どう振る舞うべきか | `specs/` |
-| アプリ・パッケージの関係、置き場所・依存の向き・命名の規約 | `architecture/` |
+| このテンプレートは誰の何のためにあるか、何をやらないか | `product.md` |
+| その機能はなぜあり、今どう振る舞うべきか | `prds/` |
+| アプリ・パッケージの関係、使っている技術、置き場所・依存の向き・命名の規約 | `architecture/` |
 | なぜその形になったのか、ほかに何を検討したか | `design-docs/` |
 | セットアップ以外の操作・運用の手順 | `runbooks/` |
 | 打ち合わせやヒアリングで実際に何が話されたか | `transcripts/` |
 | 初回のセットアップ・起動・デプロイ | ルートの [README.md](../README.md) |
 
-**design doc は仕様の正本ではない。** 凍結されるのは「その時点で何を決めたか」という記録であって、対象の機能や実装ではない。design doc に書かれた要件と今の仕様が違うときは、`specs/` と `architecture/` のほうが今の状態を表す。過去の design doc は、仕様を変えてはいけない理由にならない。
+**design doc は要件の正本でも、構成の正本でもない。** 凍結されるのは「その時点で何を決めたか」という記録であって、対象の機能や実装ではない。design doc に書かれた要件や構成と今の状態が違うときは、`prds/` と `architecture/` のほうが今の状態を表す。過去の design doc は、要件や構成を変えてはいけない理由にならない。
 
-`specs/`・`architecture/`・コードが互いに食い違っているときは、どれかを正と決めつけない。食い違いをそのまま報告し、どちらに寄せるかを決めてから直す。コードにあるからといって、それが意図された仕様だとは限らない。
+**過去の design doc も、今の PRD と architecture に書いた既定の方針も、ユーザーの新しい要求で見直せる。** ただし、安全性や技術的な制約を無視してよいという意味ではない。衝突するなら、影響・リスク・変更案を示して判断を仰ぐ。
+
+`product.md`・`prds/`・`architecture/`・コードが互いに食い違っているときは、どれかを正と決めつけない。食い違いをそのまま報告し、どちらに寄せるかを決めてから直す。コードにあるからといって、それが意図された仕様だとは限らない。
 
 ## どこに書くか
 
 | 書きたいこと | 置き場所 |
 | --- | --- |
-| 機能の要件・振る舞い・制約・受け入れ条件（実装済みのもの） | `specs/<機能>.md` |
-| これから変える仕様の案、実現方法、検討した他の案 | `design-docs/YYYYMMDD_<topic>.md` |
-| 構成・依存の向き・規約（今そうなっているもの） | `architecture/` |
+| プロダクト全体の目的・対象・課題・提供価値・成功条件・非ゴール | `product.md` |
+| 機能の目的・課題・ゴール、要件・振る舞い・業務ルール・受け入れ条件（実装済みのもの） | `prds/<機能>.md` |
+| これから変える要件の案、実現方法、検討した他の案、トレードオフ | `design-docs/YYYYMMDD_<topic>.md` |
+| 使っている技術、構成、依存の向き、規約、技術的な制約（今そうなっているもの） | `architecture/` |
 | 手で叩くコマンドと確かめ方 | `runbooks/<操作>.md` |
 | 録音・会話の書き起こし | `transcripts/YYYY-MM-DD-<topic>.md` |
 
-**未実装の変更案を `specs/` に書かない。** `specs/` は実装が入る PR で書き換える。design doc が要る変更（[基準](design-docs/README.md#いつ書くか)）なら、案はまず design doc に書く。
+**未実装の変更案を `prds/` に書かない。** `prds/` は実装が入る PR で書き換える。design doc が要る変更（[基準](design-docs/README.md#いつ書くか)）なら、案はまず design doc に書く。
+
+**実装が入った PR で、変わったものの正本を全部書き換える。** 要件・振る舞いが変われば PRD、技術構成が変われば architecture、手順が変われば runbook、プロダクト全体の目的・価値・成功条件が変われば product.md。
+
+**今の技術構成を記録するためだけに design doc を書かない。** それは architecture に書く。
 
 同じ情報を複数の文書に写さない。正本を 1 つ決め、ほかの文書からはリンクする。
 
@@ -49,7 +67,8 @@ ADR・RFC・PRD・Blueprint の専用ディレクトリは作らない。技術�
 
 | 種類 | ファイル名 | 日付 |
 | --- | --- | --- |
-| specs | `<機能>.md`（例: `auth.md`） | 付けない。内容を更新し続けるため |
+| product | `product.md` の 1 ファイル | 付けない。内容を更新し続けるため |
+| prds | `<機能>.md`（例: `auth.md`） | 付けない。同上 |
 | architecture | `<topic>.md`（例: `overview.md`） | 付けない。同上 |
 | runbooks | `<操作>.md`（例: `create-d1.md`） | 付けない。同上 |
 | design-docs | `YYYYMMDD_<topic>.md`（例: `20260906_db-turso-to-cloudflare-d1.md`） | 書き始めた日。その時点の記録だから |
@@ -59,12 +78,16 @@ ADR・RFC・PRD・Blueprint の専用ディレクトリは作らない。技術�
 
 ## ドキュメント一覧
 
-### specs
+### product
 
-- [specs/](specs/README.md) — 仕様の書き方・更新のしかた
-- [auth.md](specs/auth.md) — 認証（メールとパスワード、OAuth、`ENABLE_AUTH` による切り替え）
-- [users.md](specs/users.md) — ユーザー一覧（`apps/app` と `apps/admin` の `/`）とその元データ
-- [admin-console.md](specs/admin-console.md) — 管理画面（`apps/admin`）全体の前提と制約
+- [product.md](product.md) — テンプレートの目的・対象・課題・提供価値・成功条件・非ゴール・原則
+
+### prds
+
+- [prds/](prds/README.md) — PRD の書き方・更新のしかた
+- [auth.md](prds/auth.md) — 認証（メールとパスワード、OAuth、認証の有効・無効）
+- [users.md](prds/users.md) — ユーザー一覧（`apps/app` と `apps/admin` の `/`）
+- [admin-console.md](prds/admin-console.md) — 管理画面（`apps/admin`）全体の要件と公開範囲
 
 ### architecture
 

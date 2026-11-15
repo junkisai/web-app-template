@@ -1,6 +1,6 @@
 # app
 
-ディレクトリ構成と置き場所の規約は [docs/architecture/directory-structure.md](../../docs/architecture/directory-structure.md) にある。**新しいファイルを作る前に読む。** 以下は要約で、食い違ったらそちらが正本。アプリ全体の構成（DB・認証・環境変数・スタイリング）は [docs/architecture/overview.md](../../docs/architecture/overview.md)、画面の振る舞いは [docs/specs/](../../docs/specs/README.md) にある。
+ディレクトリ構成と置き場所の規約は [docs/architecture/directory-structure.md](../../docs/architecture/directory-structure.md) にある。**新しいファイルを作る前に読む。** 以下は要約で、食い違ったらそちらが正本。アプリ全体の構成（DB・認証・環境変数・スタイリング）は [docs/architecture/overview.md](../../docs/architecture/overview.md)、機能ごとの目的・要件・振る舞いは [docs/prds/](../../docs/prds/README.md) にある。
 
 ## 構成の要点
 
