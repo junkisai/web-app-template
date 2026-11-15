@@ -2,7 +2,7 @@
 
 管理画面。構成は `apps/app` と同じ TanStack Start + Vite + Cloudflare Workers で、**UI だけ [Astryx](https://astryx.atmeta.com/docs/getting-started) のコンポーネントで組む。**
 
-置き場所の規約は [docs/architecture/20260819_directory-structure.md](../../docs/architecture/20260819_directory-structure.md) にある。**新しいファイルを作る前に読む。** 導入の経緯と検討した他の案は [docs/design-docs/20260828_admin-app-astryx.md](../../docs/design-docs/20260828_admin-app-astryx.md) にある。
+置き場所の規約は [docs/architecture/directory-structure.md](../../docs/architecture/directory-structure.md) にある。**新しいファイルを作る前に読む。** 管理画面の仕様（認証が無いことなどの前提）は [docs/specs/admin-console.md](../../docs/specs/admin-console.md) にある。導入の経緯と検討した他の案は [docs/design-docs/20260828_admin-app-astryx.md](../../docs/design-docs/20260828_admin-app-astryx.md) にある（当時の記録で、今の仕様の正本ではない）。
 
 ## 起動
 
