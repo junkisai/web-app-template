@@ -41,7 +41,9 @@ flowchart LR
 
 `@packages/db` が `@packages/env` を使うのは、`drizzle.config.ts` が `ENABLE_AUTH` を読むときだけ。
 
-**アプリどうしは参照しない。** `apps/app` と `apps/admin` の両方が欲しがるものが出たら `packages/` へ出す。`apps/admin` が `apps/app` の中に入口を足すのではなく別のアプリになっている経緯は [20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) にある。
+**アプリどうしは参照しない。** `apps/app` と `apps/admin` の両方が欲しがるものが出たら `packages/` へ出す。
+
+**管理画面は、`apps/app` の中に入口を足すのではなく、別のアプリ・別の Worker にしている。** 管理画面のコードをプロダクト側の利用者に配らないため（[specs/admin-console.md](../specs/admin-console.md) の制約）と、片方のデプロイでもう片方が落ちないようにするため。経緯は [20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) にある。
 
 ## 実行環境
 
@@ -107,7 +109,7 @@ Better Auth を `packages/auth` にまとめ、今は `apps/app` だけが使う
 | --- | --- | --- |
 | サーバーの設定 | [packages/auth/src/lib/auth.ts](../../packages/auth/src/lib/auth.ts) | `import { auth } from '@packages/auth/auth'` |
 | クライアント | [packages/auth/src/lib/auth-client.ts](../../packages/auth/src/lib/auth-client.ts) | `import { authClient } from '@packages/auth/auth-client'` |
-| パスワードのハッシュ | [packages/auth/src/lib/password.ts](../../packages/auth/src/lib/password.ts) | `auth.ts` の中だけで使う |
+| パスワードのハッシュ（scrypt） | [packages/auth/src/lib/password.ts](../../packages/auth/src/lib/password.ts) | `auth.ts` の中だけで使う |
 | `/api/auth/*` の route | [apps/app/src/routes/api/auth/$.ts](../../apps/app/src/routes/api/auth/$.ts) | — |
 
 - データは drizzle adapter（`provider: 'sqlite'`）で D1 に置く

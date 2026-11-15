@@ -8,45 +8,44 @@ design_docs:
 
 ## 概要
 
-`apps/app` と `apps/admin` のトップ（`/`）は、登録されているユーザーを一覧で表示する。元データは D1 の `users` テーブル。今は読み取りだけで、画面からユーザーを作ったり変えたりはできない。
+`apps/app` と `apps/admin` のトップ（`/`）は、登録されているユーザーを一覧で表示する。元データは D1 の `users` テーブル。今の画面は一覧の表示だけで、作成・編集・削除はまだ無い。
 
 ## 対象
 
 | アプリ | URL | 画面 |
 | --- | --- | --- |
-| `apps/app` | `/` | トップ（`screens/top/`）。一覧はページの一部 |
-| `apps/admin` | `/` | ユーザー一覧（`screens/user-list/`） |
+| `apps/app` | `/` | トップ。一覧はページの一部 |
+| `apps/admin` | `/` | ユーザー一覧 |
 
 ## 振る舞い
 
-- **両アプリの `/` は、`users` テーブルのユーザーを一覧で出す。** 両アプリは同じ D1 を指すので、Cloudflare 上では同じユーザーが出る（ローカルでは state がアプリごとに分かれる。[architecture/overview.md のデータベース](../architecture/overview.md#データベース)）
+- **両アプリの `/` は、接続先の `users` テーブルのユーザーを一覧で出す。** Cloudflare 上では両アプリが同じ D1 を共有するので、同じユーザーが出る。ローカルではアプリごとにデータが分かれるので、出るユーザーが食い違うことがある（[architecture/overview.md のデータベース](../architecture/overview.md#データベース)）
 - **`apps/admin` の一覧は表で出す。** 管理画面の 1 枚目として置いた画面
-- **一覧は読み取りだけ。** 作成・編集・削除の画面は無い。これは「この先もやらない」と決めたものではなく、管理画面を作ったときに後回しにしたもの（[20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) の「やらないこと」）
 
 ### ユーザーの持つ情報
 
-`users` テーブルの 1 行が 1 人のユーザー。正本は [`packages/db/src/schema.ts`](../../packages/db/src/schema.ts)。
+`users` テーブルの 1 行が 1 人のユーザー。列名と型の正本は [`packages/db/src/schema.ts`](../../packages/db/src/schema.ts)。
 
-| 項目 | 列 | 必須 |
-| --- | --- | --- |
-| ID | `id` | 主キー |
-| 名前 | `name` | 必須 |
-| 登録日時 | `created_at` | 必須 |
-| 更新日時 | `updated_at` | 必須 |
+| 項目 | 必須 |
+| --- | --- |
+| ID | 必須。ユーザーごとに一意 |
+| 名前 | 必須 |
+| 登録日時 | 必須 |
+| 更新日時 | 必須 |
 
 ## 制約
 
-- **画面は DB の型をそのまま受け取らない。** 一覧に渡す型は各アプリの `features/users/types/user.ts` で受け直す。これは構成の規約で、正本は [architecture/directory-structure.md](../architecture/directory-structure.md#packages-の扱い)
+なし
 
 ## 受け入れ条件
 
-- [ ] `users` テーブルに入っているユーザーが、`apps/app` の `/` と `apps/admin` の `/` の両方に出る
-- [ ] 一覧の画面から、ユーザーの作成・編集・削除ができない
+- `users` テーブルに入っているユーザーが、`apps/app` の `/` と `apps/admin` の `/` の両方に出る
 
 ## 実装から読み取れる現状
 
-**ここに書いたものは仕様ではない。** コードにそうなっているだけで、意図は確かめられていない。変える前に確認する。
+**ここに書いたものは仕様ではなく、今そう動いているという記録。** 変更を禁じる制約でもない。変更を頼まれたら、その要求を新しい判断の起点にする（[扱い](README.md#実装から読み取れる現状の扱い)）。
 
+- **作成・編集・削除の画面は無い。** 一覧は読み取りだけ。「この先もやらない」と決めたものではなく、管理画面を作ったときに後回しにしたもの（[20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) の「やらないこと」）
 - **`apps/app` の `/`** は名前だけを縦に並べる。0 件のときの案内は出さない
 - **`apps/admin` の `/`** は見出し「ユーザー」と「登録済みのユーザーが N 件あります。」を出し、表の列は ID・名前・登録日時・更新日時。日時は `ja-JP` の表記・`Asia/Tokyo` で出し、日時として読めない値はそのまま出す。0 件のときは「ユーザーがいません」と、seed を流すかアプリ側から作るよう促す案内を出す
 - **並び順とページングは無い。** 全件を取り、並べ替えの指定もしていない（`features/users/api/get-users.ts`）
@@ -63,5 +62,5 @@ design_docs:
 ## 関連
 
 - design doc: [20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md)（`apps/admin` の一覧を作ったとき）、[20260906_db-turso-to-cloudflare-d1.md](../design-docs/20260906_db-turso-to-cloudflare-d1.md)（元データを D1 に移したとき）
-- architecture: [overview.md のデータベース](../architecture/overview.md#データベース)、[directory-structure.md](../architecture/directory-structure.md)
+- architecture: [overview.md のデータベース](../architecture/overview.md#データベース)（データの置き場所、ローカルではアプリごとにデータが分かれること）、[directory-structure.md](../architecture/directory-structure.md)（一覧のコードの置き場所、DB の型を画面に通さない規約）
 - runbook: [d1-migrations.md](../runbooks/d1-migrations.md)（migration と seed の当て方）

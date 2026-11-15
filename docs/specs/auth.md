@@ -71,19 +71,18 @@ design_docs: []
 
 ## 受け入れ条件
 
-- [ ] `ENABLE_AUTH` が未設定または `true` のとき、`/api/auth/*` が認証 API として応答する
-- [ ] `ENABLE_AUTH` が `false` のとき、`GET` / `POST` の `/api/auth/*` が `404` と `code: "AUTH_DISABLED"` を返す
-- [ ] `/login` でメールアドレスとパスワードのアカウントを作り、同じ資格情報でログインできる
-- [ ] provider の `*_CLIENT_ID` と `*_CLIENT_SECRET` がそろったときだけ、その provider が有効になる
+- `ENABLE_AUTH` が未設定または `true` のとき、`/api/auth/*` が認証 API として応答する
+- `ENABLE_AUTH` が `false` のとき、`GET` / `POST` の `/api/auth/*` が `404` と `code: "AUTH_DISABLED"` を返す
+- `/login` でメールアドレスとパスワードのアカウントを作り、同じ資格情報でログインできる
+- provider の `*_CLIENT_ID` と `*_CLIENT_SECRET` がそろったときだけ、その provider が有効になる
 
 ## 実装から読み取れる現状
 
-**ここに書いたものは仕様ではない。** コードにそうなっているだけで、意図は確かめられていない。変える前に確認する。
+**ここに書いたものは仕様ではなく、今そう動いているという記録。** 変更を禁じる制約でもない。変更を頼まれたら、その要求を新しい判断の起点にする（[扱い](README.md#実装から読み取れる現状の扱い)）。
 
 - **base URL の予備。** `BETTER_AUTH_URL` が無いと `APP_BASE_URL`、それも無いと `http://localhost:3000` を使う（`packages/auth/src/lib/auth.ts`）
 - **`/login` の画面。** 未ログインのときは「Sign in」と「Create account」を切り替えて使う。Create account は表示名・メールアドレス・パスワードを、Sign in はメールアドレス・パスワードと「Keep the session alive on this browser」（既定でオン）を受け取る。パスワード欄はブラウザ側で 8 文字以上を求める。成功するとセッションを取り直して `/` へ移る。失敗すると、返ってきたエラーの文言を画面に出す
 - **ログイン中の表示。** `/login` と `/` は、ログイン中なら名前・メールアドレス・ユーザー ID と「Sign out」を出す。未ログインなら、`/` はログイン画面へのリンクと案内を出す
-- **パスワードの保存。** パスワードは scrypt でハッシュして保存する（`packages/auth/src/lib/password.ts`）
 - **失敗の記録。** `/api/auth/*` が失敗の応答を返したときと、処理が例外で落ちたときは、メソッド・パス・ステータス・`cf-ray`・応答本文（または例外）をサーバーのログに出す（`apps/app/src/routes/api/auth/$.ts`）
 - **画面の文言は英語。** `apps/admin` の画面は日本語
 
@@ -92,7 +91,7 @@ design_docs: []
 - `ENABLE_AUTH` が `false` のとき、`/login` と `/` のセッション表示がどう振る舞うべきか。今は画面がそのまま出て、裏の API が `404` を返す
 - パスワードの要件（長さ・文字種）を仕様として決めているか。見えているのは画面側の 8 文字以上だけ
 - ログインで作ったアカウントは、ユーザー一覧には出ない。一覧が読むテーブルと認証のテーブルが別になっている（[ユーザー一覧の spec の未確認事項](users.md#未確認事項)）
-- `apps/admin` に認証をいつ・どの方式で入れるか。「運用に乗せる前に必ず要る」ことだけが決まっている（[管理画面の spec](admin-console.md)）
+- `apps/admin` に認証をいつ・どの方式で入れるか。「外部に公開して運用する前に必ず要る」ことだけが決まっている（[管理画面の spec](admin-console.md)）
 
 ## 関連
 
