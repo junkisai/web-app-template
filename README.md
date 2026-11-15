@@ -37,7 +37,7 @@
 | 過去の設計判断とその理由 | [docs/design-docs/](./docs/design-docs/README.md) |
 | 操作・運用の手順 | [docs/runbooks/](./docs/runbooks/) |
 
-規約の要約とエージェント向けの運用ルールは [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。機能を追加・変更するときは、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書き、実装が入ったら specs と architecture を更新します。
+規約の要約とエージェント向けの運用ルールは [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。技術選定・構成・DB スキーマ・認証や権限の変更のように、設計上の判断が要る変更では、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書きます（[基準](./docs/design-docs/README.md#いつ書くか)）。実装が入ったら、同じ PR で specs と architecture を更新します。
 
 ## Setup
 

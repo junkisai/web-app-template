@@ -39,7 +39,7 @@ ADR・RFC・PRD・Blueprint の専用ディレクトリは作らない。技術�
 | 手で叩くコマンドと確かめ方 | `runbooks/<操作>.md` |
 | 録音・会話の書き起こし | `transcripts/YYYY-MM-DD-<topic>.md` |
 
-**未実装の変更案を `specs/` に書かない。** 変更案は design doc に書き、実装が入ったときに `specs/` を書き換える。
+**未実装の変更案を `specs/` に書かない。** `specs/` は実装が入る PR で書き換える。design doc が要る変更（[基準](design-docs/README.md#いつ書くか)）なら、案はまず design doc に書く。
 
 同じ情報を複数の文書に写さない。正本を 1 つ決め、ほかの文書からはリンクする。
 
