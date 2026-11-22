@@ -35,10 +35,9 @@
 | 機能ごとの目的・要件・今の振る舞い | [docs/prds/](./docs/prds/README.md) |
 | アプリ・パッケージの関係と技術構成 | [docs/architecture/overview.md](./docs/architecture/overview.md) |
 | ディレクトリ構成と置き場所の規約 | [docs/architecture/directory-structure.md](./docs/architecture/directory-structure.md) |
-| 過去の設計判断とその理由 | [docs/design-docs/](./docs/design-docs/README.md) |
 | 操作・運用の手順 | [docs/runbooks/](./docs/runbooks/) |
 
-規約の要約とエージェント向けの運用ルールは [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。技術選定・構成・DB スキーマ・認証や権限の変更のように、設計上の判断が要る変更では、実装の前に [docs/design-docs/](./docs/design-docs/README.md) に design doc を書きます（[基準](./docs/design-docs/README.md#いつ書くか)）。実装が入ったら、同じ PR で PRD と architecture（手順が変われば runbooks、プロダクト全体の目的が変われば product.md も）を更新します。
+規約の要約とエージェント向けの運用ルールは [AGENTS.md](./AGENTS.md) にあり、`CLAUDE.md` はそのシンボリックリンクです。編集するのは `AGENTS.md` の側です。ドキュメントには今の状態だけを書き、なぜその形にしたか・採らなかった案は PR の本文とコミットに書きます（[AGENTS.md の「判断の理由を残す」](./AGENTS.md#判断の理由を残す)）。実装が入ったら、同じ PR で PRD と architecture（手順が変われば runbooks、プロダクト全体の目的が変われば product.md も）を更新します。
 
 ## Setup
 

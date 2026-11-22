@@ -1,7 +1,6 @@
 ---
 title: 認証
 scope: [apps/app, packages/auth]
-design_docs: []
 ---
 
 ## 概要・提供価値
@@ -166,7 +165,7 @@ Apple、Discord、Facebook、GitHub、GitLab、Google、LinkedIn、Microsoft、S
 
 - Product: [product.md](../product.md)
 - Architecture: [overview.md の認証](../architecture/overview.md#認証)（設定の置き場所と import、base URL の決まり方、OAuth の環境変数、パスワードのハッシュと長さ、失敗時のログ）、[overview.md の環境変数](../architecture/overview.md#環境変数)（認証の切り替えの値）、[overview.md の schema](../architecture/overview.md#schema)（認証のテーブル）
-- Design Docs: なし（認証は design doc の運用を始める前に入った。導入は [#150](https://github.com/junkisai/web-app-template/pull/150)）
+- PR: [#150](https://github.com/junkisai/web-app-template/pull/150)（認証を入れたとき）
 - Runbooks: OAuth の資格情報の入れ方はルートの [README.md の Better Auth](../../README.md#better-auth)、本番の secrets の入れ方は [README.md の Deploy](../../README.md#deploy)
 - API 契約: 専用の文書は無い。認証が無効のときの `/api/auth/*` の応答は、この PRD の「振る舞い」が正本。有効のときのエンドポイントと応答は認証ライブラリのもので、このリポジトリでは定義していない
 - 関連する PRD: [users.md](users.md)、[admin-console.md](admin-console.md)

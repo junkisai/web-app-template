@@ -4,9 +4,9 @@
 
 - `apps/*` の中の置き場所・依存の向き・命名は [directory-structure.md](directory-structure.md) にある
 - プロダクト全体の目的は [product.md](../product.md)、機能ごとの目的・要件・振る舞いは [prds/](../prds/README.md) にある。ここには、それをどう実現しているかを書く
-- なぜこの構成になったかは [design-docs/](../design-docs/README.md) にある。ここには経緯を書かず、リンクだけ置く
+- なぜこの構成になったかは、その変更を入れた PR とコミットにある。ここには経緯を書かず、PR へのリンクだけ置く
 
-**design doc はこの文書の代わりにならない。** design doc は書いた日の判断の記録で、実装後は凍結する。今使っている技術・構成・技術的な制約は、design doc にあっても、必ずここに書く。
+**PR はこの文書の代わりにならない。** 今使っている技術・構成・技術的な制約は、PR の本文に書いてあっても、必ずここに書く。
 
 ## 全体像
 
@@ -45,7 +45,7 @@ flowchart LR
 
 **アプリどうしは参照しない。** `apps/app` と `apps/admin` の両方が欲しがるものが出たら `packages/` へ出す。
 
-**管理画面は、`apps/app` の中に入口を足すのではなく、別のアプリ・別の Worker にしている。** 管理画面のコードをプロダクト側の利用者に配らないため（[prds/admin-console.md](../prds/admin-console.md) の業務ルール）と、片方のデプロイでもう片方が落ちないようにするため。経緯は [20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) にある。
+**管理画面は、`apps/app` の中に入口を足すのではなく、別のアプリ・別の Worker にしている。** 管理画面のコードをプロダクト側の利用者に配らないため（[prds/admin-console.md](../prds/admin-console.md) の業務ルール）と、片方のデプロイでもう片方が落ちないようにするため。経緯は [#234](https://github.com/junkisai/web-app-template/pull/234) にある。
 
 ## 実行環境
 
@@ -65,13 +65,14 @@ flowchart LR
 
 ## データベース
 
-Cloudflare D1 を Drizzle ORM（`drizzle-orm/d1`）で使う。経緯は [20260906_db-turso-to-cloudflare-d1.md](../design-docs/20260906_db-turso-to-cloudflare-d1.md)。
+Cloudflare D1 を Drizzle ORM（`drizzle-orm/d1`）で使う。経緯は [#257](https://github.com/junkisai/web-app-template/pull/257)。
 
 ### 接続
 
 - `packages/db/src/client.ts` が `cloudflare:workers` の `env.DB`（D1 binding）を `drizzle()` に渡し、module 直下の `db` を export する。呼び出し側は `import { db } from '@packages/db'`
 - **binding の名前は `DB` で固定。** `packages/db` が名前で引くので、両アプリの `wrangler.jsonc` で同じ名前にする
 - **両アプリの `wrangler.jsonc` は同じ D1（`database_name` / `database_id`）を指す。** Cloudflare 上では 1 つのデータベースを共有する
+- `database_name` / `database_id` には、このリポジトリ自身の D1 の値が入っている。テンプレートを使う人が自分の D1 に変える前提で、`wrangler.jsonc` に TODO コメントがある
 - 接続情報は binding で渡すので、`.env` に DB の設定は無い
 
 ### workerd 専用
@@ -179,13 +180,14 @@ env.APP_BASE_URL // string | undefined
 
 ### `apps/app` — StyleX
 
-経緯は [20260826_tailwind-to-stylex.md](../design-docs/20260826_tailwind-to-stylex.md)。
+経緯は [#227](https://github.com/junkisai/web-app-template/pull/227)。
 
 - スタイルは各ファイルの `stylex.create` に書く。`@stylexjs/stylex` は実行時にも残るので dependency、コンパイラの `@stylexjs/unplugin` は devDependency
 - **トークンは色とフォントだけ。** `src/styles/tokens.stylex.ts` の `stylex.defineVars` にまとめる（`defineVars` は `.stylex.ts` のファイルにしか書けない）。余白や文字サイズはトークンにせず、各 `stylex.create` に直接書く
 - `src/styles/globals.css` は最小限の reset と、`html` / `body` の土台だけ。**StyleX の出力は `globals.css` の要素セレクタより必ず強い**ので、個別の要素のスタイルは `globals.css` ではなく `stylex.create` に書く（`useCSSLayers` は既定の `false`）
 - **配色は light 固定**（`color-scheme: light`）。ダークモードは無い
 - `@/` エイリアスは `vite.config.ts` の `stylex.vite({ aliases })` にも書く。StyleX は `*.stylex.ts` の実体を tsconfig の `paths` を見ずに解決するため
+- build では、`@stylexjs/unplugin` が集めた CSS を、`globals.css` から出る CSS ファイルの末尾に足す。client に配る CSS は 1 枚になる
 - dev のときだけ、`__root.tsx` の head に StyleX の CSS と HMR 用の script を足す（`src/lib/stylex-dev-head.ts`）。TanStack Start は `index.html` を持たないので、プラグインの自動注入が効かない
 - `@stylexjs/eslint-plugin` は使えない。linter が oxlint のため
 
@@ -195,7 +197,7 @@ env.APP_BASE_URL // string | undefined
 
 ### `apps/admin` — Astryx
 
-経緯は [20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md)、使い方の正本は [apps/admin/README.md](../../apps/admin/README.md)。
+経緯は [#234](https://github.com/junkisai/web-app-template/pull/234)、使い方の正本は [apps/admin/README.md](../../apps/admin/README.md)。
 
 - `@astryxdesign/core` のコンポーネントと `@astryxdesign/theme-neutral` のテーマを使う。Vite のプラグインは要らない
 - `src/styles/globals.css` が Astryx の CSS を 3 枚、順番どおりに import する。`src/lib/astryx-provider.tsx` の `Theme` で包まないとトークンが効かない
