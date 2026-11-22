@@ -1,9 +1,6 @@
 ---
 title: ユーザー一覧
 scope: [apps/app, apps/admin, packages/db]
-design_docs:
-  - ../design-docs/20260828_admin-app-astryx.md
-  - ../design-docs/20260906_db-turso-to-cloudflare-d1.md
 ---
 
 ## 概要・提供価値
@@ -14,8 +11,8 @@ design_docs:
 
 ## 背景・解決する課題
 
-- `apps/admin` の一覧は、管理画面の 1 枚目として作った。書き込み系は入れず、データベースを読んで画面に出す流れが管理画面でも同じ形で通ることの確認に絞った（[20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) の「ゴール」と「やらないこと」）
-- データベースを移したときは、両アプリのユーザー一覧が新しいデータベースから表示できることを完了の条件にした（[20260906_db-turso-to-cloudflare-d1.md](../design-docs/20260906_db-turso-to-cloudflare-d1.md) の「ゴール」）
+- `apps/admin` の一覧は、管理画面の 1 枚目として作った。書き込み系は入れず、データベースを読んで画面に出す流れが管理画面でも同じ形で通ることの確認に絞った（[#234](https://github.com/junkisai/web-app-template/pull/234)）
+- データベースを移したときは、両アプリのユーザー一覧が新しいデータベースから表示できることを完了の条件にした（[#257](https://github.com/junkisai/web-app-template/pull/257)）
 - `apps/app` の `/` に一覧を置いた理由は記録が無い
 
 一覧が、テンプレートから作られるアプリの利用者のどんな困りごとを解くかを書いた資料は無い。
@@ -27,7 +24,7 @@ design_docs:
 | 利用者 | 立場 |
 | --- | --- |
 | テンプレートを使う開発者 | 一覧を見て、データベースにユーザーが入っていること、それが画面まで届いていることを確かめる |
-| `apps/admin` を使う運営者 | 登録済みのユーザーを一覧で見る。管理画面の利用者は社内に限られる想定（[20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) の「影響範囲」） |
+| `apps/admin` を使う運営者 | 登録済みのユーザーを一覧で見る。管理画面の利用者は社内に限られる想定（[#234](https://github.com/junkisai/web-app-template/pull/234)） |
 | `apps/app` の利用者 | `/` で一覧を見る。誰に見せるための一覧かは決まっていない（未確認事項） |
 
 ロールによる違いは無い。
@@ -58,7 +55,7 @@ design_docs:
 
 - **両アプリの `/` は、登録されているユーザーを一覧で出す**
 - **デプロイした環境では、両アプリの一覧に同じユーザーが出る。** 両アプリが 1 つのデータベースを共有している（[architecture/overview.md のデータベース](../architecture/overview.md#データベース)）
-- **ローカルの開発環境では、アプリごとにデータが分かれる。** そのため、両アプリで出るユーザーが食い違うことがある。これはデータベースを移したときに許容すると決めた（[20260906_db-turso-to-cloudflare-d1.md](../design-docs/20260906_db-turso-to-cloudflare-d1.md) の付録「ローカル開発」）
+- **ローカルの開発環境では、アプリごとにデータが分かれる。** そのため、両アプリで出るユーザーが食い違うことがある。これはデータベースを移したときに許容すると決めた（[#257](https://github.com/junkisai/web-app-template/pull/257)）
 - **`apps/admin` の一覧は表で出す。** 管理画面の 1 枚目として置いた画面
 
 ## 業務ルール・制約
@@ -107,7 +104,7 @@ design_docs:
 
 **ここに書いたものは要件ではなく、今そう動いているという記録。** 変更を禁じる制約でもない。変更を頼まれたら、その要求を新しい判断の起点にする（[扱い](README.md#実装から読み取れる現状の扱い)）。「例外・境界条件」の表で「現状」と付けた行も同じ扱い。
 
-- **作成・編集・削除の画面は無い。** 一覧は読み取りだけ。「この先もやらない」と決めたものではなく、管理画面を作ったときに後回しにしたもの（[20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md) の「やらないこと」）
+- **作成・編集・削除の画面は無い。** 一覧は読み取りだけ。「この先もやらない」と決めたものではなく、管理画面を作ったときに後回しにしたもの（[#234](https://github.com/junkisai/web-app-template/pull/234)）
 - **`apps/app` の `/`** は名前だけを縦に並べる。ログインしていなくても、登録されている全員の名前が見える
 - **`apps/admin` の `/`** は見出し「ユーザー」と「登録済みのユーザーが N 件あります。」を出し、表の列は ID・名前・登録日時・更新日時。日時は日本語の表記・日本時間で出す
 - **並び順の指定は無い。** 全件を取り、並べ替えを指定していない（`features/users/api/get-users.ts`）
@@ -125,7 +122,7 @@ design_docs:
 
 - Product: [product.md](../product.md)
 - Architecture: [overview.md のデータベース](../architecture/overview.md#データベース)（データの置き場所、Cloudflare 上では両アプリで共有し、ローカルではアプリごとに分かれること、業務と認証のテーブル）、[directory-structure.md](../architecture/directory-structure.md)（一覧のコードの置き場所、DB の型を画面に通さない規約）
-- Design Docs: [20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md)（`apps/admin` の一覧を作ったとき）、[20260906_db-turso-to-cloudflare-d1.md](../design-docs/20260906_db-turso-to-cloudflare-d1.md)（元データのデータベースを移したとき）
+- PR: [#234](https://github.com/junkisai/web-app-template/pull/234)（`apps/admin` の一覧を作ったとき）、[#257](https://github.com/junkisai/web-app-template/pull/257)（元データのデータベースを移したとき）
 - Runbooks: [d1-migrations.md](../runbooks/d1-migrations.md)（migration と seed の当て方、seed の中身）
 - API 契約: なし。一覧のデータは画面の `loader` から読む。クライアントや外部のシステムに向けて定めた API は無い
 - 関連する PRD: [auth.md](auth.md)、[admin-console.md](admin-console.md)

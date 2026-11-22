@@ -1,7 +1,6 @@
 ---
 title:
 scope: []                 # 対象のアプリ・パッケージ（例: apps/app）
-design_docs: []           # この要件に至った経緯が書かれた design doc
 ---
 
 ## 概要・提供価値
@@ -11,7 +10,7 @@ design_docs: []           # この要件に至った経緯が書かれた design
 ## 背景・解決する課題
 
 <!-- なぜこの機能が要るのか。対象の人が困っていること、良くしたい状況、機能がある理由。
-     根拠（README、design doc、PR、要求の記録）のあるものだけを書き、出どころを添える。
+     根拠（README、PR、要求の記録）のあるものだけを書き、出どころを添える。
      根拠が無ければ想像で埋めず「記録が無い」と書き、「未確認事項」に回す -->
 
 ## 対象ユーザー・スコープ
@@ -103,7 +102,7 @@ design_docs: []           # この要件に至った経緯が書かれた design
 
 - Product: [product.md](../product.md)
 - Architecture:
-- Design Docs:
+- PR:
 - Runbooks:
 - API 契約:
 - 関連する PRD:

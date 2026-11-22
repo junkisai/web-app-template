@@ -176,11 +176,11 @@ src/screens/user-list/
 | lint（`.oxlintrc.json`） | `**/src/screens/**` からの `@packages/db` を禁止する。メッセージは「取得は features/<ドメイン>/api/ に置き、loader から渡してください」 |
 | 今のコード | 両アプリとも、画面 1 つでしか使わない `users` を `features/users/` に置いている（lint に合わせている） |
 
-`apps/admin` を作ったときにこの食い違いが見つかり、そのときは lint に合わせて、どちらを直すかは決めなかった（[20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md)）。
+`apps/admin` を作ったときにこの食い違いが見つかり、そのときは lint に合わせて、どちらを直すかは決めなかった（[#234](https://github.com/junkisai/web-app-template/pull/234)）。
 
 決まるまでは、**`@packages/db` を引く `api/` を含むまとまりは `features/<ドメイン>/` に置く**（lint が通る形）。DB を引かないまとまりは、本文の規約どおり `screens/<画面>/components/<まとまり>/` に置ける。
 
-直すときの候補は 2 つある。どちらにするかは design doc で決める。
+直すときの候補は 2 つある。どちらにするかを決めたら、その PR で本文か lint を直し、この節を消す。
 
 - 本文を lint に合わせる。「DB を引くまとまりは画面が 1 つでも `features/` に置く」を規約にする
 - lint を本文に合わせる。`screens/**/components/*/api/**` からの `@packages/db` だけを許す
@@ -382,7 +382,7 @@ flowchart LR
 
 **この形にするのは、実際に 2 つ目の入口ができてから。** 先に器を作ると、1 つしかない入口の名前が全パスに乗るだけになる。
 
-これは**同じアプリの中に入口が 2 つできたとき**の形。配布先や権限が違う入口は、アプリごと分ける。管理画面はこちらで、`apps/app` の中に `screens/admin/` を作らず、別の `apps/admin` にしている（[20260828_admin-app-astryx.md](../design-docs/20260828_admin-app-astryx.md)）。そのため `apps/admin/src/screens/` もフラットに並べる。
+これは**同じアプリの中に入口が 2 つできたとき**の形。配布先や権限が違う入口は、アプリごと分ける。管理画面はこちらで、`apps/app` の中に `screens/admin/` を作らず、別の `apps/admin` にしている（[#234](https://github.com/junkisai/web-app-template/pull/234)）。そのため `apps/admin/src/screens/` もフラットに並べる。
 
 **アプリどうしは参照しない。** `apps/app` と `apps/admin` の両方が欲しがるものが出たら `packages/` へ出す。
 
